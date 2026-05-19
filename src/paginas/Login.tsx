@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import estilos from './Login.module.css'
 /*
 import { useContext } from 'react'
@@ -9,6 +10,12 @@ import { zodResolver } from '@hookform/resolvers/zod
 
 
 export function Login(){
+
+    const navegacao = useNavigate()
+    const cadastro = () => {
+        navegacao('cadastro')
+    }
+
     return(
         <div className={estilos.alinhamento}>
             <div className={estilos.conteiner1}>
@@ -39,7 +46,13 @@ export function Login(){
                         </button>
 
                         <div className={estilos.cadastro}>
-                            <p>Não possui login? Cadastre-se!</p>
+                            <p>Não possui login?</p>
+                            <button 
+                                className={estilos.novoUsuario}
+                                onClick={cadastro}
+                                >
+                                    Cadastre-se!
+                            </button>
                         </div>
 
                 </form>

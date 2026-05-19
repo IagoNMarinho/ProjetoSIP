@@ -122,8 +122,25 @@
 }
 
 .cadastro{
+    display: flex;
+    justify-content: center;
     text-align: center;
     color: var(--cor-secundaria-base);
+}
+
+.cadastro button{
+    padding: 0;
+    background: transparent;
+    border: none;
+    margin-left: 5px;
+    color: var(--cor-primaria-base);
+    font-weight: 800;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.cadastro button:hover{
+    color: var(--cor-primaria-escura);
 }
 
 .campo{
