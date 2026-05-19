@@ -17,18 +17,17 @@ export function Login(){
                     
                     >
                         <h1 className={estilos.titulo}>Login</h1>
-                        <label>Username ou E-mail</label>
-                        <input 
-                            className={estilos.campo} 
-                            placeholder='usuario123 ou usuario123@gmail.com'
-                            />
+                        <div className={estilos.inputgroup}>
+                            <input className={estilos.campo} required/>
+                            <label>Username</label>
+                        </div>
 
-                        <label>Senha</label>
-                        <input 
-                            className={estilos.campo} 
-                            placeholder='****'
-                            type='password'
-                            />
+                        <div className={estilos.inputgroup}>
+                            <input 
+                                className={estilos.campo}
+                                type='password' required/>
+                            <label>Senha</label>
+                        </div>
                         <div className={estilos.senha}>
                             <p>Esqueceu a senha?</p>
                         </div>
