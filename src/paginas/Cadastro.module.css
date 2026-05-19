@@ -1,5 +1,7 @@
-.fundo{
+.alinhamento{
+    
     display: flex;
+    flex-direction: row-reverse;
 
     height: 100vh;
     justify-content: center;
@@ -31,7 +33,8 @@
         ;
 }
 
-.conteiner{
+.conteiner1{
+    width: 45%;
     height: 100vh;
     display: flex;
     flex-direction: center;
@@ -41,8 +44,8 @@
 }
 
 .formulario{
+    width: 60%;
 
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -51,6 +54,12 @@
 
     background: var(--cor-fundo-transparente);
     backdrop-filter: blur(10px);
+}
+
+.inputs{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .titulo{
@@ -120,28 +129,6 @@
         var(--cor-primaria-escura));
 }
 
-.cadastro{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    color: var(--cor-secundaria-base);
-}
-
-.cadastro button{
-    padding: 0;
-    background: transparent;
-    border: none;
-    margin-left: 5px;
-    color: var(--cor-primaria-base);
-    font-weight: 800;
-    cursor: pointer;
-    transition: .5s;
-}
-
-.cadastro button:hover{
-    color: var(--cor-primaria-escura);
-}
-
 .campo{
     width: 100%;
     height: 55px;
@@ -157,4 +144,19 @@
 
 .campo:focus{
     border: 2px solid var(--cor-secundaria-base);
+}
+
+.conteiner2{
+    width: 55%;
+    height: 100vh;
+
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+.conteiner2 img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: drop-shadow(8px 8px 16px var(--cor-secundaria-base))
 }

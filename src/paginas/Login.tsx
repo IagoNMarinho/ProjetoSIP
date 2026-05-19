@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import estilos from './Login.module.css'
+import login from '../assets/imagens/logo.png'
+
 /*
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
@@ -57,7 +59,7 @@ export function Login(){
                 </form>
             </div>
             <div className={estilos.conteiner2}>
-                <img src="src\assets\imagens\logo.png" alt="Aguato" />
+                <img src={login} alt="Aguato" />
             </div>
         </div>
     )
