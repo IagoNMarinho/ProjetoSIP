@@ -1,0 +1,28 @@
+:root{
+    --cor-primaria-clara: #94D8F4;
+    --cor-primaria-base: #5399CD;
+    --cor-primaria-escura: #244C7E;
+
+    --cor-secundaria-clara: #BDEDFB;
+    --cor-secundaria-base: #1E7AC1;
+    --cor-secundaria-escura: #102241;
+
+    --cor-terciaria-erro: #d90429;
+    --cor-terciaria-clara: #f8feff;
+
+    --fonte-base: "TASA Explorer", sans-serif;
+    --fonte-logo: "Limelight", sans-serif;
+
+    --tamanho-pequeno: .75rem;
+    --tamanho-base1: 1rem;
+    --tamanho-base2: 1.3rem;
+    --tamanho-titulo: 2rem; 
+    --tamanho-logo1: 3rem;
+    --tamanho-logo2: 6rem;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
