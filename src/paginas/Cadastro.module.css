@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: row-reverse;
 
-    height: 100vh;
+    height: 100vh auto;
     justify-content: center;
     align-items: center;
     background:
@@ -34,10 +34,9 @@
 }
 
 .conteiner1{
-    width: 45%;
-    height: 100vh;
+    width: 60%;
     display: flex;
-    flex-direction: center;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 30px;
@@ -60,6 +59,14 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+}
+
+#inteiro{
+    width: 100%;
+}
+
+#metade{
+    width: calc(50% - 8px);
 }
 
 .titulo{
@@ -140,6 +147,8 @@
     color: var(--cor-secundaria-base);
     outline: none;
     transition: 0.2s;
+
+    box-sizing: border-box;
 }
 
 .campo:focus{
@@ -147,7 +156,7 @@
 }
 
 .conteiner2{
-    width: 55%;
+    width: 40%;
     height: 100vh;
 
     overflow: hidden;

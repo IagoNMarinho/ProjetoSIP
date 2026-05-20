@@ -22,45 +22,42 @@ export function Cadastro(){
                     >
                         <h1 className={estilos.titulo}>Cadastro</h1>
                         <div className={estilos.inputs}>
-                            <div className={estilos.inputgroup}>
+                            <div className={estilos.inputgroup}  id={estilos.inteiro}>
                                 <input className={estilos.campo} required/>
                                 <label>Nome Completo</label>
                             </div>
-                            <div className={estilos.inputgroup}>
+                            <div className={estilos.inputgroup}  id={estilos.metade}>
                                 <input className={estilos.campo} required/>
                                 <label>Username</label>
                             </div>
-                            <div className={estilos.inputgroup}>
+                            <div className={estilos.inputgroup}  id={estilos.metade}>
                                 <input className={estilos.campo} required/>
                                 <label>E-mail</label>
                             </div>
-                            <div className={estilos.inputgroup}>
-                                <input className={estilos.campo} required/>
-                                <label>Username</label>
-                            </div>
-                            <div className={estilos.inputgroup}>
+                            <div className={estilos.inputgroup}  id={estilos.metade}>
                                 <input className={estilos.campo} required/>
                                 <label>Telefone</label>
                             </div>
-                            <div className={estilos.inputgroup}>
+                            <div className={estilos.inputgroup}  id={estilos.metade}>
                                 <input className={estilos.campo} required/>
                                 <label>Cidade</label>
                             </div>
-                            <div className={estilos.inputgroup}>
+                            <div className={estilos.inputgroup}  id={estilos.inteiro}>
                                 <input className={estilos.campo} required/>
                                 <label>Instituição</label>
                             </div>
 
-                            <div className={estilos.inputgroup}>
+                            <div className={estilos.inputgroup}  id={estilos.inteiro}>
                                 <input 
                                     className={estilos.campo}
                                     type='password' required/>
                                 <label>Senha</label>
                             </div>
-                            <div className={estilos.inputgroup}>
+                            <div className={estilos.inputgroup} 
+                                id={estilos.inteiro}>
                                 <input 
                                 className={estilos.campo}
-                                type='password' required/>
+                                type='password' required   />
                                 <label>Confirmar Senha</label>
                             </div>
                         </div>
