@@ -12,6 +12,9 @@ import { zodResolver } from '@hookform/resolvers/zod
 export function Cadastro(){
 
     const navegacao = useNavigate()
+    const login = () => {
+        navegacao('/')
+    }
 
     return(
         <div className={estilos.alinhamento}>
@@ -64,6 +67,7 @@ export function Cadastro(){
 
                         <button
                             className={estilos.botao}
+                            onClick={login}
                             >
                                 Cadastrar
                         </button>

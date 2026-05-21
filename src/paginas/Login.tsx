@@ -17,6 +17,10 @@ export function Login(){
         navegacao('cadastro')
     }
 
+    const home = () => {
+        navegacao('home')
+    }
+
     return(
         <div className={estilos.alinhamento}>
             <div className={estilos.conteiner1}>
@@ -42,6 +46,7 @@ export function Login(){
 
                         <button
                             className={estilos.botao}
+                            onClick={home}
                             >
                                 Entrar
                         </button>

@@ -1,0 +1,37 @@
+.conteiner{
+    display: flex;
+
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background:
+        url('../assets/imagens/AguatoHome2.png'),
+
+        radial-gradient(circle at top left,
+        var(--bola-login3),
+        transparent 30%),
+
+        radial-gradient(circle at bottom left,
+        var(--bola-login2),
+        transparent 35%),
+
+        radial-gradient(circle at center,
+        var(--bola-login2),
+        transparent 25%),
+
+        radial-gradient(circle at bottom right,
+        var(--bola-login2),
+        transparent 35%),
+        
+        radial-gradient(circle at top right,
+        var(--bola-login2),
+        transparent 15%),
+        
+        linear-gradient(60deg,
+        #86e1ff,
+        #b6fbff);
+        ;
+
+    background-size: cover;
+    background-position: top;
+}
