@@ -102,6 +102,13 @@
     color: var(--cor-primaria-escura)
 }
 
+.mensagem{
+    text-align: center;
+    color: var(--cor-terciaria-erro);
+    font-weight: 500;
+    padding: 5px;
+}
+
 .botao{
     height: 55px;
     border: none;
