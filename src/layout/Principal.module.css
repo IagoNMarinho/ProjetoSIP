@@ -1,0 +1,11 @@
+.gridConteiner{
+    display: grid;
+
+    height: 100vh;
+
+    transition: .3s;
+}
+
+.conteudo{
+    overflow-y: auto;
+}

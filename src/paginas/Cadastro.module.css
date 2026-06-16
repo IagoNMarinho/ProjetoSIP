@@ -157,7 +157,6 @@
 
 .conteiner2{
     width: 40%;
-    height: 100vh;
 
     overflow: hidden;
     border-radius: 30px;
@@ -168,4 +167,16 @@
     height: 100%;
     object-fit: cover;
     filter: drop-shadow(8px 8px 16px var(--cor-secundaria-base))
+}
+
+@media (max-width: 1200px) {
+    .alinhamento{
+        flex-direction: column-reverse;
+    }
+    .conteiner1{
+        width: 80%;
+    }
+    .conteiner2{
+        width: 20%;
+    }
 }
