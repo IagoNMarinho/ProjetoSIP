@@ -5,8 +5,7 @@
     justify-content: center;
     align-items: center;
     background:
-
-        url(.././assets/imagens/AguatoHome2.png),
+        url('../assets/imagens/AguatoHome2.png'),
 
         radial-gradient(circle at top left,
         var(--bola-login3),
