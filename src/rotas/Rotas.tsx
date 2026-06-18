@@ -6,7 +6,7 @@ import { Home } from '../paginas/Home'
 import { Detectar } from '../paginas/Detectar'
 import { Mapa } from '../paginas/Mapa'
 import { Analises } from '../paginas/Analises'
-import { Metodo } from '../paginas/Metodo'
+import { Sobre } from '../paginas/Sobre'
 import { Principal } from '../layout/Principal'
 
 
@@ -45,8 +45,8 @@ export function Rotas() {
                         element={<Analises />}
                     />
                      <Route
-                        path="metodo"
-                        element={<Metodo />}
+                        path="sobre"
+                        element={<Sobre />}
                     />
                 </Route>
 

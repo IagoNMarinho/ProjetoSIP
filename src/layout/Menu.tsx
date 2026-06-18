@@ -100,7 +100,7 @@ export function Menu() {
                 </Link>
                    <Link
                     className={estilos.itemConteiner}
-                    to="/metodo"
+                    to="/sobre"
                 >
                     <span><FaBook /></span>
 
@@ -108,7 +108,7 @@ export function Menu() {
                         <span
                             className={estilos.rotulo}
                         >
-                            Metodologia
+                            Sobre
                         </span>
                     )}
                 </Link>

@@ -1,6 +1,6 @@
-import estilos from './Metodo.module.css'
+import estilos from './Sobre.module.css'
 
-export function Metodo() {
+export function Sobre() {
     return (
         <div className={estilos.conteiner}>
             <h1>MÉTODO TÔ GAG</h1>
