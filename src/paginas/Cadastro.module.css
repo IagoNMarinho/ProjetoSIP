@@ -2,8 +2,8 @@
     
     display: flex;
     flex-direction: row-reverse;
-
-    height: 100vh auto;
+    padding: 20px;
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
     background:
@@ -96,6 +96,13 @@
     margin: 20px 0;
 }
 
+.mensagem{
+    text-align: center;
+    color: var(--cor-terciaria-erro);
+    font-weight: 500;
+    padding: 5px;
+}
+
 .inputgroup input:focus~label,
 .inputgroup input:valid~label {
     top: 0;
@@ -157,7 +164,7 @@
 
 .conteiner2{
     width: 40%;
-
+    
     overflow: hidden;
     border-radius: 30px;
 }

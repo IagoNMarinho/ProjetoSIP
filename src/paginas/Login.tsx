@@ -1,7 +1,6 @@
 /*O React Hook Form controla os campos e captura os dados, enquanto o Zod valida se esses dados seguem as regras definidas. 
 Se estiver tudo correto, o formulário envia os dados; se não, ele bloqueia o envio e mostra os erros para o usuário. */
 
-
 import { useNavigate } from 'react-router-dom'
 import estilos from './Login.module.css'
 import login from '../assets/imagens/logo.png'
@@ -20,7 +19,7 @@ type FormValues = {
 
 const loginSchema = z.object({
     email: z.email({message: 'Informe um e-mail válido'}),
-    senha: z.string().length(6, {message: 'Informe uma senha com 6 caracteres.'})
+    senha: z.string().min(8, {message: 'Informe uma senha com no mínimo 8 caracteres.'})
 })
 
 export function Login(){

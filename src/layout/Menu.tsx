@@ -3,6 +3,13 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { LayoutContexto } from '../contextos/LayoutContexto'
 
+import { FaHome } from "react-icons/fa"
+import { FaMagnifyingGlass } from "react-icons/fa6"
+import { FaMapMarked } from "react-icons/fa"
+import { IoIosStats } from "react-icons/io"
+import { FaBook } from "react-icons/fa"
+import { TiThMenu } from "react-icons/ti"
+
 export function Menu() {
 
     const {
@@ -29,7 +36,7 @@ export function Menu() {
                 className={estilos.botaoMenu}
                 onClick={controlarMenu}
             >
-                ☰
+                <TiThMenu />
             </button>
 
             <nav>
@@ -38,7 +45,7 @@ export function Menu() {
                     className={estilos.itemConteiner}
                     to="/home"
                 >
-                    <span>🏠</span>
+                    <span><FaHome /></span>
 
                     {menuAbertoContexto && (
                         <span
@@ -53,7 +60,7 @@ export function Menu() {
                     className={estilos.itemConteiner}
                     to="/detectar"
                 >
-                    <span>🔍</span>
+                    <span><FaMagnifyingGlass /></span>
 
                     {menuAbertoContexto && (
                         <span
@@ -67,7 +74,7 @@ export function Menu() {
                     className={estilos.itemConteiner}
                     to="/mapa"
                 >
-                    <span>🗺️</span>
+                    <span><FaMapMarked /></span>
 
                     {menuAbertoContexto && (
                         <span
@@ -81,7 +88,7 @@ export function Menu() {
                     className={estilos.itemConteiner}
                     to="/analises"
                 >
-                    <span>🧭</span>
+                    <span><IoIosStats /></span>
 
                     {menuAbertoContexto && (
                         <span
@@ -95,7 +102,7 @@ export function Menu() {
                     className={estilos.itemConteiner}
                     to="/metodo"
                 >
-                    <span>🌐</span>
+                    <span><FaBook /></span>
 
                     {menuAbertoContexto && (
                         <span
