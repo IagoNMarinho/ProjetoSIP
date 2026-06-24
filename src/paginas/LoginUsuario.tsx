@@ -2,14 +2,15 @@
 Se estiver tudo correto, o formulário envia os dados; se não, ele bloqueia o envio e mostra os erros para o usuário. */
 
 import { useNavigate } from 'react-router-dom'
-import estilos from './Login.module.css'
+import estilos from './LoginUsuario.module.css'
 import login from '../assets/imagens/logo.png'
 
-import { useContext } from 'react'
+import { ModalMensagem } from '../componentes/ModalMensagem'
+
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod' 
-import { LayoutContexto } from '../contextos/LayoutContexto'
 import { type UsuarioTipo } from '../tipos/Usuario'
 
 type FormValues = {
@@ -18,13 +19,20 @@ type FormValues = {
 }
 
 const loginSchema = z.object({
-    email: z.email({message: 'Informe um e-mail válido'}),
+    email: z.email({message: 'Informe um e-mail válido.'}),
     senha: z.string().min(8, {message: 'Informe uma senha com no mínimo 8 caracteres.'})
 })
 
-export function Login(){
+export function LoginUsuario(){
 
-    const { setEmailUsuarioContexto } = useContext(LayoutContexto)
+    const [modalMensagemVisivel, setModalMensagemVisivel] = useState(false)
+    const [modalMensagemTexto, setMensagemTexto] = useState("")
+
+    const exibirModal = () => setModalMensagemVisivel(true)
+    const ocultarModal = () => {
+        setModalMensagemVisivel(false)
+        navegacao('/home')
+    }
 
     const{
         register, handleSubmit, formState:{errors}
@@ -42,11 +50,12 @@ export function Login(){
         dadosUsuario.email = data.email 
         dadosUsuario.senha = data.senha 
 
-        setEmailUsuarioContexto(dadosUsuario.email)
-        navegacao('home')
+        setMensagemTexto(`Login realizado com sucesso! Bem-vindo, ${data.email}!`)
+        exibirModal()
     }
 
     const navegacao = useNavigate()
+
     const cadastro = () => {
         navegacao('cadastro')
     }
@@ -54,6 +63,7 @@ export function Login(){
     return(
         <div className={estilos.alinhamento}>
             <div className={estilos.conteiner1}>
+
                 <form
                     className={estilos.formulario}
                     onSubmit={handleSubmit(autenticarUsuario)}
@@ -63,7 +73,7 @@ export function Login(){
                             <input 
                                 {...register('email')}
                                 className={estilos.campo} />
-                            <label>Username</label>
+                            <label>Email</label>
                         { errors.email && <p className={estilos.mensagem}>{errors.email.message}</p> }
                         </div>
 
@@ -86,6 +96,8 @@ export function Login(){
                                 Entrar
                         </button>
 
+                        
+
                         <div className={estilos.cadastro}>
                             <p>Não possui login?</p>
                             <button 
@@ -98,6 +110,14 @@ export function Login(){
 
                 </form>
             </div>
+
+            <ModalMensagem 
+                exibir={modalMensagemVisivel}
+                ocultar={() => ocultarModal()}
+                titulo='Autenticação'
+                texto={modalMensagemTexto}
+            />
+
             <div className={estilos.conteiner2}>
                 <img src={login} alt="Aguato" />
             </div>

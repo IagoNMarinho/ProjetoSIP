@@ -1,7 +1,13 @@
 import { useNavigate } from 'react-router-dom'
-import estilos from './Cadastro.module.css'
+import estilos from './CadastroUsuario.module.css'
 import login from '../assets/imagens/logo.png'
 
+import { FaCircleUser } from "react-icons/fa6"
+import { LuSchool } from "react-icons/lu"
+
+import { ModalMensagem } from '../componentes/ModalMensagem'
+
+import { useState } from 'react'
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -12,10 +18,9 @@ import { type NovoUsuarioTipo } from '../tipos/NovoUsuario'
 type FormValues = {
     nomeCompleto: string
     username: string
+    cpf: string
     email: string
     telefone: string
-    cidade: string
-    instituicao: string
     senha: string
     confsenha: string
 }
@@ -27,17 +32,16 @@ const CadastroSchema = z.object({
     username: z.string().min(4,{
         message: 'Informe um Username com no mínimo 4 caracteres.'
     }),
+    cpf: z.string().length(14,{
+        message: 'O CPF deve conter 11 números.'
+    }).regex(
+        /^\d{3}\.\d{3}\.\d{3}-\d{2}$/, {message: 'CPF deve seguir o formato `111.111.111-11`'}
+    ),
     email: z.email({
         message: 'Informe um Email válido.'
     }),
     telefone: z.e164({
-        message: 'Informe um Telefone válido.'
-    }),
-    cidade: z.string().min(6,{
-        message: 'Informe uma cidade com no mínimo 6 caracteres'
-    }),
-    instituicao: z.string().min(10,{
-        message: 'Informe uma instituição com no mínimo 10 caracteres.'
+        message: 'Telefone deve seguir o formato `+11111111111` .'
     }),
     senha: z.string().min(8,{
         message: 'Informe uma senha com no mínimo 8 caracteres.'
@@ -50,11 +54,19 @@ const CadastroSchema = z.object({
     path:['confsenha']
 })
 
-export function Cadastro(){
-
+export function CadastroUsuario(){
 
     const { setEmailUsuarioContexto } = useContext(LayoutContexto)
     
+    const [modalMensagemVisivel, setModalMensagemVisivel] = useState(false)
+    const [modalMensagemTexto, setMensagemTexto] = useState("")
+
+    const exibirModal = () => setModalMensagemVisivel(true)
+    const ocultarModal = () => {
+        setModalMensagemVisivel(false)
+        navegacao('/home')
+    }
+
     const{
         register, handleSubmit, formState:{errors}
     } = useForm<FormValues>(
@@ -64,10 +76,9 @@ export function Cadastro(){
     const dadosUsuario: NovoUsuarioTipo = {
         nome: '',
         username: '',
+        cpf: '',
         email: '',
         telefone: '',
-        cidade: '',
-        instituicao: '',
         senha: '',
         confsenha: ''
     }
@@ -75,30 +86,51 @@ export function Cadastro(){
     const autenticarUsuario = (data: FormValues) => {
         dadosUsuario.nome = data.nomeCompleto
         dadosUsuario.username = data.username
+        dadosUsuario.cpf = data.cpf
         dadosUsuario.email = data.email
         dadosUsuario.telefone = data.telefone
-        dadosUsuario.cidade = data.cidade
-        dadosUsuario.instituicao = data.instituicao
         dadosUsuario.senha = data.senha
         dadosUsuario.confsenha = data.confsenha 
 
+        setMensagemTexto(`Login realizado com sucesso! Bem-vindo, ${data.email}!`)
+        exibirModal()
+
         setEmailUsuarioContexto(dadosUsuario.email)
-        navegacao('home')
     }
 
     const navegacao = useNavigate()
-    const cadastro = () => {
-        navegacao('/')
+    
+    const cadastroUsuario = () =>{
+        navegacao('/cadastro')
+    }
+    const cadastroInstituicao = () =>{
+        navegacao('/cadastroinstituicao')
     }
 
     return(
         <div className={estilos.alinhamento}>
             <div className={estilos.conteiner1}>
+
+                <div className={estilos.tipoLogin}>
+                    <button onClick={cadastroUsuario} id={estilos.focus}>
+                        <FaCircleUser/>
+                        <span>
+                            Usuário
+                        </span>
+                    </button>
+                    <button onClick={cadastroInstituicao}>
+                        <LuSchool/>
+                        <span>
+                            Instituição
+                        </span>
+                    </button>
+                </div>
+
                 <form
                     className={estilos.formulario}
                     onSubmit={handleSubmit(autenticarUsuario)}
                     >
-                        <h1 className={estilos.titulo}>Cadastro</h1>
+                        <h1 className={estilos.titulo}>Cadastro Usuário</h1>
                         <div className={estilos.inputs}>
                             <div className={estilos.inputgroup}  id={estilos.inteiro}>
                                 <input 
@@ -116,6 +148,13 @@ export function Cadastro(){
                             </div>
                             <div className={estilos.inputgroup}  id={estilos.metade}>
                                 <input 
+                                    {...register('cpf')}
+                                    className={estilos.campo} />
+                                <label>CPF</label>
+                        { errors.cpf && <p className={estilos.mensagem}>{errors.cpf.message}</p> }
+                            </div>
+                            <div className={estilos.inputgroup}  id={estilos.metade}>
+                                <input 
                                     {...register('email')}
                                     className={estilos.campo} />
                                 <label>E-mail</label>
@@ -128,22 +167,8 @@ export function Cadastro(){
                                 <label>Telefone</label>
                         { errors.telefone && <p className={estilos.mensagem}>{errors.telefone.message}</p> }
                             </div>
-                            <div className={estilos.inputgroup}  id={estilos.metade}>
-                                <input 
-                                    {...register('cidade')}
-                                    className={estilos.campo} />
-                                <label>Cidade</label>
-                        { errors.cidade && <p className={estilos.mensagem}>{errors.cidade.message}</p> }
-                            </div>
-                            <div className={estilos.inputgroup}  id={estilos.inteiro}>
-                                <input 
-                                    {...register('instituicao')}
-                                    className={estilos.campo} />
-                                <label>Instituição</label>
-                        { errors.email && <p className={estilos.mensagem}>{errors.email.message}</p> }
-                            </div>
 
-                            <div className={estilos.inputgroup}  id={estilos.inteiro}>
+                            <div className={estilos.inputgroup}  id={estilos.metade}>
                                 <input 
                                     {...register('senha')}
                                     className={estilos.campo}
@@ -151,8 +176,8 @@ export function Cadastro(){
                                 <label>Senha</label>
                         { errors.senha && <p className={estilos.mensagem}>{errors.senha.message}</p> }
                             </div>
-                            <div className={estilos.inputgroup} 
-                                id={estilos.inteiro}>
+                            <div className={estilos.inputgroup}
+                                id={estilos.metade}>
                                 <input 
                                     {...register('confsenha')}
                                     className={estilos.campo}
@@ -171,6 +196,14 @@ export function Cadastro(){
 
                 </form>
             </div>
+
+            <ModalMensagem 
+                exibir={modalMensagemVisivel}
+                ocultar={() => ocultarModal()}
+                titulo='Autenticação'
+                texto={modalMensagemTexto}
+            />
+
             <div className={estilos.conteiner2}>
                 <img src={login} alt="Aguato" />
             </div>

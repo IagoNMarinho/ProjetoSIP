@@ -1,0 +1,217 @@
+.alinhamento{
+    
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 20px;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at top left,
+        var(--bola-login3),
+        transparent 30%),
+
+        radial-gradient(circle at bottom left,
+        var(--bola-login2),
+        transparent 35%),
+
+        radial-gradient(circle at center,
+        var(--bola-login2),
+        transparent 25%),
+
+        radial-gradient(circle at bottom right,
+        var(--bola-login2),
+        transparent 35%),
+        
+        radial-gradient(circle at top right,
+        var(--bola-login2),
+        transparent 15%),
+        
+        linear-gradient(60deg,
+        #86e1ff,
+        #b6fbff);
+        ;
+}
+
+.conteiner1{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tipoLogin{
+    display:flex;
+    gap:40px;
+    background: var(--cor-fundo-transparente);
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+    backdrop-filter: blur(10px);
+}
+
+.tipoLogin button{
+    background:none;
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    color:var(--cor-secundaria-base);
+    transition: .2s;
+}
+
+#focus{
+    color: var(--cor-primaria-escura);
+    font-weight: 500;
+}
+
+.tipoLogin button:hover{
+    transform:scale(1.1);
+    color: var(--cor-primaria-escura);
+    font-weight: 500;
+}
+
+.formulario{
+    width: 70%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px;
+    border-radius: 20px;
+
+    background: var(--cor-fundo-transparente);
+    backdrop-filter: blur(10px);
+}
+
+.inputs{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#inteiro{
+    width: 100%;
+}
+
+#metade{
+    width: calc(50% - 8px);
+}
+
+.titulo{
+    text-align: center;
+    font-size: var(--tamanho-logo1);
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--cor-secundaria-base);
+}
+
+.inputgroup label{
+    position: absolute;
+    top: 50%;
+    left: 3.5%;
+    transform: translateY(-50%);
+    padding: 0 5px;
+    pointer-events: none;
+
+    font-size: var(--tamanho-base2);
+    font-weight: 400;
+    color: var(--cor-secundaria-base);
+    transition: .5s;
+}
+
+.inputgroup{
+    position: relative;
+    margin: 20px 0;
+}
+
+.mensagem{
+    text-align: center;
+    color: var(--cor-terciaria-erro);
+    font-weight: 500;
+    padding: 5px;
+}
+
+.inputgroup input:focus~label,
+.inputgroup input:valid~label {
+    top: 0;
+    font-size: var(--tamanho-base1);
+    background: var(--cor-secundaria-clara);
+    border-radius: 20px;
+}
+
+.senha{
+    margin-top: -10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.senha p{
+    font-size: var(--tamanho-pequeno);
+    cursor: pointer;
+    color: var(--cor-primaria-escura)
+}
+
+.botao{
+    height: 55px;
+    border: none;
+    border-radius: 18px;
+    background-image: linear-gradient(-60deg,
+        var(--cor-primaria-clara),
+        var(--cor-primaria-base));
+    color: var(--cor-terciaria-clara);
+    transition: .5s;
+}
+
+.botao:hover{
+    transform: scale(1.02);
+    cursor: pointer;
+    background-image: linear-gradient(-60deg,
+        var(--cor-primaria-base),
+        var(--cor-primaria-escura));
+}
+
+.campo{
+    width: 100%;
+    height: 55px;
+    border: none;
+    border-radius: 16px;
+    padding-left: 20px;
+    background-color: var(--cor-secundaria-clara);
+    font-size: var(--tamanho-pequeno);
+    color: var(--cor-secundaria-base);
+    outline: none;
+    transition: 0.2s;
+
+    box-sizing: border-box;
+}
+
+.campo:focus{
+    border: 2px solid var(--cor-secundaria-base);
+}
+
+.conteiner2{
+    width: 40%;
+}
+
+.conteiner2 img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: drop-shadow(8px 8px 16px var(--cor-secundaria-base))
+}
+
+@media (max-width: 1200px) {
+    .alinhamento{
+        flex-direction: column-reverse;
+    }
+    .conteiner1{
+        width: 80%;
+    }
+    .conteiner2{
+        width: 20%;
+    }
+}

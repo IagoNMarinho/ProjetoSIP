@@ -38,12 +38,43 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    border-radius: 30px;
+    align-items: center;    
+}
+
+.tipoLogin{
+    display:flex;
+    gap:40px;
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+    background: var(--cor-fundo-transparente);
+    backdrop-filter: blur(10px);
+}
+
+.tipoLogin button{
+    background:none;
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    color:var(--cor-secundaria-base);
+    transition: .2s;
+}
+
+#focus{
+    color: var(--cor-primaria-escura);
+    font-weight: 500;
+}
+
+.tipoLogin button:hover{
+    transform:scale(1.1);
+    color: var(--cor-primaria-escura);
+    font-weight: 500;
 }
 
 .formulario{
-    width: 60%;
+    width: 70%;
 
     display: flex;
     flex-direction: column;
@@ -67,6 +98,10 @@
 
 #metade{
     width: calc(50% - 8px);
+}
+
+#terco{
+    width: calc(33% - 8px);
 }
 
 .titulo{
@@ -164,9 +199,6 @@
 
 .conteiner2{
     width: 40%;
-    
-    overflow: hidden;
-    border-radius: 30px;
 }
 
 .conteiner2 img{

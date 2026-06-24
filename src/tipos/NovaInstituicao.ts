@@ -1,7 +1,6 @@
-export type NovoUsuarioTipo = {
+export type NovaInstituicaoTipo = {
     nome: string
-    username: string
-    cpf: string
+    cnpj: string
     email: string
     telefone: string
     senha: string
