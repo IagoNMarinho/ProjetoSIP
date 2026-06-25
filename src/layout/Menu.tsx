@@ -9,6 +9,8 @@ import { FaMapMarked } from "react-icons/fa"
 import { IoIosStats } from "react-icons/io"
 import { FaBook } from "react-icons/fa"
 import { TiThMenu } from "react-icons/ti"
+import { CgProfile } from "react-icons/cg"
+import { FaGlassWaterDroplet } from "react-icons/fa6"
 
 export function Menu() {
 
@@ -72,15 +74,15 @@ export function Menu() {
                 </Link>
                  <Link
                     className={estilos.itemConteiner}
-                    to="/mapa"
+                    to="/gole"
                 >
-                    <span><FaMapMarked /></span>
+                    <span><FaGlassWaterDroplet /></span>
 
                     {menuAbertoContexto && (
                         <span
                             className={estilos.rotulo}
                         >
-                            Mapa
+                            Gole
                         </span>
                     )}
                 </Link>
@@ -109,6 +111,20 @@ export function Menu() {
                             className={estilos.rotulo}
                         >
                             Sobre
+                        </span>
+                    )}
+                </Link>
+                <Link
+                    className={estilos.itemConteiner}
+                    to="/perfil"
+                >
+                    <span><CgProfile /></span>
+
+                    {menuAbertoContexto && (
+                        <span
+                            className={estilos.rotulo}
+                        >
+                            Perfil
                         </span>
                     )}
                 </Link>

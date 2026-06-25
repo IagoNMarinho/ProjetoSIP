@@ -5,5 +5,6 @@ export function Analises() {
      <div className={estilos.conteiner}>
             <h1>BORA ANALISAR</h1>
         </div>
+      
     )
 }

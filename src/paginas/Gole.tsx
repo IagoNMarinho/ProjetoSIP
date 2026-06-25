@@ -1,6 +1,6 @@
-import estilos from './Mapa.module.css'
+import estilos from './Gole.module.css'
 
-export function Mapa() {
+export function Gole() {
     return (
         <div className={estilos.conteiner}>
             <h1 id={estilos.circle}>hola</h1>

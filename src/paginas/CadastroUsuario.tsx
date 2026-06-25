@@ -32,16 +32,14 @@ const CadastroSchema = z.object({
     username: z.string().min(4,{
         message: 'Informe um Username com no mínimo 4 caracteres.'
     }),
-    cpf: z.string().length(14,{
+    cpf: z.string().regex(/^\d{11}$/,{
         message: 'O CPF deve conter 11 números.'
-    }).regex(
-        /^\d{3}\.\d{3}\.\d{3}-\d{2}$/, {message: 'CPF deve seguir o formato `111.111.111-11`'}
-    ),
+    }),
     email: z.email({
         message: 'Informe um Email válido.'
     }),
-    telefone: z.e164({
-        message: 'Telefone deve seguir o formato `+11111111111` .'
+    telefone: z.string().regex(/^\d{11}$/,{
+        message: 'Telefone deve conter 11 números.'
     }),
     senha: z.string().min(8,{
         message: 'Informe uma senha com no mínimo 8 caracteres.'

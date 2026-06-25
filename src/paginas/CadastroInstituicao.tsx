@@ -26,15 +26,14 @@ const CadastroSchema = z.object({
     nome: z.string().min(8, {
         message: 'Informe um Nome Completo com no mínimo 8 caracteres.'
     }),
-    cnpj: z.string().regex(
-        /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/,{
-        message:'O CNPJ deve seguir o formato 11.111.111/1111-11'
+    cnpj: z.string().regex(/^\d{14}$/,{
+        message: 'CNPJ deve conter 14 números'
     }),
     email: z.email({
         message: 'Informe um Email válido.'
     }),
-    telefone: z.e164({
-        message: 'Informe um Telefone válido.'
+    telefone: z.string().regex(/^\d{11}$/,{
+        message: 'Telefone deve conter 11 números.'
     }),
     senha: z.string().min(8,{
         message: 'Informe uma senha com no mínimo 8 caracteres.'

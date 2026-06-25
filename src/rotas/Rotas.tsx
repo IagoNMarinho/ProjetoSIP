@@ -4,9 +4,10 @@ import { LoginUsuario } from '../paginas/LoginUsuario'
 import { CadastroUsuario } from '../paginas/CadastroUsuario'
 import { Home } from '../paginas/Home'
 import { Detectar } from '../paginas/Detectar'
-import { Mapa } from '../paginas/Mapa'
+import { Gole } from '../paginas/Gole'
 import { Analises } from '../paginas/Analises'
 import { Sobre } from '../paginas/Sobre'
+import { Perfil } from  '../paginas/Perfil'
 import { Principal } from '../layout/Principal'
 import { CadastroInstituicao } from '../paginas/CadastroInstituicao'
 
@@ -46,8 +47,8 @@ export function Rotas() {
                     />
 
                      <Route
-                        path="mapa"
-                        element={<Mapa />}
+                        path="gole"
+                        element={<Gole />}
                     />
                       <Route
                         path="analises"
@@ -56,6 +57,10 @@ export function Rotas() {
                      <Route
                         path="sobre"
                         element={<Sobre />}
+                    />
+                    <Route
+                        path="perfil"
+                        element={<Perfil />}
                     />
                 </Route>
 
