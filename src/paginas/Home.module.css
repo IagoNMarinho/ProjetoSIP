@@ -45,4 +45,95 @@
     background-position: center;
 
     padding: 40px;
+
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.intro{
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+}
+
+.subtitulo,
+.titulo {
+    margin: 0;
+    padding: 0;
+    line-height: 0.85;
+}
+
+.subtitulo{
+    font-family: var(--fonte-subtitulo);
+    font-size: var(--tamanho-titulo);
+    color: var(--cor-secundaria-clara);
+    letter-spacing: 25px;
+    text-align: center;
+
+    text-shadow:
+        -2px -2px 0 var(--cor-secundaria-clara),
+         2px -2px 0 var(--cor-primaria-clara),
+        -2px  2px 0 var(--cor-secundaria-escura),
+         2px  2px 0 var(--cor-primaria-clara);
+    text-transform: uppercase;
+}
+
+.titulo{
+    font-family: var(--fonte-titulo);
+    font-size: var(--tamanho-logo10);
+    color: var(--cor-secundaria-base);
+    text-shadow:
+        -2px -2px 0 var(--cor-secundaria-clara),
+         2px -2px 0 var(--cor-primaria-clara),
+        -2px  2px 0 var(--cor-secundaria-escura),
+         2px  2px 0 var(--cor-primaria-clara);
+    margin-bottom: 10px;
+}
+
+.box{
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--cor-terciaria-clara);
+    text-align: right;
+}
+
+.texto{
+    font-size: var(--tamanho-base3);
+    color: var(--cor-secundaria-escura);
+}
+
+.texto2{
+    font-size: var(--tamanho-base3);
+    color: var(--cor-secundaria-base);
+    border-left: solid 2px var(--cor-secundaria-base);
+    font-weight: 550;
+    text-align: center;
+}
+
+.botao{
+    margin: 10px;
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(-180deg, 
+        var(--cor-secundaria-base), 
+        var(--cor-primaria-escura));
+    border: none;
+    border-radius: 20px;
+    color: var(--cor-secundaria-clara);
+    cursor: pointer;
+    align-self: center;
+}
+
+.botao:hover{
+    background: linear-gradient(180deg, 
+        var(--cor-secundaria-base), 
+        var(--cor-primaria-clara));
+}
+
+.infos{
+    width: 600px;
+    margin-left: auto;
 }

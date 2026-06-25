@@ -1,11 +1,24 @@
-.gridConteiner{
+.gridConteiner {
+    background-color: var(--cor-terciaria-fundo);
     display: grid;
-
-    height: 100vh;
-
-    transition: .3s;
+    min-height: 100vh;
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: 1fr 100px;
+    grid-template-areas: 
+        'lateral conteudo'
+        'lateral rodape';
+    transition: 0.3s;
 }
 
-.conteudo{
-    overflow-y: auto;
+aside {
+    grid-area: lateral;
+    position: fixed;
+}
+
+main {
+    grid-area: conteudo;
+}
+
+footer {
+    grid-area: rodape;
 }

@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { Menu } from './Menu'
-import { Footer } from './footer'
+import { Rodape } from './Rodape'
 import { LayoutContexto } from '../contextos/LayoutContexto'
 
 export function Principal() {
@@ -22,12 +22,10 @@ export function Principal() {
             }}
         >
             <Menu />
-
             <main className={estilos.conteudo}>
                 <Outlet />
-               
             </main>
-
+            <Rodape />
 
         </div>
     )
