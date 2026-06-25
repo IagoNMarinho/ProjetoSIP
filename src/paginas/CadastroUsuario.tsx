@@ -64,7 +64,7 @@ export function CadastroUsuario(){
     const exibirModal = () => setModalMensagemVisivel(true)
     const ocultarModal = () => {
         setModalMensagemVisivel(false)
-        navegacao('/home')
+        navegacao('/')
     }
 
     const{
@@ -92,7 +92,7 @@ export function CadastroUsuario(){
         dadosUsuario.senha = data.senha
         dadosUsuario.confsenha = data.confsenha 
 
-        setMensagemTexto(`Login realizado com sucesso! Bem-vindo, ${data.email}!`)
+        setMensagemTexto(`Cadastro realizado com sucesso! Bem-vindo, ${data.email}!`)
         exibirModal()
 
         setEmailUsuarioContexto(dadosUsuario.email)

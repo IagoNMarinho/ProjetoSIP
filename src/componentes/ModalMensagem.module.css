@@ -1,3 +1,16 @@
+.fundo{
+    background-color: var(--fundo-modal);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
 .conteiner {
     display: flex;
     flex-direction: column;
@@ -5,8 +18,7 @@
     border: 1px solid var(--cor-primaria-clara);
     width: 350px;
     height: 275px;
-    border-radius: 5px;
-    position: fixed;
+    border-radius: 10px;
     overflow: hidden;
     z-index: 2;
 }
@@ -44,4 +56,5 @@
     margin-bottom: 15px;
     margin-right: 15px;
     align-self: end;
+    cursor: pointer;
 }

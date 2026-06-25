@@ -10,6 +10,7 @@ interface ModalMensagemProps {
 export function ModalMensagem({exibir, ocultar, titulo, texto}: ModalMensagemProps){
     if(exibir){
         return(
+        <div className={estilos.fundo}>
             <div className={estilos.conteiner}>
                 <p className={estilos.titulo}>{titulo}</p>
 
@@ -25,6 +26,7 @@ export function ModalMensagem({exibir, ocultar, titulo, texto}: ModalMensagemPro
                 </button>
 
             </div>
+        </div>
         )
     }
 }
