@@ -1,10 +1,17 @@
 import estilos from './Analises.module.css'
+import { Secao1 } from '../componentes/analises/Secao1'
+import { Secao2 } from '../componentes/analises/Secao2'
+import { Secao3 } from '../componentes/analises/Secao3'
+import { Secao4 } from '../componentes/analises/Secao4'
 
 export function Analises() {
     return (
      <div className={estilos.conteiner}>
-            <h1>BORA ANALISAR</h1>
-        </div>
+            <Secao1 />
+            <Secao2 />
+            <Secao3 />
+            <Secao4 />
+    </div>
       
     )
 }

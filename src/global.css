@@ -10,13 +10,19 @@
     --fundo-modal: rgba(0, 99, 191, 0.4);
 
     --cor-terciaria-erro: #d90429;
+    --cor-terciaria-erro2: #ff8fa2b5;
     --cor-terciaria-clara: #f8feff;
+    --cor-terciaria-seguras: #81ff8e;
+    --cor-terciaria-seguras2: #bdeaa4b5;
+    --cor-terciaria-alertas: #fff83b;
+    --cor-terciaria-alertas2: #fffcc9b5;
 
     --bola-login1: rgba(0, 183, 255, 0.8);
     --bola-login2: rgba(0, 89, 255, 0.8);
     --bola-login3: rgba(0, 99, 191, 0.801);
 
     --cor-fundo-transparente: rgba(255, 255, 255, 0.25);
+    --cor-fundo-transparente2:rgba(254, 254, 254, 0.729);
 
     --fonte-base: "TASA Explorer", sans-serif;
     --fonte-logo: "Limelight", sans-serif;
