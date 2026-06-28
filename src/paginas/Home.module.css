@@ -54,16 +54,18 @@
     width: 600px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 0;
+    gap: 10px;
 }
 
-.subtitulo,
-.titulo {
+.subtitulo{
     margin: 0;
     padding: 0;
-    line-height: 0.85;
+    line-height: 1;
+}
+
+.content h1{
+    line-height: 1;
 }
 
 .subtitulo{
@@ -74,14 +76,65 @@
     text-align: center;
 
     text-shadow:
-        -2px -2px 0 var(--cor-secundaria-clara),
+        -2px -2px 0 var(--cor-secundaria-base),
          2px -2px 0 var(--cor-primaria-clara),
-        -2px  2px 0 var(--cor-secundaria-escura),
+        -2px  2px 0 var(--cor-secundaria-clara),
          2px  2px 0 var(--cor-primaria-clara);
     text-transform: uppercase;
 }
 
-.titulo{
+.content{
+    position: relative;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content h1{
+    font-size: var(--tamanho-logo10);
+    position: absolute;
+    margin: 0;
+    text-shadow:
+        -2px -2px 0 var(--cor-primaria-clara),
+         2px -2px 0 var(--cor-primaria-base),
+        -2px  2px 0 var(--cor-secundaria-base),
+         2px  2px 0 var(--cor-primaria-escura);
+}
+
+.content h1:nth-child(1){
+    color: transparent;
+    -webkit-text-stroke: 2px var(--cor-primaria-clara);
+    font-family: var(--fonte-titulo);
+}
+
+.content h1:nth-child(2){
+    font-family: var(--fonte-titulo);
+    color: var(--cor-secundaria-clara);
+    animation:  infinite animate 4s ease-in-out;
+}
+
+@keyframes animate {
+    0%, 100%{
+        clip-path: polygon(
+            0% 40%, 13% 44%, 27% 46%, 
+            43% 55%, 55% 63%, 74% 66%, 
+            89% 65%, 100% 58%, 100% 100%, 
+            0% 100%
+            );
+    }
+    50%{
+        clip-path: polygon(
+            0% 60%, 15% 66%, 35% 65%, 
+            47% 55%, 60% 48%, 80% 48%, 
+            95% 53%, 100% 63%, 100% 100%, 
+            0% 100%
+            );
+    }
+}
+
+/*.titulo{
     font-family: var(--fonte-titulo);
     font-size: var(--tamanho-logo10);
     color: var(--cor-secundaria-base);
@@ -92,6 +145,7 @@
          2px  2px 0 var(--cor-primaria-clara);
     margin-bottom: 10px;
 }
+*/
 
 .box{
     padding: 20px;

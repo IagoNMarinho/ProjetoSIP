@@ -12,7 +12,10 @@ export function Home() {
         <div className={estilos.conteiner}>
             <div className={estilos.intro}>
                 <h2 className={estilos.subtitulo}>Projeto</h2>
-                <h1 className={estilos.titulo}>SIP</h1>
+                <div className={estilos.content}>
+                    <h1>SIP</h1>
+                    <h1>SIP</h1>
+                </div>
                     <p className={estilos.texto}>
                         Um sistema de monitoramento da potabilidade.
                     </p>
@@ -28,7 +31,9 @@ export function Home() {
             <div className={estilos.infos}>
                 <div className={estilos.box}>
                     <p className={estilos.texto2}>Já bebeu água hoje?</p>
-                    <p className={estilos.texto}>Acompanhe a qualidade da água em tempo real e consuma com tranquilidade.</p>
+                    <p className={estilos.texto}>
+                        Acompanhe a qualidade da água em tempo real com o SIP. Tenha monitoramento inteligente, informações precisas e mais segurança para consumir água com tranquilidade.
+                    </p>
                 </div>
             
             </div>

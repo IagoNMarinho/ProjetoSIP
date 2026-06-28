@@ -1,0 +1,42 @@
+.conteiner {
+    display: flex;
+    align-items: center;
+    
+    height: 240px;
+    width: 100%;
+
+    padding: 20px;
+    background: var(--cor-primaria-clara);
+}
+
+figure{
+    width: 25% auto;
+    height: 100%;
+    margin: 0;
+}
+
+figure img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.caixatexto{
+    width: 25% auto;
+    background-color: var(--cor-terciaria-clara);
+    padding: 10px;
+
+    border-radius: 10px 10px 10px 0px;
+}
+
+.caixatexto h1{
+    font-size: var(--tamanho-titulo);
+    font-family: var(--fonte-titulo);
+    color: var(--cor-primaria-clara);
+}
+
+.caixatexto span{
+    font-size: var(--tamanho-subtitulo);
+    font-family: var(--fonte-subtitulo);
+    color: var(--cor-secundaria-base);
+}

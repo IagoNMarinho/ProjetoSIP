@@ -1,0 +1,123 @@
+.conteiner{
+    display: flex;
+    
+    height: 100%;
+    width: 100%;
+
+    padding: 20px;
+    background: var(--cor-fundo-transparente);
+    gap: 10px;
+}
+
+.analises{
+    width: 70%;
+    background-color: var(--cor-fundo-transparente2);
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.titulo{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px var(--cor-primaria-clara);
+}
+
+.titulo h2{
+    font-size: var(--tamanho-titulo);
+    font-family: var(--fonte-subtitulo);
+    font-weight: 100;
+    color: var(--cor-primaria-base);
+}
+
+.titulo button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--cor-primaria-clara);
+    transition: .5s;
+}
+
+.titulo button:hover{
+    font-weight: 800;
+}   
+
+.card{
+    margin: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cor-terciaria-clara);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.box1{
+    width: 25%;
+}
+
+.box2{
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+.critico{
+    color: var(--cor-terciaria-erro);
+    background: var(--cor-terciaria-erro2);
+    border: none;
+    padding: 8px;
+    border-radius: 2px;
+}
+
+.pendente{
+    color: var(--cor-terciaria-alertas);
+    background: var(--cor-terciaria-alertas2);
+    border: none;
+    padding: 8px;
+    border-radius: 2px;
+}
+
+.pendente span{
+    padding: 8px;
+}
+
+.adequada{
+    color: var(--cor-terciaria-seguras);
+    background: var(--cor-terciaria-seguras2);
+    border: none;
+    padding: 8px;
+    border-radius: 2px;
+}
+
+.adequada span{
+    padding: 8px;
+}
+
+.critico span{
+    padding: 8px;
+}
+
+.detalhes{
+    color: var(--cor-primaria-base);
+    background: transparent;
+    border: solid 1px var(--cor-primaria-base);
+    padding: 8px;
+    border-radius: 2px;
+}
+
+.detalhes span{
+    padding: 8px;
+}
+
+.grafico{
+    width: 30%;
+    background-color: var(--cor-fundo-transparente2);
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.grafico img{
+    width: 100%;
+    object-fit: fill;
+}
