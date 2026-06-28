@@ -5,7 +5,6 @@
 
     padding: 20px;
     background: var(--cor-fundo-transparente2);
-    margin-bottom: 100px;
     gap: 20px;
 }
 
@@ -50,30 +49,12 @@
     border-radius: 6px;
 }
 
-.total{
+.icone{
     background: var(--cor-primaria-base);
-}
-
-.seguras{
-    background: var(--cor-terciaria-seguras);
-}
-
-.alerta{
-    background: var(--cor-terciaria-alertas);
-}
-
-.critica{
-    background: var(--cor-terciaria-erro);
-}
-
-.titulo{
-    border-bottom: solid 1px var(--cor-secundaria-escura);
 }
 
 .titulo h2{
     font-size: var(--tamanho-titulo);
     font-family: var(--fonte-subtitulo);
-    font-weight: 100;
-    color: var(--cor-primaria-escura);
-    padding: 10px;
+    color: var(--cor-secundaria-base);
 }

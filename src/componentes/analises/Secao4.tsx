@@ -1,8 +1,9 @@
 import estilos from './Secao4.module.css'
-import { FaFlask } from "react-icons/fa"
-import { MdHealthAndSafety } from "react-icons/md"
-import { IoIosAlert } from "react-icons/io"
-import { MdDangerous } from "react-icons/md";
+import { CiTempHigh } from "react-icons/ci"
+import { FaBottleWater } from "react-icons/fa6";
+import { AiFillAlert } from "react-icons/ai";
+import { GiWaterBottle } from "react-icons/gi";
+
 
 export function Secao4() {
     return (
@@ -17,20 +18,20 @@ export function Secao4() {
             <div className={estilos.conteiner2}>
                     
                 <div className={estilos.box}>
-                    <span className={estilos.total}>
-                        <FaFlask />
+                    <span className={estilos.icone}>
+                        <FaBottleWater />
                     </span>
 
                     <div className={estilos.dados}>
                         <h1>7,2</h1>
                         <h3>PH médio</h3>
                     </div>
-
+        
                 </div>
 
                 <div className={estilos.box}>
-                    <span className={estilos.seguras}>
-                        <MdHealthAndSafety />
+                    <span className={estilos.icone}>
+                        <AiFillAlert />
                     </span>
 
                     <div className={estilos.dados}>
@@ -41,8 +42,8 @@ export function Secao4() {
                 </div>
 
                 <div className={estilos.box}>
-                    <span className={estilos.alerta}>
-                        <IoIosAlert />
+                    <span className={estilos.icone}>
+                        <CiTempHigh />
                     </span>
 
                     <div className={estilos.dados}>
@@ -53,8 +54,8 @@ export function Secao4() {
                 </div>
 
                 <div className={estilos.box}>
-                    <span className={estilos.critica}>
-                        <MdDangerous />
+                    <span className={estilos.icone}>
+                        <GiWaterBottle />
                     </span>
 
                     <div className={estilos.dados}>

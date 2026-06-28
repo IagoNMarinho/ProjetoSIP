@@ -5,8 +5,9 @@
     width: 100%;
 
     padding: 20px;
-    background: var(--cor-fundo-transparente);
+    background: var(--cor-fundo-transparente2);
     gap: 10px;
+    border-bottom: solid 1px var(--cor-primaria-base);
 }
 
 .analises{
