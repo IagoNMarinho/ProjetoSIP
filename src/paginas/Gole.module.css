@@ -1,11 +1,12 @@
 .conteiner {
     display: flex;
+    justify-content: center;
+    align-items: center;
 
     width: 100%;
     height: 100vh;
 
     background:
-    
 
         radial-gradient(
             circle at top left,
@@ -18,7 +19,6 @@
             var(--bola-login2),
             transparent 35%
         ),
-
 
         radial-gradient(
             circle at bottom right,
@@ -42,4 +42,109 @@
     background-position: center;
 
     padding: 40px;
+}
+.area {
+    width: 450px;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.circle {
+    text-align: center;
+    color: #86e1ff;
+}
+
+.area label {
+    font-weight: 600;
+}
+
+.area input {
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+}
+
+.status {
+    text-align: center;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    color: #2a499e;
+}
+
+.progress {
+    width: 100%;
+
+    height: 25px;
+
+    background: #dbeafe;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        #86e1ff,
+        #60a5fa
+    );
+
+    transition: width .3s ease;
+}
+
+.buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.buttons button {
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #33a2fdc1;
+
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.buttons button:hover {
+    transform: translateY(-2px);
+
+    background: #86e1ff;
 }

@@ -1,45 +1,212 @@
 .conteiner {
+    width: 100%;
+}
+
+.sobresip {
+    min-height: 100vh;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gab: 60px;
+    padding:  80px;
+    background:
+    linear-gradient(
+    #081426,
+    #86e1ff);
+    color: white;
+}
+
+.textosobresip {
+    max-width: 600px;
+}
+.textosobresip span {
+  color: var(--cor-secundaria-clara);
+  font-size: var(--tamanho-base3);
+  
+}
+
+.textosobresip h1 {
+    font-size: 64px;
+    margin: 20px 0;
+}
+
+.textosobresip p{
+    line-height: 25px;
+    color: var(--cor-terciaria-clara);
+}
+
+.textosobresip button {
+    margin-top: 30px;
+    background: var(--cor-primaria-clara);
+    color:  var(--cor-terciaria-clara);
+    border: none ;
+    padding: 15px 30px ;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.imagemsip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+  .logosip {
+    width: 600px;
+    max-width: 100%;
+    height: auto;
+
+    object-fit: contain;
+}
+
+.servicos {
+    background:  var(--cor-primaria-escura);
+    padding: 100px 80px;
+    color: white;
+}
+.servicos h2{
+    font-size: 48px;
+    margin-bottom: 40px;
+}
+
+.boxs{
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 30px;
+}
+.box {
+    background: rgb(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255,255,255, 0.25px);
+    color: #081426;
+    padding: 30px;
+    border-radius: 25px;
+    overflow: hidden;
+
+}
+.box::before {
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
 
     width: 100%;
-    height: 100vh;
+    height: 100%;
 
     background:
-    
-
-        radial-gradient(
-            circle at top left,
-            var(--bola-login3),
-            transparent 30%
-        ),
-
-        radial-gradient(
-            circle at bottom left,
-            var(--bola-login2),
-            transparent 35%
-        ),
-
-
-        radial-gradient(
-            circle at bottom right,
-            var(--bola-login2),
-            transparent 35%
-        ),
-
-        radial-gradient(
-            circle at top right,
-            var(--bola-login2),
-            transparent 15%
-        ),
-
         linear-gradient(
-            60deg,
-            #86e1ff,
-            #b6fbff
+            135deg,
+            rgba(255,255,255,0.35),
+            transparent 40%
         );
 
-    background-size: cover;
-    background-position: center;
+    pointer-events: none;
+}
 
-    padding: 40px;
+
+.equipe{
+ background: var(--cor-secundaria-clara);
+ color: var(--cor-primaria-escura);
+ padding: 100px 80px;
+}
+
+.equipe h2{
+    text-align: center;
+
+    font-size: 48px;
+
+    margin-bottom: 15px;
+}
+.subtitulo {
+    text-align: center;
+
+    color: var(--cor-primaria-escura);
+
+    max-width: 700px;
+
+    margin: 0 auto 60px;
+}
+
+.membros {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 40px;
+
+    flex-wrap: wrap;
+}
+
+.membro {
+    width: 420px;
+
+    background: white;
+
+    color: #081426;
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+    transition: .3s;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.membro:hover {
+    transform: translateY(-8px);
+}
+
+.foto {
+    width: 100%;
+    height: 320px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2e8bff,
+            #7cc7ff
+        );
+}
+
+.foto img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.info {
+    padding: 30px;
+}
+
+.info h3 {
+    font-size: 1.8rem;
+
+    margin-bottom: 8px;
+}
+
+.info span {
+    display: block;
+
+    color: #2e8bff;
+
+    font-weight: 600;
+
+    margin-bottom: 18px;
+}
+
+.info p {
+    line-height: 1.7;
+
+    color: #5f6875;
 }
