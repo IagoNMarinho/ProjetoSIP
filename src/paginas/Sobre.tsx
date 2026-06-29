@@ -1,6 +1,6 @@
 import estilos from './Sobre.module.css'
 import login from '../assets/imagens/logo.png'
-import ReiArthur from '../assets/imagens/ReiArthur.jpeg'
+import FotoArthur from '../assets/imagens/FotoArthur.jpeg'
 import FotoIago from '../assets/imagens/FotoIago.jpeg'
 
 export function Sobre() {
@@ -36,26 +36,33 @@ export function Sobre() {
                     <article className={estilos.box}>
                         <h3>Detecção</h3>
 
-                        <p>Através do ítem físico
-                          você pode monitorar a agua 
-                         ou consultar os resultados do
-                          monitoramento de sua escola!</p>
+                        <p>O SIP utiliza um dispositivo com placa Arduino 
+                            e sensores de pH, TDS, turbidez e temperatura 
+                            para monitorar a qualidade da água nos 
+                            reservatórios. O sistema emite alertas quando a 
+                            água estiver imprópria para consumo, permitindo 
+                            que escolas e equipes de manutenção ajam rapidamente.</p>
                     </article>
                     <article className={estilos.box}>
                         <h3>Consulta</h3>
 
-                        <p>Através do ítem físico
-                          você pode monitorar a agua 
-                         ou consultar os resultados do
-                          monitoramento de sua escola!</p>
+                        <p>Escolas, profissionais e alunos podem consultar, 
+                        em tempo real, os resultados da potabilidade da água 
+                        e receber notificações preventivas para garantir um 
+                        consumo seguro. Além disso, todos têm acesso ao histórico 
+                        das detecções, permitindo acompanhar a evolução da qualidade 
+                        da água ao longo do tempo e identificar possíveis alterações
+                        nos reservatórios.</p>
                     </article>
                     <article className={estilos.box}>
                         <h3>Informação</h3>
 
-                        <p>Através do ítem físico
-                          você pode monitorar a agua 
-                         ou consultar os resultados do
-                          monitoramento de sua escola!</p>
+                        <p>O sistema oferece um mapa com alertas sobre a qualidade 
+                        da água em outras escolas, além de permitir que o usuário 
+                        defina metas de consumo diário de água. Também disponibiliza 
+                        conteúdos educativos sobre os parâmetros monitorados 
+                        (pH, turbidez, TDS e temperatura) e explica como esses 
+                        indicadores contribuem para um consumo de água seguro.</p>
                     </article>
                 </div>
             </section>
@@ -72,7 +79,7 @@ export function Sobre() {
                         <div className={estilos.foto}>
                             
                             <img
-                                src={ReiArthur}
+                                src={FotoArthur}
                                 alt="Arthur"
                             />
 

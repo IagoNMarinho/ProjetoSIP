@@ -82,7 +82,7 @@ export function Menu() {
                         <span
                             className={estilos.rotulo}
                         >
-                            Gole
+                            Gole+
                         </span>
                     )}
                 </Link>
