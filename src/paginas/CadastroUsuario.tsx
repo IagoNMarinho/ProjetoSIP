@@ -134,55 +134,76 @@ export function CadastroUsuario(){
                                 <input 
                                     {...register('nomeCompleto')}
                                     className={estilos.campo} />
+
                                 <label>Nome Completo</label>
-                        { errors.nomeCompleto && <p className={estilos.mensagem}>{errors.nomeCompleto.message}</p> }
+                                { errors.nomeCompleto && <p className={estilos.mensagem}>{errors.nomeCompleto.message}</p> }
+
                             </div>
+
                             <div className={estilos.inputgroup}  id={estilos.metade}>
+   
                                 <input 
                                     {...register('username')}
                                     className={estilos.campo} />
                                 <label>Username</label>
-                        { errors.username && <p className={estilos.mensagem}>{errors.username.message}</p> }
+                                { errors.username && <p className={estilos.mensagem}>{errors.username.message}</p> }
+
                             </div>
+
                             <div className={estilos.inputgroup}  id={estilos.metade}>
+   
                                 <input 
                                     {...register('cpf')}
                                     className={estilos.campo} />
                                 <label>CPF</label>
-                        { errors.cpf && <p className={estilos.mensagem}>{errors.cpf.message}</p> }
+                                { errors.cpf && <p className={estilos.mensagem}>{errors.cpf.message}</p> }
+
                             </div>
+
                             <div className={estilos.inputgroup}  id={estilos.metade}>
+   
                                 <input 
                                     {...register('email')}
                                     className={estilos.campo} />
                                 <label>E-mail</label>
-                        { errors.email && <p className={estilos.mensagem}>{errors.email.message}</p> }
+                                { errors.email && <p className={estilos.mensagem}>{errors.email.message}</p> }
+
                             </div>
+
                             <div className={estilos.inputgroup}  id={estilos.metade}>
+   
                                 <input 
                                     {...register('telefone')}
                                     className={estilos.campo} />
                                 <label>Telefone</label>
-                        { errors.telefone && <p className={estilos.mensagem}>{errors.telefone.message}</p> }
+                                { errors.telefone && <p className={estilos.mensagem}>{errors.telefone.message}</p> }
+
                             </div>
 
+
                             <div className={estilos.inputgroup}  id={estilos.metade}>
+                                
                                 <input 
                                     {...register('senha')}
                                     className={estilos.campo}
                                     type='password' />
                                 <label>Senha</label>
-                        { errors.senha && <p className={estilos.mensagem}>{errors.senha.message}</p> }
+                                { errors.senha && <p className={estilos.mensagem}>{errors.senha.message}</p> }
+
                             </div>
+
                             <div className={estilos.inputgroup}
                                 id={estilos.metade}>
+                                
                                 <input 
                                     {...register('confsenha')}
                                     className={estilos.campo}
                                     type='password'    />
                                 <label>Confirmar Senha</label>
-                        { errors.confsenha && <p className={estilos.mensagem}>{errors.confsenha.message}</p> }
+                                { errors.confsenha && <p className={estilos.mensagem}>{errors.confsenha.message}</p> }
+                                
                             </div>
+
                         </div>
 
                         <button

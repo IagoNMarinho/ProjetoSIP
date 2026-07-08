@@ -7,6 +7,9 @@ import login from '../assets/imagens/logo.png'
 
 import { ModalMensagem } from '../componentes/ModalMensagem'
 
+import { FaCircleUser } from "react-icons/fa6"
+import { LuSchool } from "react-icons/lu"
+
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -14,11 +17,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { type UsuarioTipo } from '../tipos/Usuario'
 
 type FormValues = {
+    tipo: 'usuario' | 'instituicao'
     email: string
     senha: string
 }
 
 const loginSchema = z.object({
+    tipo: z.enum(['usuario', 'instituicao'], {message: 'Selecione o tipo de login.'}),
     email: z.email({message: 'Informe um e-mail válido.'}),
     senha: z.string().min(8, {message: 'Informe uma senha com no mínimo 8 caracteres.'})
 })
@@ -41,12 +46,14 @@ export function LoginUsuario(){
     )
 
     const dadosUsuario: UsuarioTipo = {
+        tipo: '',
         nome: '',
         email: '',
         senha: ''
     }
 
     const autenticarUsuario = (data: FormValues) => {
+        dadosUsuario.tipo = data.tipo
         dadosUsuario.email = data.email 
         dadosUsuario.senha = data.senha 
 
@@ -69,6 +76,36 @@ export function LoginUsuario(){
                     onSubmit={handleSubmit(autenticarUsuario)}
                     >
                         <h1 className={estilos.titulo}>Login</h1>
+
+                        <div className={estilos.tipologin}>
+                                <input 
+                                    {...register('tipo')}
+                                    className={estilos.radio} 
+                                    type='radio'
+                                    id='usuario'
+                                    value="usuario"/>
+                                <label
+                                    htmlFor="usuario" 
+                                    className={estilos.radioLabel}>
+                                        <FaCircleUser />
+                                        Usuário
+                                    </label>
+                            
+                                <input 
+                                    {...register("tipo")}
+                                    id="instituicao"
+                                    value="instituicao"
+                                    type="radio"
+                                    className={estilos.radio}/>
+                                <label
+                                    htmlFor="instituicao" 
+                                    className={estilos.radioLabel}>
+                                        <LuSchool />
+                                        Instituição
+                                    </label>
+                        </div>
+                        { errors.tipo && <p className={estilos.mensagem}>{errors.tipo.message}</p> }
+                        
                         <div className={estilos.inputgroup}>
                             <input 
                                 {...register('email')}

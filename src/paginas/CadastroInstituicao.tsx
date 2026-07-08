@@ -18,6 +18,7 @@ type FormValues = {
     cnpj: string
     email: string
     telefone: string
+    codigo: string
     senha: string
     confsenha: string
 }
@@ -34,6 +35,9 @@ const CadastroSchema = z.object({
     }),
     telefone: z.string().regex(/^\d{11}$/,{
         message: 'Telefone deve conter 11 números.'
+    }),
+    codigo: z.string().regex(/^\d{4}$/,{
+        message: 'O código deve conter 4 caracteres.'
     }),
     senha: z.string().min(8,{
         message: 'Informe uma senha com no mínimo 8 caracteres.'
@@ -70,6 +74,7 @@ export function CadastroInstituicao(){
         cnpj: '',
         email: '',
         telefone: '',
+        codigo: '',
         senha: '',
         confsenha: ''
     }
@@ -79,6 +84,7 @@ export function CadastroInstituicao(){
         dadosUsuario.cnpj = data.cnpj
         dadosUsuario.email = data.email
         dadosUsuario.telefone = data.telefone
+        dadosUsuario.codigo = data.codigo
         dadosUsuario.senha = data.senha
         dadosUsuario.confsenha = data.confsenha 
 
@@ -121,44 +127,57 @@ export function CadastroInstituicao(){
                     onSubmit={handleSubmit(autenticarInstituicao)}
                     >
                         <h1 className={estilos.titulo}>Cadastro Instituição</h1>
+
                         <div className={estilos.inputs}>
+                            
                             <div className={estilos.inputgroup}  id={estilos.inteiro}>
                                 <input 
                                     {...register('nome')}
                                     className={estilos.campo} />
                                 <label>Nome Completo</label>
-                        { errors.nome && <p className={estilos.mensagem}>{errors.nome.message}</p> }
+                                
+                                { errors.nome && <p className={estilos.mensagem}>{errors.nome.message}</p> }
                             </div>
+                            
                             <div className={estilos.inputgroup}  id={estilos.inteiro}>
                                 <input 
                                     {...register('cnpj')}
                                     className={estilos.campo} />
                                 <label>CNPJ</label>
-                        { errors.cnpj && <p className={estilos.mensagem}>{errors.cnpj.message}</p> }
+                                
+                                { errors.cnpj && <p className={estilos.mensagem}>{errors.cnpj.message}</p> }
                             </div>
+                            
+                            
                             <div className={estilos.inputgroup}  id={estilos.metade}>
                                 <input 
                                     {...register('email')}
                                     className={estilos.campo} />
                                 <label>E-mail</label>
-                        { errors.email && <p className={estilos.mensagem}>{errors.email.message}</p> }
+                                
+                                { errors.email && <p className={estilos.mensagem}>{errors.email.message}</p> }
                             </div>
+                            
                             <div className={estilos.inputgroup}  id={estilos.metade}>
                                 <input 
                                     {...register('telefone')}
                                     className={estilos.campo} />
                                 <label>Telefone</label>
-                        { errors.telefone && <p className={estilos.mensagem}>{errors.telefone.message}</p> }
+                                
+                                { errors.telefone && <p className={estilos.mensagem}>{errors.telefone.message}</p> }
                             </div>
                             
                             <div className={estilos.inputgroup}  id={estilos.metade}>
+                             
                                 <input 
                                     {...register('senha')}
                                     className={estilos.campo}
                                     type='password' />
                                 <label>Senha</label>
-                        { errors.senha && <p className={estilos.mensagem}>{errors.senha.message}</p> }
+                                
+                                { errors.senha && <p className={estilos.mensagem}>{errors.senha.message}</p> }
                             </div>
+                            
                             <div className={estilos.inputgroup} 
                                 id={estilos.metade}>
                                 <input 
@@ -166,8 +185,19 @@ export function CadastroInstituicao(){
                                     className={estilos.campo}
                                     type='password'    />
                                 <label>Confirmar Senha</label>
-                        { errors.confsenha && <p className={estilos.mensagem}>{errors.confsenha.message}</p> }
+                                
+                                { errors.confsenha && <p className={estilos.mensagem}>{errors.confsenha.message}</p> }
                             </div>
+                            
+                            <div className={estilos.inputgroup}  id={estilos.inteiro}>
+                                <input 
+                                    {...register('codigo')}
+                                    className={estilos.campo} />
+                                <label>Código de Ativação</label>
+                                
+                                { errors.codigo && <p className={estilos.mensagem}>{errors.codigo.message}</p> }
+                            </div>
+                            
                         </div>
 
                         <button

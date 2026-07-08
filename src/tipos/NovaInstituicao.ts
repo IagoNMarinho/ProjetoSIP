@@ -3,6 +3,7 @@ export type NovaInstituicaoTipo = {
     cnpj: string
     email: string
     telefone: string
+    codigo: string
     senha: string
     confsenha: string
 }
