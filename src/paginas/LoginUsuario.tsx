@@ -33,6 +33,8 @@ const loginSchema = z.object({
 })
 
 export function LoginUsuario(){
+    
+    const [usuarioGoogle, setUsuarioGoogle] = useState<GoogleUser | null>(null);
 
     const [modalMensagemVisivel, setModalMensagemVisivel] = useState(false)
     const [modalMensagemTexto, setMensagemTexto] = useState("")
@@ -165,6 +167,8 @@ export function LoginUsuario(){
                                 const usuario = jwtDecode<GoogleUser>(credentialResponse.credential); 
                                 /* O jwtDecode converte o token JWT retornado pelo Google em um objeto com as informações do usuário. 
                                 Esses dados são armazenados na constante `usuario` e tipados como `GoogleUser`. */
+                                
+                                setUsuarioGoogle(usuario);
 
                                 console.log(credentialResponse);
                                 console.log(usuario);
@@ -185,6 +189,7 @@ export function LoginUsuario(){
                 ocultar={() => ocultarModal()}
                 titulo='Autenticação'
                 texto={modalMensagemTexto}
+                foto={usuarioGoogle?.picture}
             />
 
             <div className={estilos.conteiner2}>

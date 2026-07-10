@@ -6,6 +6,19 @@
 
     background:
         url('../assets/imagens/AguatoHome2.png'),
+
+        linear-gradient(
+        145deg,
+        transparent 0%,
+        transparent 31%,
+        var(--cor-primaria-escura) 33% ,
+        var(--cor-secundaria-escura) 48%,
+        var(--cor-primaria-base) 60%,
+        var(--cor-secundaria-escura) 72%,
+        var(--cor-primaria-escura) 80%,
+        transparent 83%
+    ),
+
         radial-gradient(
             circle at top left,
             var(--bola-login3),
