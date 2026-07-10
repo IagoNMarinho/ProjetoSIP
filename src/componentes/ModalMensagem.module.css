@@ -34,6 +34,7 @@
 .titulo {
     background-color: var(--cor-secundaria-escura);
     color: var(--cor-secundaria-clara);
+    font-family: var(--fonte-titulo);
     font-size: var(--tamanho-base2);
     padding: 12px;
     width: 100%;
@@ -44,6 +45,7 @@
     color: var(--cor-primaria-escura);
     margin-bottom: 25px;
     text-align: center;
+    font-family: var(--fonte-logo);
 }
 
 .botao {

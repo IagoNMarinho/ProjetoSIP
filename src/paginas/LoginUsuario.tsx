@@ -15,6 +15,10 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod' 
 import { type UsuarioTipo } from '../tipos/Usuario'
+import { type GoogleUser } from '../tipos/GoogleUser'
+
+import { GoogleLogin } from '@react-oauth/google'
+import { jwtDecode } from 'jwt-decode'
 
 type FormValues = {
     tipo: 'usuario' | 'instituicao'
@@ -123,6 +127,7 @@ export function LoginUsuario(){
                         { errors.senha && <p className={estilos.mensagem}>{errors.senha.message}</p> }
 
                         </div>
+
                         <div className={estilos.senha}>
                             <p>Esqueceu a senha?</p>
                         </div>
@@ -143,6 +148,31 @@ export function LoginUsuario(){
                                 >
                                     Cadastre-se!
                             </button>
+                        </div>
+
+                        <div className={estilos.google}>
+                            <p>Ou faça login com:</p>
+                            <GoogleLogin 
+                                theme='filled_blue'
+                                onSuccess={(credentialResponse) => { 
+                                    /* Verifica se a credencial existe antes de decodificá-la. Caso contrário, ocorrerá um erro, pois para o TypeScript a propriedade `credential` 
+                                    é opcional (pode ser uma `string` ou `undefined`), enquanto o `jwtDecode()` espera receber apenas uma `string`. */
+                                    if (!credentialResponse.credential) {
+                                        console.log("Token não recebido.");
+                                    return;
+                                    }
+
+                                const usuario = jwtDecode<GoogleUser>(credentialResponse.credential);
+
+                                console.log(credentialResponse);
+                                console.log(usuario);
+                                setMensagemTexto(`Login realizado com sucesso! Bem-vindo, ${usuario.name}!`)
+                                exibirModal()
+                                }}
+
+                                onError={() => console.log("Falha no login.")}
+                                auto_select={true}
+                            />
                         </div>
 
                 </form>

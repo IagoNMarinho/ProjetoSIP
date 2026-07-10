@@ -103,6 +103,7 @@
 .titulo{
     text-align: center;
     font-size: var(--tamanho-logo1);
+    font-family: var(--fonte-titulo);
     font-weight: 600;
     margin-bottom: 10px;
     color: var(--cor-secundaria-base);

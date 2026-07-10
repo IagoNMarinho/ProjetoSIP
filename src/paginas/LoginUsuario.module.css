@@ -54,6 +54,22 @@
     backdrop-filter: blur(10px);
 }
 
+.google{
+    border-top: solid 1px var(--cor-secundaria-base);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.google p{
+    font-size: var(--tamanho-pequeno);
+    font-family: var(--fonte-subtitulo);
+    color: var(--cor-secundaria-base)
+}
+
 .titulo{
     text-align: center;
     font-family: var(--fonte-titulo);
