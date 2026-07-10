@@ -18,7 +18,7 @@ import { type UsuarioTipo } from '../tipos/Usuario'
 import { type GoogleUser } from '../tipos/GoogleUser'
 
 import { GoogleLogin } from '@react-oauth/google'
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode' /*lê o conteúdo do token(credencial digital que representa a autenticação do usuário) e o transforma em um objeto JavaScript para que você possa acessar essas informações */
 
 type FormValues = {
     tipo: 'usuario' | 'instituicao'
@@ -162,7 +162,9 @@ export function LoginUsuario(){
                                     return;
                                     }
 
-                                const usuario = jwtDecode<GoogleUser>(credentialResponse.credential);
+                                const usuario = jwtDecode<GoogleUser>(credentialResponse.credential); 
+                                /* O jwtDecode converte o token JWT retornado pelo Google em um objeto com as informações do usuário. 
+                                Esses dados são armazenados na constante `usuario` e tipados como `GoogleUser`. */
 
                                 console.log(credentialResponse);
                                 console.log(usuario);
