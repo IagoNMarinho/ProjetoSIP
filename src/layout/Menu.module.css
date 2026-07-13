@@ -1,44 +1,136 @@
 .conteiner{
-    height: 100vh;
-    background: linear-gradient(-190deg, var(--cor-secundaria-base),var(--cor-secundaria-escura));
-    backdrop-filter: blur(10px);
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.1);
-    display: flex;
-    flex-direction: column;
-    transition: 0.3s;
+
+    position:fixed;
+
+    top:20px;
+    left:20px;
+
+    height:calc(100vh - 40px);
+
+    border-radius:28px;
+
+    background:linear-gradient(
+        180deg,
+        var(--cor-secundaria-base),
+        var(--cor-secundaria-escura)
+    );
+
+    box-shadow:0 15px 35px rgba(0,0,0,.18);
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:.35s;
+
+    overflow:hidden;
+
+    z-index:999;
+
 }
 
 .botaoMenu{
-    margin: 20px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    font-size: 1.3rem;
-    color: var(--cor-primaria-clara);
+
+    width:45px;
+    height:45px;
+
+    margin:18px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.15);
+
+    color:white;
+
+    font-size:1.3rem;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.botaoMenu:hover{
+
+    background:rgba(255,255,255,.25);
+
+}
+
+nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    padding:10px;
+
 }
 
 .itemConteiner{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 20px;
-    text-decoration: none;
-    border-radius: 12px;
-    margin: 5px 10px;
-    transition: .2s;
-}
 
-.itemConteiner span{
-    color: var(--cor-primaria-clara);
-    font-weight: 600;
-    font-size: 1.2rem;
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    height:56px;
+
+    padding:0 18px;
+
+    text-decoration:none;
+
+    color:white;
+
+    border-radius:18px;
+
+    transition:.3s;
+
 }
 
 .itemConteiner:hover{
-    background: var(--cor-primaria-escura);
+
+    background:rgba(255,255,255,.12);
+
+}
+
+.ativo{
+
+    background: var(--cor-primaria-clara);
+
+    color:var(--cor-primaria-clara);
+
+}
+
+.ativo span{
+
+    color: var( --cor-secundaria-base
+    )
+
+}
+
+.ativo svg{
+
+    color: var(--cor-secundaria-base)
+
+}
+
+.itemConteiner svg{
+
+    min-width:22px;
+
+    font-size:22px;
+
 }
 
 .rotulo{
-    white-space: nowrap;
+
+    white-space:nowrap;
+
+    font-weight:600;
+
 }
