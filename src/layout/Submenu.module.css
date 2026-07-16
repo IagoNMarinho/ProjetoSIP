@@ -4,42 +4,24 @@
     flex-direction: column;
 }
 
-
-
 .botao{
-
     width:100%;
-
     height:56px;
-
     border:none;
-
     background:transparent;
-
-    color:white;
-
+    color:var(--cor-terciaria-clara);
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     padding:0 18px;
-
     border-radius:18px;
-
     text-decoration:none;
-
     cursor:pointer;
-
     transition:.3s;
-
 }
 
 .botao:hover{
-
-    background:rgba(255,255,255,.12);
-
+    background:var(--cor-primaria-clara);
 }
 
 .esquerda{
@@ -101,7 +83,7 @@
 
 .submenuLista a{
 
-    color:white;
+    color:var(--cor-terciaria-clara);
 
     text-decoration:none;
 
@@ -179,7 +161,7 @@
 
     border-radius:12px;
 
-    transition:.25s;
+    transition:.3s;
 
 }
 

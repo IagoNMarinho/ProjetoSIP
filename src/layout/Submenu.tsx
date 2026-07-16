@@ -50,7 +50,7 @@ export function Submenu({
 
         timeoutRef.current = setTimeout(() => {
             setAberto(false);
-        }, 180);
+        }, 420);
 
     }
 

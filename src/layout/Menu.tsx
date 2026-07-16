@@ -4,6 +4,8 @@ import { Link, useLocation } from 'react-router-dom'
 import { LayoutContexto } from '../contextos/LayoutContexto'
 
 import { Submenu } from './Submenu'
+import { Suporte } from '../componentes/Suporte'
+import { useState } from 'react'
 
 import { FaHome } from "react-icons/fa"
 import { FaMagnifyingGlass } from "react-icons/fa6"
@@ -26,6 +28,14 @@ export function Menu() {
 
     function controlarMenu() {
         setMenuAbertoContexto(!menuAbertoContexto)
+    }
+    
+    const [modalAberto, setModalAberto] = useState(false);
+    function exibirModal() {
+        setModalAberto(true);
+    }
+    function ocultarModal() {
+        setModalAberto(false);
     }
 
     return (
@@ -144,7 +154,9 @@ export function Menu() {
                     }
 
                 </Link>
-                    <button className={
+                    <button 
+                        onClick={exibirModal}
+                        className={
                         `${estilos.itemConteiner} `}>
                        <FaQuestion />
                         {menuAbertoContexto &&
@@ -168,7 +180,10 @@ export function Menu() {
                 </Link>
 
             </nav>
-
+                    <Suporte
+                            exibir={modalAberto}
+                            ocultar={ocultarModal}
+                        />
         </aside>
 
     )

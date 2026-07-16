@@ -2,6 +2,8 @@ import estilos from './Infos.module.css'
 import arduino from '../../assets/imagens/arduino.jpg'
 import aguato from '../../assets/imagens/FotoArthur.jpeg'
 
+import { useNavigate } from 'react-router-dom'
+
 import { FaFlask } from "react-icons/fa"
 import { MdHealthAndSafety } from "react-icons/md"
 import { IoIosAlert } from "react-icons/io"
@@ -9,6 +11,11 @@ import { TbPlugConnected } from "react-icons/tb"
 import { FaCalendarWeek } from "react-icons/fa"
 
 export function Infos() {
+
+    const navegacao = useNavigate()
+    const analises = () => {
+        navegacao('/analises')
+    }
 
     return (
             <section className={estilos.sectionInfos}>
@@ -92,7 +99,9 @@ export function Infos() {
                                     </div>
                                 </div>
                             </div>
-                            <button className={estilos.botao}>
+                            <button 
+                                onClick={analises}
+                                className={estilos.botao}>
                                 ver detalhes
                             </button>
                         </div>

@@ -1,34 +1,20 @@
 .conteiner{
-<<<<<<< HEAD
-
     position: fixed;
-
     top:20px;
     left:20px;
-
     height:calc(100vh - 40px);
-
     border-radius:28px;
-
     background:linear-gradient(
         180deg,
         var(--cor-secundaria-base),
         var(--cor-secundaria-escura)
     );
-
     box-shadow:0 15px 35px rgba(0,0,0,.18);
-
     display:flex;
-
     flex-direction:column;
-
     transition:.35s;
-
     overflow:visible;
-
     z-index:999;
-
-=======
     height: 100vh ;
     background: linear-gradient(-190deg, var(--cor-secundaria-base),var(--cor-secundaria-escura));
     backdrop-filter: blur(10px);
@@ -37,103 +23,67 @@
     display: flex;
     flex-direction: column;
     transition: 0.3s;
->>>>>>> ebbe0bfee3c2377c7331998c742d01106c6576c8
 }
 
 .botaoMenu{
-
+    align-self: center;
     width:45px;
     height:45px;
-
     margin:18px;
-
     border:none;
-
     border-radius:12px;
-
     background:rgba(255,255,255,.15);
-
-    color:white;
-
+    color:var(--cor-terciaria-clara);
     font-size:1.3rem;
-
     cursor:pointer;
-
-    transition:.25s;
-
+    transition:.5s;
 }
 
 .botaoMenu:hover{
-
     background:rgba(255,255,255,.25);
-
 }
 
 nav{
-
     display:flex;
-
     flex-direction:column;
-
     gap:8px;
-
     padding:10px;
-
 }
 
 .itemConteiner{
-
     display:flex;
-
     align-items:center;
-
     gap:18px;
-
     height:56px;
-
     padding:0 18px;
-
     text-decoration:none;
-
-    color:white;
-
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--cor-terciaria-clara);
     border-radius:18px;
-
     transition:.3s;
-
 }
 
 .itemConteiner:hover{
-
-    background:rgba(255,255,255,.12);
-
+    background:var(--cor-primaria-clara);
 }
 
 .itemConteiner svg{
-
-    min-width:22px;
-
-    font-size:22px;
-
+    min-width: 22px;
+    font-size: 22px;
 }
 
 .rotulo{
-
     white-space:nowrap;
-
     font-weight:600;
-
 }
 
 .ativo{
-
     background:var(--cor-primaria-clara);
-
 }
 
 .ativo svg,
 .ativo span{
-
     color:var(--cor-secundaria-base);
-
 }
