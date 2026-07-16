@@ -1,6 +1,6 @@
 .conteiner{
 
-    position:fixed;
+    position: fixed;
 
     top:20px;
     left:20px;
@@ -23,7 +23,7 @@
 
     transition:.35s;
 
-    overflow:hidden;
+    overflow:visible;
 
     z-index:999;
 
@@ -98,27 +98,6 @@ nav{
 
 }
 
-.ativo{
-
-    background: var(--cor-primaria-clara);
-
-    color:var(--cor-primaria-clara);
-
-}
-
-.ativo span{
-
-    color: var( --cor-secundaria-base
-    )
-
-}
-
-.ativo svg{
-
-    color: var(--cor-secundaria-base)
-
-}
-
 .itemConteiner svg{
 
     min-width:22px;
@@ -132,5 +111,18 @@ nav{
     white-space:nowrap;
 
     font-weight:600;
+
+}
+
+.ativo{
+
+    background:var(--cor-primaria-clara);
+
+}
+
+.ativo svg,
+.ativo span{
+
+    color:var(--cor-secundaria-base);
 
 }

@@ -10,6 +10,16 @@ import { Sobre } from '../paginas/Sobre'
 import { Perfil } from  '../paginas/Perfil'
 import { Principal } from '../layout/Principal'
 import { CadastroInstituicao } from '../paginas/CadastroInstituicao'
+import { Sensorsip } from '../paginas/Sensorsip'
+import { Addreservatorio } from '../paginas/Addreservatorio'
+import { Mapa } from '../paginas/Mapa'
+import { Dashboard } from '../paginas/Dashboard'
+import { Consulta } from '../paginas/Consulta'
+import { Projeto } from '../paginas/Projeto'
+import { Metodologia } from '../paginas/Metodologia'
+import { Contato } from '../paginas/Contato'
+import { Configuracao } from '../paginas/settings/Configuracao'
+
 
 
 export function Rotas() {
@@ -61,6 +71,46 @@ export function Rotas() {
                     <Route
                         path="perfil"
                         element={<Perfil />}
+                    />
+                      <Route
+                        path="sensorsip"
+                        element={<Sensorsip />}
+                    />
+                      <Route
+                        path="addreservatorio"
+                        element={<Addreservatorio />}
+                    />
+                     <Route
+                        path="mapa"
+                        element={<Mapa />}
+                    />
+                    <Route
+                        path="dashboard"
+                        element={<Dashboard />}
+                    />
+                    <Route
+                        path="mapa"
+                        element={<Mapa />}
+                    />
+                     <Route
+                        path="consulta"
+                        element={<Consulta />}
+                    />
+                     <Route
+                        path="projeto"
+                        element={<Projeto />}
+                    />
+                     <Route
+                        path="metodologia"
+                        element={<Metodologia />}
+                    />
+                     <Route
+                        path="contato"
+                        element={<Contato />}
+                    />
+                      <Route
+                        path="configuracao"
+                        element={<Configuracao />}
                     />
                 </Route>
 

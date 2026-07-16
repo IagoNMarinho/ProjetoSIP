@@ -3,6 +3,8 @@ import { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { LayoutContexto } from '../contextos/LayoutContexto'
 
+import { Submenu } from './Submenu'
+
 import { FaHome } from "react-icons/fa"
 import { FaMagnifyingGlass } from "react-icons/fa6"
 import { IoIosStats } from "react-icons/io"
@@ -10,26 +12,28 @@ import { FaBook } from "react-icons/fa"
 import { TiThMenu } from "react-icons/ti"
 import { CgProfile } from "react-icons/cg"
 import { FaGlassWaterDroplet } from "react-icons/fa6"
+import { IoIosSettings } from "react-icons/io"
+import { FaQuestion } from "react-icons/fa"
 
-export function Menu(){
+export function Menu() {
 
-    const{
+    const {
         menuAbertoContexto,
         setMenuAbertoContexto
     } = useContext(LayoutContexto)
 
     const location = useLocation()
 
-    const controlarMenu = () =>{
+    function controlarMenu() {
         setMenuAbertoContexto(!menuAbertoContexto)
     }
 
-    return(
+    return (
 
         <aside
             className={estilos.conteiner}
             style={{
-                width:menuAbertoContexto ? "240px":"80px"
+                width: menuAbertoContexto ? "240px" : "80px"
             }}
         >
 
@@ -37,63 +41,130 @@ export function Menu(){
                 className={estilos.botaoMenu}
                 onClick={controlarMenu}
             >
-                <TiThMenu/>
+                <TiThMenu />
             </button>
 
             <nav>
 
                 <Link
                     to="/home"
-                    className={`${estilos.itemConteiner} ${location.pathname==="/home" ? estilos.ativo:""}`}
+                    className={`${estilos.itemConteiner} ${location.pathname === "/home" ? estilos.ativo : ""}`}
                 >
-                    <FaHome/>
+                    <FaHome />
 
-                    {menuAbertoContexto && <span className={estilos.rotulo}>Home</span>}
+                    {menuAbertoContexto &&
+                        <span className={estilos.rotulo}>
+                            Home
+                        </span>
+                    }
+
                 </Link>
 
-                <Link
-                    to="/detectar"
-                    className={`${estilos.itemConteiner} ${location.pathname==="/detectar" ? estilos.ativo:""}`}
-                >
-                    <FaMagnifyingGlass/>
-
-                    {menuAbertoContexto && <span className={estilos.rotulo}>Detectar</span>}
-                </Link>
+                   <Submenu
+                    icone={<FaMagnifyingGlass />}
+                    rota="/detectar"
+                    titulo="Detectar"
+                    itens={[
+                        {
+                            titulo: "Sensor SIP",
+                            rota: "/sensorsip"
+                        },
+                        {
+                            titulo: "ADD Reservátorio",
+                            rota: "/addreservatorio"
+                        },
+                    ]}
+                />
 
                 <Link
                     to="/gole"
-                    className={`${estilos.itemConteiner} ${location.pathname==="/gole" ? estilos.ativo:""}`}
+                    className={`${estilos.itemConteiner} ${location.pathname === "/gole" ? estilos.ativo : ""}`}
                 >
-                    <FaGlassWaterDroplet/>
+                    <FaGlassWaterDroplet />
 
-                    {menuAbertoContexto && <span className={estilos.rotulo}>Gole+</span>}
+                    {menuAbertoContexto &&
+                        <span className={estilos.rotulo}>
+                            Gole+
+                        </span>
+                    }
+
                 </Link>
 
-                <Link
-                    to="/analises"
-                    className={`${estilos.itemConteiner} ${location.pathname==="/analises" ? estilos.ativo:""}`}
-                >
-                    <IoIosStats/>
 
-                    {menuAbertoContexto && <span className={estilos.rotulo}>Análises</span>}
-                </Link>
+                <Submenu
+                    icone={<IoIosStats />}
+                    rota="/analises"
+                    titulo="Análises"
+                    itens={[
+                        {
+                            titulo: "Mapa",
+                            rota: "/mapa"
+                        },
+                        {
+                            titulo: "Dashboard",
+                            rota: "/dashboard"
+                        },
+                        {
+                            titulo: "Consulta",
+                            rota: "/consulta"
+                        }
+                    ]}
+                />
 
-                <Link
-                    to="/sobre"
-                    className={`${estilos.itemConteiner} ${location.pathname==="/sobre" ? estilos.ativo:""}`}
-                >
-                    <FaBook/>
-
-                    {menuAbertoContexto && <span className={estilos.rotulo}>Sobre</span>}
-                </Link>
+                    <Submenu
+                    icone={ <FaBook />}
+                    rota="/sobre"
+                    titulo="Sobre"
+                    itens={[
+                        {
+                            titulo: "Projeto",
+                            rota: "/projeto"
+                        },
+                        {
+                            titulo: "Metodologia",
+                            rota: "/metodologia"
+                        },
+                        {
+                            titulo: "Contato",
+                            rota: "/contato"
+                        }
+                    ]}
+                />
 
                 <Link
                     to="/perfil"
-                    className={`${estilos.itemConteiner} ${location.pathname==="/perfil" ? estilos.ativo:""}`}
+                    className={`${estilos.itemConteiner} ${location.pathname === "/perfil" ? estilos.ativo : ""}`}
                 >
-                    <CgProfile/>
+                    <CgProfile />
 
-                    {menuAbertoContexto && <span className={estilos.rotulo}>Perfil</span>}
+                    {menuAbertoContexto &&
+                        <span className={estilos.rotulo}>
+                            Perfil
+                        </span>
+                    }
+
+                </Link>
+                    <button className={
+                        `${estilos.itemConteiner} `}>
+                       <FaQuestion />
+                        {menuAbertoContexto &&
+                        <span className={estilos.rotulo}>
+                            Suporte
+                        </span>
+                    }
+                    </button>
+                    <Link
+                    to="/configuracao"
+                    className={`${estilos.itemConteiner} ${location.pathname === "/configuracao" ? estilos.ativo : ""}`}
+                >
+                    <IoIosSettings />
+
+                    {menuAbertoContexto &&
+                        <span className={estilos.rotulo}>
+                            Configuração
+                        </span>
+                    }
+
                 </Link>
 
             </nav>

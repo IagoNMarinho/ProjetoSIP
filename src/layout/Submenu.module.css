@@ -1,0 +1,219 @@
+.conteiner{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.botao{
+
+    width:100%;
+
+    height:56px;
+
+    border:none;
+
+    background:transparent;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 18px;
+
+    border-radius:18px;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.botao:hover{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+.esquerda{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.esquerda svg{
+
+    min-width:22px;
+
+    font-size:22px;
+
+}
+
+.esquerda span{
+
+    white-space:nowrap;
+
+    font-weight:600;
+
+}
+
+.ativo{
+
+    background:var(--cor-primaria-clara);
+
+}
+
+.ativo svg,
+.ativo span{
+
+    color:var(--cor-secundaria-base);
+
+}
+
+
+
+.submenuLista{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:5px;
+
+    margin-left:58px;
+
+    margin-top:4px;
+
+    animation:abrir .2s ease;
+
+}
+
+.submenuLista a{
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:10px 15px;
+
+    border-radius:12px;
+
+    transition:.25s;
+
+    font-size:.95rem;
+
+}
+
+.submenuLista a:hover{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+.submenuFlutuante{
+
+    position:absolute;
+
+    left:100%;
+
+    top:0;
+
+    margin-left:6px;
+
+    width:220px;
+
+    background:linear-gradient(
+        180deg,
+        var(--cor-secundaria-base),
+        var(--cor-secundaria-escura)
+    );
+
+    border-radius:18px;
+
+    padding:12px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.35);
+
+    animation:abrir .2s ease;
+
+    z-index:99999;
+
+}
+
+.submenuFlutuante h4{
+
+    color:white;
+
+    margin:5px 8px 10px;
+
+    font-size:.95rem;
+
+    font-weight:700;
+
+}
+
+.submenuFlutuante a{
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    transition:.25s;
+
+}
+
+.submenuFlutuante a:hover{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+
+.submenuAtivo{
+
+    background:rgba(255,255,255,.18);
+
+}
+
+/* ANIMAÇÃO */
+
+@keyframes abrir{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-8px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
