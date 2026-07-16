@@ -1,4 +1,5 @@
 .conteiner{
+<<<<<<< HEAD
 
     position: fixed;
 
@@ -27,6 +28,16 @@
 
     z-index:999;
 
+=======
+    height: 100vh ;
+    background: linear-gradient(-190deg, var(--cor-secundaria-base),var(--cor-secundaria-escura));
+    backdrop-filter: blur(10px);
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.1);
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+>>>>>>> ebbe0bfee3c2377c7331998c742d01106c6576c8
 }
 
 .botaoMenu{

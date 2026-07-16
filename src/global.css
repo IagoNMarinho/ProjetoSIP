@@ -9,23 +9,61 @@
 
     --fundo-modal: rgba(0, 99, 191, 0.4);
 
+    --background: radial-gradient(
+            circle at top left,
+            var(--bola-login3),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            var(--bola-login2),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at center,
+            var(--bola-login2),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at bottom right,
+            var(--bola-login2),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at top right,
+            var(--bola-login2),
+            transparent 15%
+        ),
+
+        linear-gradient(
+            60deg,
+            var(--cor-primaria-base),
+           var(--cor-primaria-clara)
+        );
+
     --cor-terciaria-erro: #d90429;
     --cor-terciaria-erro2: #ff8fa2b5;
     --cor-terciaria-clara: #f8feff;
-    --cor-terciaria-seguras: #81ff8e;
+    --cor-terciaria-seguras: #21a82f;
     --cor-terciaria-seguras2: #bdeaa4b5;
     --cor-terciaria-alertas: #fff83b;
     --cor-terciaria-alertas2: #fffcc9b5;
+    --cor-terciaria-semana: #ffc62a;
 
     --bola-login1: rgba(0, 183, 255, 0.8);
     --bola-login2: rgba(0, 89, 255, 0.8);
     --bola-login3: rgba(0, 99, 191, 0.801);
 
     --cor-fundo-transparente: rgba(255, 255, 255, 0.25);
+    --cor-fundo-transparente3: rgba(255, 255, 255, 0.555);
     --cor-fundo-transparente2:rgba(254, 254, 254, 0.729);
 
     --fonte-base: "TASA Explorer", sans-serif;
     --fonte-logo: "Limelight", sans-serif;
+    --fonte-base2: "Lexend", sans-serif;
 
     --fonte-subtitulo: "Alfa Slab One", serif;
     --fonte-titulo: "Bungee", sans-serif;
@@ -38,11 +76,17 @@
     --tamanho-logo1: 3rem;
     --tamanho-logo2: 6rem;
     --tamanho-logo10: 12rem;
+
+    --tamanho-celular: 6rem;
+    --tamanho-celular2: 1.3rem;
+    --tamanho-celular3: 1.2rem;
+    --tamanho-celular4: 1rem;
+    --tamanho-celular5: 3rem;
 }
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--fonte-logo);
+    font-family: var(--fonte-base2);
 }
