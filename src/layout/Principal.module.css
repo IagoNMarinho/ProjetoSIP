@@ -1,14 +1,9 @@
 .gridConteiner{
     background: var(--cor-primaria-base);
-
     display: grid;
-
     min-height:100vh;
-
     grid-template-columns:80px 1fr;
-
     grid-template-rows:1fr 90px;
-
     grid-template-areas:
     "lateral conteudo"
     "lateral rodape";
