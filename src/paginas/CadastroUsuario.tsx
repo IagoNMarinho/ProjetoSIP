@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import estilos from './CadastroUsuario.module.css'
-import login from '../assets/imagens/logo.png'
+import logo from '../assets/imagens/logo.png'
 
 import { FaCircleUser } from "react-icons/fa6"
 import { LuSchool } from "react-icons/lu"
@@ -98,6 +98,10 @@ export function CadastroUsuario(){
 
     const navegacao = useNavigate()
     
+    const login = () =>{
+        navegacao('/')
+    }
+
     const cadastroUsuario = () =>{
         navegacao('/cadastro')
     }
@@ -198,7 +202,7 @@ export function CadastroUsuario(){
                                 <input 
                                     {...register('confsenha')}
                                     className={estilos.campo}
-                                    type='password'    />
+                                    type='password'  />
                                 <label>Confirmar Senha</label>
                                 { errors.confsenha && <p className={estilos.mensagem}>{errors.confsenha.message}</p> }
                                 
@@ -212,6 +216,15 @@ export function CadastroUsuario(){
                                 Cadastrar
                         </button>
 
+                        <div className={estilos.jalogin}>
+                            <p>Já possui cadastro?</p>
+                            <button 
+                                className={estilos.novoUsuario}
+                                onClick={login}
+                                >
+                                    Realize o login!
+                            </button>
+                        </div>
 
                 </form>
             </div>
@@ -224,7 +237,7 @@ export function CadastroUsuario(){
             />
 
             <div className={estilos.conteiner2}>
-                <img src={login} alt="Aguato" />
+                <img src={logo} alt="Aguato" />
             </div>
         </div>
     )

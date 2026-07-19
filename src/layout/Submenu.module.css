@@ -41,12 +41,12 @@
 }
 
 .ativo{
-    background: var(--cor-primaria-clara);
+    background: var(--cor-primaria-base);
 }
 
 .ativo svg,
 .ativo span{
-    color: var(--cor-secundaria-base);
+    color: var(--cor-terciaria-clara);
 }
 
 .submenuLista{
@@ -116,7 +116,8 @@
 
 
 .submenuAtivo{
-    background: rgba(255,255,255,.18);
+    background: var(--cor-primaria-base);
+    color: var(--cor-terciaria-clara);
 }
 
 /* ANIMAÇÃO */

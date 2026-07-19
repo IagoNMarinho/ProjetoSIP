@@ -10,7 +10,7 @@ import { ModalMensagem } from '../componentes/ModalMensagem'
 import { FaCircleUser } from "react-icons/fa6"
 import { LuSchool } from "react-icons/lu"
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod' 
@@ -32,9 +32,11 @@ const loginSchema = z.object({
     senha: z.string().min(8, {message: 'Informe uma senha com no mínimo 8 caracteres.'})
 })
 
+import { UsuarioContexto } from '../contextos/UsuarioContexto'
+
 export function LoginUsuario(){
-    
-    const [usuarioGoogle, setUsuarioGoogle] = useState<GoogleUser | null>(null);
+
+    const { usuarioGoogle, setUsuarioGoogle } = useContext(UsuarioContexto);
 
     const [modalMensagemVisivel, setModalMensagemVisivel] = useState(false)
     const [modalMensagemTexto, setMensagemTexto] = useState("")
@@ -164,7 +166,8 @@ export function LoginUsuario(){
                                     return;
                                     }
 
-                                const usuario = jwtDecode<GoogleUser>(credentialResponse.credential); 
+                                const usuario = jwtDecode<GoogleUser>(credentialResponse.credential);
+                                setUsuarioGoogle(usuario); 
                                 /* O jwtDecode converte o token JWT retornado pelo Google em um objeto com as informações do usuário. 
                                 Esses dados são armazenados na constante `usuario` e tipados como `GoogleUser`. */
                                 

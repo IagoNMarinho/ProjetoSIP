@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { LayoutContexto } from '../contextos/LayoutContexto'
 
 import { Submenu } from './Submenu'
-import { Suporte } from '../componentes/Suporte'
+import { Suporte } from '../componentes/SUPORTE/Suporte'
 import { useState } from 'react'
 
 import { FaHome } from "react-icons/fa"
