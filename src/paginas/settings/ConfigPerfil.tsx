@@ -1,8 +1,12 @@
 import estilos from './ConfigPerfil.module.css'
 
+import perfil from '../../assets/imagens/perfil.png'
+
 import { useState, useContext } from 'react'
 import { UsuarioContexto } from '../../contextos/UsuarioContexto'
 import { useNavigate } from 'react-router-dom'
+
+import { Confirmar } from '../../componentes/SUPORTE/Confirmar'
 
 import { CiEdit } from "react-icons/ci"
 import { CiLogout } from "react-icons/ci"
@@ -28,8 +32,23 @@ import { MdSupervisorAccount } from "react-icons/md"
             });
         setEditando(false);
         }
+            
+        const [modalMensagemVisivel, setModalMensagemVisivel] = useState(false)
+        const [modalMensagemTexto, setMensagemTexto] = useState("")
+        const [modalMensagemTitulo, setMensagemTitulo] = useState("")
+        const [acaoConfirmar, setAcaoConfirmar] = useState<() => void>(() => () => {})
 
-        
+        function abrirConfirmacao(titulo: string, texto: string, acao: () => void) {
+            setMensagemTitulo(titulo)
+            setMensagemTexto(texto)
+            setModalMensagemVisivel(true)
+            setAcaoConfirmar(() => acao)
+        }
+
+        function fecharConfirmacao() {
+            setModalMensagemVisivel(false)
+        }
+
         const navegacao = useNavigate()
         
         const login = () =>{
@@ -51,7 +70,7 @@ import { MdSupervisorAccount } from "react-icons/md"
                     <div className={estilos.fotoArea}>
                         <img
                             className={estilos.foto}
-                            src={usuarioGoogle?.picture} 
+                            src={usuarioGoogle?.picture || perfil} 
                             alt="foto do usuário" />
                         <button><CiEdit /></button>
                     </div>
@@ -128,30 +147,132 @@ import { MdSupervisorAccount } from "react-icons/md"
                     
                 </section>
 
+                
+                <section className={estilos.conta}>
+                    
+                    <div className={estilos.fotoArea}>
+                        <img
+                            className={estilos.foto}
+                            src={usuarioGoogle?.picture || perfil} 
+                            alt="foto do usuário" />
+                        <button><CiEdit /></button>
+                    </div>
+
+                    <div className={estilos.formulario}>
+
+                        <div className={estilos.campo}>
+                            <label>Nome instituição:</label>
+                            <input
+                                className={estilos.input}
+                                value={nome}
+                                onChange={(e)=>setNome(e.target.value)}
+                                readOnly={!editando}
+                            />
+                        </div>
+
+                        <div className={estilos.campo}>
+                            <label>Email:</label>
+                            <input
+                                className={estilos.input}
+                                value={email}
+                                onChange={(e)=>setEmail(e.target.value)}
+                                readOnly={!editando}
+                            />
+                        </div>
+
+                        <div className={estilos.campo}>
+                            <label>Telefone:</label>
+                            <input
+                                className={estilos.input}
+                                value={telefone}
+                                onChange={(e)=>setTelefone(e.target.value)}
+                                readOnly={!editando}
+                            />
+                        </div>
+
+                        
+                        <div className={estilos.campo}>
+                            <label>CNPJ:</label>
+                            <input
+                                className={estilos.input}
+                                value={cpf}
+                                onChange={(e)=>setCpf(e.target.value)}
+                                readOnly={!editando}
+                            />
+                        </div>
+
+                        <div className={estilos.botoes}>
+                            <button
+                                className={estilos.botao} 
+                                onClick={() => setEditando(true)}>
+                                Fazer alterações
+                            </button>
+                            <button
+                                className={estilos.botao} 
+                                onClick={salvarDados}>
+                                Salvar dados
+                            </button>
+                        </div>
+
+                    </div>
+                    
+                </section>
+
                 <section className={estilos.sessao}>
                     <h2 className={estilos.titulo}>Sessão</h2>
                     <div className={estilos.botoes2}>
                         <button
                             className={estilos.botao} 
-                            onClick={login}>
+                            onClick={() =>
+                                abrirConfirmacao(
+                                    'Sair da conta',
+                                    'Tem certeza que deseja sair da sua conta?',
+                                    () => {
+                                        login()
+                                    }
+                                )
+                            }>
                             <CiLogout />
                                 Sair da conta
                         </button>
                         <button
                             className={estilos.botao} 
-                            onClick={login}>
+                           onClick={() =>
+                                abrirConfirmacao(
+                                    'Excluir conta',
+                                    'Esta ação é permanente. Deseja realmente excluir sua conta?',
+                                    () => {
+                                        login()
+                                    }
+                                )
+                            }>
                             <TiUserDelete />
                                 Excluir conta
                         </button>
                         <button
                             className={estilos.botao} 
-                            onClick={login}>
+                            onClick={() =>
+                                abrirConfirmacao(
+                                    'Trocar conta',
+                                    'Deseja sair da conta atual para entrar com outra?',
+                                    () => {
+                                        login()
+                                    }
+                                )
+                            }>
                             <MdSupervisorAccount />
                                 Trocar conta
                         </button>
                     </div>
                 </section>
 
+                <Confirmar
+                    exibir={modalMensagemVisivel}
+                    ocultar={fecharConfirmacao}
+                    titulo={modalMensagemTitulo}
+                    texto={modalMensagemTexto}
+                    aoConfirmar={acaoConfirmar}
+                />
             </main>
         )
     }

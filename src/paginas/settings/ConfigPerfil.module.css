@@ -32,14 +32,15 @@
 
 .fotoArea{
     position: relative;
-    min-width: 170px;
+    width: 100%;
+    max-width: 170px;
 }
 
 .foto{
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
+    width: 170px;
+    aspect-ratio: 1;
+    height: auto;
 }
 
 .formulario{
@@ -164,4 +165,41 @@
 .input:focus:not(:read-only){
     box-shadow:  0 0 5px var(--cor-primaria-clara);
     outline:  none;
+}
+
+@media (max-width: 768px){
+
+    .conta{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .linha{
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .campo{
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .campo label{
+        width: auto;
+    }
+
+    .botoes,
+    .botoes2{
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .botao{
+        width: 100%;
+        min-width: 0;
+    }
+
+    .conteiner{
+        padding: 20px 15px;
+    }
 }

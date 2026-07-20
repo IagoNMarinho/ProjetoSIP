@@ -6,6 +6,7 @@ interface ModalMensagemProps {
 }
 
 export function Suporte({exibir, ocultar}: ModalMensagemProps){
+
     if(exibir){
         return(
         <div className={estilos.fundo}>

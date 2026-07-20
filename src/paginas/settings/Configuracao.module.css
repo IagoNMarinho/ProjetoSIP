@@ -1,7 +1,7 @@
 .configuracao{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    max-width: 100%;
     min-height: 100vh;
 
     background-size: cover;
@@ -47,4 +47,10 @@
     color: var(--cor-primaria-escura);
     font-weight: 700;
     border-bottom: 1px solid var(--cor-primaria-escura);
+}
+
+@media (max-width: 768px){
+    .conteiner{
+        border-radius: 0 10px 20px 20px;
+    }
 }
