@@ -1,32 +1,157 @@
 import estilos from './ConfigPerfil.module.css'
 
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import { UsuarioContexto } from '../../contextos/UsuarioContexto'
+import { useNavigate } from 'react-router-dom'
+
+import { CiEdit } from "react-icons/ci"
+import { CiLogout } from "react-icons/ci"
+import { TiUserDelete } from "react-icons/ti"
+import { MdSupervisorAccount } from "react-icons/md"
 
     export function ConfigPerfil(){
 
-        const { usuarioGoogle } = useContext( UsuarioContexto )
+        const { usuarioGoogle, setUsuarioGoogle } = useContext( UsuarioContexto )
+
+        const [editando, setEditando] = useState(false)
+        const [nome, setNome] = useState(usuarioGoogle?.name || "")
+        const [email, setEmail] = useState(usuarioGoogle?.email || "")
+        const [telefone, setTelefone] = useState("")
+        const [cpf, setCpf] = useState("")
+        const [dataNas, setdataNas] = useState("")
+
+        function salvarDados(){
+            setUsuarioGoogle({
+                ...usuarioGoogle!,
+                name: nome,
+                email: email
+            });
+        setEditando(false);
+        }
+
+        
+        const navegacao = useNavigate()
+        
+        const login = () =>{
+            navegacao('/')
+        }
 
         return(
             <main className={estilos.conteiner}>
+
                 <section className={estilos.intro}>
-                    <h2>Configuração de perfil</h2>
-                    <p className={estilos.descricao}>
+                    <h2 className={estilos.titulo}>Configuração de perfil</h2>
+                    <p>
                         Altere ou visualize as informações de seu perfil na plataforma SIP!
                     </p>
                 </section>
+
                 <section className={estilos.conta}>
-                    <figure>
+                    
+                    <div className={estilos.fotoArea}>
                         <img
                             className={estilos.foto}
                             src={usuarioGoogle?.picture} 
                             alt="foto do usuário" />
-                    </figure>
-                    <div className={estilos.infos}>
-                        <h2> {usuarioGoogle?.name}</h2>
-                        <h2> {usuarioGoogle?.email}</h2>
+                        <button><CiEdit /></button>
+                    </div>
+
+                    <div className={estilos.formulario}>
+
+                        <div className={estilos.campo}>
+                            <label>Nome:</label>
+                            <input
+                                className={estilos.input}
+                                value={nome}
+                                onChange={(e)=>setNome(e.target.value)}
+                                readOnly={!editando}
+                            />
+                        </div>
+
+                        <div className={estilos.campo}>
+                            <label>Email:</label>
+                            <input
+                                className={estilos.input}
+                                value={email}
+                                onChange={(e)=>setEmail(e.target.value)}
+                                readOnly={!editando}
+                            />
+                        </div>
+
+                        <div className={estilos.campo}>
+                            <label>Telefone:</label>
+                            <input
+                                className={estilos.input}
+                                value={telefone}
+                                onChange={(e)=>setTelefone(e.target.value)}
+                                readOnly={!editando}
+                            />
+                        </div>
+
+                        <div className={estilos.linha}>
+                            <div className={estilos.campo}>
+                                <label>CPF:</label>
+                                <input
+                                    className={estilos.input}
+                                    value={cpf}
+                                    onChange={(e)=>setCpf(e.target.value)}
+                                    readOnly={!editando}
+                                />
+                            </div>
+
+                            <div className={estilos.campo}>
+                                <label>Data de nascimento:</label>
+                                <input
+                                    className={estilos.input}
+                                    type='date'
+                                    value={dataNas}
+                                    onChange={(e)=>setdataNas(e.target.value)}
+                                    readOnly={!editando}
+                                />
+                            </div>
+                        </div>
+
+                        <div className={estilos.botoes}>
+                            <button
+                                className={estilos.botao} 
+                                onClick={() => setEditando(true)}>
+                                Fazer alterações
+                            </button>
+                            <button
+                                className={estilos.botao} 
+                                onClick={salvarDados}>
+                                Salvar dados
+                            </button>
+                        </div>
+
+                    </div>
+                    
+                </section>
+
+                <section className={estilos.sessao}>
+                    <h2 className={estilos.titulo}>Sessão</h2>
+                    <div className={estilos.botoes2}>
+                        <button
+                            className={estilos.botao} 
+                            onClick={login}>
+                            <CiLogout />
+                                Sair da conta
+                        </button>
+                        <button
+                            className={estilos.botao} 
+                            onClick={login}>
+                            <TiUserDelete />
+                                Excluir conta
+                        </button>
+                        <button
+                            className={estilos.botao} 
+                            onClick={login}>
+                            <MdSupervisorAccount />
+                                Trocar conta
+                        </button>
                     </div>
                 </section>
+
             </main>
         )
     }
