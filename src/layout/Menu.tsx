@@ -165,20 +165,26 @@ export function Menu() {
                         </span>
                     }
                     </button>
-                    <Link
-                    to="/configuracao"
-                    className={`${estilos.itemConteiner} ${location.pathname === "/configuracao" ? estilos.ativo : ""}`}
-                >
-                    <IoIosSettings />
-
-                    {menuAbertoContexto &&
-                        <span className={estilos.rotulo}>
-                            Configuração
-                        </span>
-                    }
-
-                </Link>
-
+                    
+                <Submenu
+                    icone={ <IoIosSettings />}
+                    rota="/configuracao"
+                    titulo="Configuração"
+                    itens={[
+                        {
+                            titulo: "Perfil",
+                            rota: "/configuracao"
+                        },
+                        {
+                            titulo: "Preferências",
+                            rota: "/preferencias"
+                        },
+                        {
+                            titulo: "Sistema",
+                            rota: "/sistema"
+                        }
+                    ]}
+                />
             </nav>
                     <Suporte
                             exibir={modalAberto}

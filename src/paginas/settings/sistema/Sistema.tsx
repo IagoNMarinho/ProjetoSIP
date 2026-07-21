@@ -1,4 +1,4 @@
-import estilos from './Configuracao.module.css'
+import estilos from './Sistema.module.css'
 
 import { Link, useLocation } from 'react-router-dom'
 
@@ -6,9 +6,9 @@ import { CgProfile } from "react-icons/cg"
 import { FaPaintBrush } from "react-icons/fa"
 import { GrConfigure } from "react-icons/gr"
 
-import { ConfigPerfil } from './ConfigPerfil'
+import { ConfSistema } from './ConfSistema'
 
-    export function Configuracao(){
+    export function Sistema(){
         
     const location = useLocation()
 
@@ -16,7 +16,7 @@ import { ConfigPerfil } from './ConfigPerfil'
             <section className={estilos.configuracao}>
                 <nav className={estilos.secoes}>
                             <Link
-                                to="/home"
+                                to="/configuracao"
                                 className={`${estilos.itemConteiner} ${location.pathname === "/configuracao" ? estilos.ativo : ""}`}
                             >
                                 <CgProfile />
@@ -27,8 +27,8 @@ import { ConfigPerfil } from './ConfigPerfil'
                             </Link>
                             
                             <Link
-                                to="/home"
-                                className={`${estilos.itemConteiner} ${location.pathname === "/home" ? estilos.ativo : ""}`}
+                                to="/preferencias"
+                                className={`${estilos.itemConteiner} ${location.pathname === "/preferencias" ? estilos.ativo : ""}`}
                             >
                                 <FaPaintBrush />
                                 <span>
@@ -38,8 +38,8 @@ import { ConfigPerfil } from './ConfigPerfil'
                             </Link>
                             
                             <Link
-                                to="/home"
-                                className={`${estilos.itemConteiner} ${location.pathname === "/home" ? estilos.ativo : ""}`}
+                                to="/sistema"
+                                className={`${estilos.itemConteiner} ${location.pathname === "/sistema" ? estilos.ativo : ""}`}
                             >
                                 <GrConfigure />
                                 <span>
@@ -49,7 +49,7 @@ import { ConfigPerfil } from './ConfigPerfil'
                             </Link>
                 </nav>
                 <div className={estilos.conteiner}>
-                    <ConfigPerfil />
+                    <ConfSistema />
                 </div>
             </section>
         )
