@@ -18,7 +18,9 @@ import { Consulta } from '../paginas/Consulta'
 import { Projeto } from '../paginas/Projeto'
 import { Metodologia } from '../paginas/Metodologia'
 import { Contato } from '../paginas/Contato'
-import { Configuracao } from '../paginas/settings/Configuracao'
+import { Configuracao } from '../paginas/settings/perfil/Configuracao'
+import { Preferencias } from '../paginas/settings/preferencias/Preferencias'
+import { Sistema } from '../paginas/settings/sistema/Sistema'
 
 
 
@@ -111,6 +113,14 @@ export function Rotas() {
                       <Route
                         path="configuracao"
                         element={<Configuracao />}
+                    />
+                      <Route
+                        path="preferencias"
+                        element={<Preferencias />}
+                    />
+                      <Route
+                        path="sistema"
+                        element={<Sistema />}
                     />
                 </Route>
 

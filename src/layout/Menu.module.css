@@ -67,7 +67,7 @@ nav{
 }
 
 .itemConteiner:hover{
-    background: var(--cor-primaria-clara);
+    background: var(--cor-primaria-base);
 }
 
 .itemConteiner svg{
@@ -78,14 +78,14 @@ nav{
 .rotulo{
     white-space: nowrap;
     font-weight: 600;
-    transition:  10s;
+    transition:  .5s;
 }
 
 .ativo{
-    background: var(--cor-primaria-clara);
+    background: var(--cor-primaria-base);
 }
 
 .ativo svg,
 .ativo span{
-    color: var(--cor-secundaria-base);
+    color: var(--cor-terciaria-clara);
 }

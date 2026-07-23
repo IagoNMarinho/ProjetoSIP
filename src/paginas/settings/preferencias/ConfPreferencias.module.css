@@ -1,0 +1,239 @@
+.conteiner{
+    width: 100%;
+    margin: 0 auto;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    box-sizing: border-box;
+}
+
+.intro{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.titulo{
+    margin: 0;
+    font-family: var(--fonte-titulo);
+    font-size: var(--tamanho-titulo);
+    color: var(--cor-primaria-escura);
+}
+
+.intro p{
+    margin: 0;
+    color: var(--cor-secundaria-base);
+    font-size: var(--tamanho-base1);
+    line-height: 1.5;
+}
+
+.sessao{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px;
+    box-sizing: border-box;
+    background-color: var(--cor-fundo-transparente2);
+    border-radius: 18px;
+}
+
+.sessao .titulo{
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--cor-primaria-escura);
+    font-size: var(--tamanho-base4);
+    color: var(--cor-primaria-escura);
+}
+
+.campo{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 5px 0;
+}
+
+.campo label{
+    color: var(--cor-secundaria-base);
+    font-size: var(--tamanho-base3);
+    font-weight: 600;
+}
+.input{
+    width: 250px;
+    height: 42px;
+    padding: 0 13px;
+    border: 1px solid var(--cor-fundo-transparente3);
+    border-radius: 10px;
+    background-color: var(--cor-fundo-transparente3);
+    color: var(--cor-secundaria-base);
+    font-size: var(--tamanho-base1);
+    cursor: pointer;
+    outline: none;
+    transition: .2s;
+}
+
+.input:focus{
+    border-color: var(--cor-primaria-base);
+    box-shadow: 0 0 5px var(--cor-primaria-clara);
+}
+
+.checkbox{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.checkbox label{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-height: 55px;
+    padding: 12px 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--cor-fundo-transparente3);
+    color: var(--cor-secundaria-base);
+    font-size: var(--tamanho-base2);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.checkbox label:last-child{
+    border-bottom: none;
+}
+
+.checkbox label:hover{
+    color: var(--cor-primaria-escura);
+}
+
+.checkbox input{
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border: 2px solid var(--cor-fundo-transparente3);
+    border-radius: 6px;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    transition: .2s;
+}
+
+.checkbox input:checked{
+    background-color: var(--cor-primaria-base);
+    border-color: var(--cor-primaria-base);
+}
+
+.checkbox input:checked::after{
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--cor-terciaria-clara);
+    font-size: 14px;
+    font-weight: bold;
+}
+.sessao:nth-of-type(4){
+    gap: 0;
+}
+
+.sessao:nth-of-type(4) .campo{
+    padding: 18px 0;
+    border-bottom: 1px solid var(--cor-fundo-transparente3);
+}
+
+.sessao:nth-of-type(4) .campo:last-child{
+    border-bottom: none;
+}
+
+.botoes{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0;
+}
+
+.botao{
+    min-width: 220px;
+    min-height: 42px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: var(--cor-primaria-base);
+    color: var(--cor-terciaria-clara);
+    font-size: var(--tamanho-base1);
+    transition: .2s;
+}
+
+.botao:hover{
+    background-color: var(--cor-primaria-escura);
+    transform: translateY(-1px);
+}
+
+/* TABLET */
+@media (max-width: 768px){
+    .conteiner{
+        padding: 25px 20px;
+    }
+
+    .sessao{
+        padding: 20px;
+    }
+
+    .campo{
+        align-items: flex-start;
+    }
+}
+
+/* CELULAR */
+@media (max-width: 550px){
+    .conteiner{
+        padding: 20px 15px;
+        gap: 18px;
+    }
+
+    .titulo{
+        font-size: var(--tamanho-base4);
+    }
+
+    .sessao{
+        padding: 18px;
+        border-radius: 15px;
+    }
+
+    .campo{
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 15px 0;
+    }
+
+    .campo label{
+        font-size: var(--tamanho-base2);
+    }
+
+    .input{
+        width: 100%;
+    }
+
+    .checkbox label{
+        align-items: flex-start;
+        min-height: auto;
+        padding: 16px 0;
+        line-height: 1.4;
+    }
+
+    .botoes{
+        width: 100%;
+    }
+
+    .botao{
+        width: 100%;
+        min-width: 0;
+    }
+}

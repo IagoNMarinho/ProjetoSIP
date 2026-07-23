@@ -62,3 +62,21 @@
     align-self: end;
     cursor: pointer;
 }
+
+.botaoConfirmar {
+    background-color: var(--cor-terciaria-erro);
+    border: 1px solid var(--cor-terciaria-clara);
+    color: var(--cor-terciaria-clara);
+    width: 150px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    align-self: end;
+    cursor: pointer;
+}
+
+.alinhamento{
+    display: flex;
+    justify-content: space-between;
+}

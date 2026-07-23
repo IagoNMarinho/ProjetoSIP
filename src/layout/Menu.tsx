@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { LayoutContexto } from '../contextos/LayoutContexto'
 
 import { Submenu } from './Submenu'
-import { Suporte } from '../componentes/Suporte'
+import { Suporte } from '../componentes/SUPORTE/Suporte'
 import { useState } from 'react'
 
 import { FaHome } from "react-icons/fa"
@@ -165,20 +165,26 @@ export function Menu() {
                         </span>
                     }
                     </button>
-                    <Link
-                    to="/configuracao"
-                    className={`${estilos.itemConteiner} ${location.pathname === "/configuracao" ? estilos.ativo : ""}`}
-                >
-                    <IoIosSettings />
-
-                    {menuAbertoContexto &&
-                        <span className={estilos.rotulo}>
-                            Configuração
-                        </span>
-                    }
-
-                </Link>
-
+                    
+                <Submenu
+                    icone={ <IoIosSettings />}
+                    rota="/configuracao"
+                    titulo="Configuração"
+                    itens={[
+                        {
+                            titulo: "Perfil",
+                            rota: "/configuracao"
+                        },
+                        {
+                            titulo: "Preferências",
+                            rota: "/preferencias"
+                        },
+                        {
+                            titulo: "Sistema",
+                            rota: "/sistema"
+                        }
+                    ]}
+                />
             </nav>
                     <Suporte
                             exibir={modalAberto}

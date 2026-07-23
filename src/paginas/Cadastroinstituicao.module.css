@@ -205,6 +205,28 @@
     filter: drop-shadow(8px 8px 16px var(--cor-secundaria-base))
 }
 
+.jalogin{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: var(--cor-secundaria-base);
+}
+
+.jalogin button{
+    padding: 0;
+    background: transparent;
+    border: none;
+    margin-left: 5px;
+    color: var(--cor-primaria-base);
+    font-weight: 800;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.jalogin button:hover{
+    color: var(--cor-primaria-escura);
+}
+
 @media (max-width: 1200px) {
     .alinhamento{
         flex-direction: column-reverse;
