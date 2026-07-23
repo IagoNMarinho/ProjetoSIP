@@ -90,6 +90,8 @@ export function CadastroUsuario(){
         dadosUsuario.senha = data.senha
         dadosUsuario.confsenha = data.confsenha 
 
+        localStorage.setItem("usuario", JSON.stringify(dadosUsuario));
+
         setMensagemTexto(`Cadastro realizado com sucesso! Bem-vindo, ${data.email}!`)
         exibirModal()
 

@@ -1,104 +1,205 @@
+import type { NovoUsuarioTipo } from "../tipos/NovoUsuario";
 import estilos from "./Perfil.module.css";
+import { useEffect, useState } from "react";
+import { FaEdit } from "react-icons/fa";
 
 export function Perfil() {
+  const [editar, setEditar] = useState(false);
+
+  const [usuario, setUsuario] = useState<NovoUsuarioTipo | null>(null);
+
+  useEffect(() => {
+    const dados = localStorage.getItem("usuario");
+
+    if (dados) {
+      setUsuario(JSON.parse(dados) as NovoUsuarioTipo);
+    }
+
+    const bioSalva = localStorage.getItem("bio");
+    if (bioSalva) {
+      setBio(JSON.parse(bioSalva));
+    }
+  }, []);
+
+  const [bio, setBio] = useState({
+    bio: "Água segura é vida!",
+  });
+
+  const [bioForm, setBioForm] = useState({
+    bio: "",
+  });
+
+  const [form, setForm] = useState<NovoUsuarioTipo | null>(null);
+
+  useEffect(() => {
+    if (usuario) {
+      setForm(usuario);
+    }
+  }, [usuario]);
+
+  function abrirModal() {
+    if (usuario) {
+      setForm({ ...usuario });
+    }
+
+    setBioForm({ ...bio });
+    setEditar(true);
+  }
+
+  function salvar() {
+    if (form) {
+      setUsuario(form);
+      localStorage.setItem("usuario", JSON.stringify(form));
+    }
+
+    setBio(bioForm);
+    localStorage.setItem("bio", JSON.stringify(bioForm));
+
+    setEditar(false);
+  }
+
+  function cancelar() {
+    if (usuario) {
+      setForm({ ...usuario });
+    }
+
+    setBioForm({ ...bio });
+    setEditar(false);
+  }
+
   return (
-    <div className={estilos.container}>
+    <div className={estilos.conteiner}>
+      <div className={estilos.perfilCard}>
+        <div className={estilos.topo}>
+          <div className={estilos.banner}></div>
 
-      <div className={estilos.banner}>
-        <h1>Perfil do Usuário</h1>
-        <p>Em breve disponível no SIP</p>
-      </div>
-
-      <div className={estilos.content}>
-
-        <div className={estilos.card}>
-
-          <h2> Página em Desenvolvimento</h2>
-
-          <p>
-            O sistema de perfis estará disponível em breve no <strong>SIP</strong>.
-            Nesta página, cada usuário poderá acompanhar informações
-            relacionadas à sua conta, ao seu histórico de utilização e aos
-            recursos disponíveis na plataforma.
-          </p>
-
-          <p>
-            O objetivo é oferecer um ambiente personalizado para facilitar o
-            monitoramento das atividades e das informações cadastradas no
-            sistema.
-          </p>
-
+          <div className={estilos.avatar}></div>
         </div>
 
-        <div className={estilos.card}>
+        <div className={estilos.infoPerfil}>
+          <h1>{usuario?.nome}</h1>
 
-          <h2> Integração com API</h2>
-
-          <p>
-            Esta funcionalidade será integrada a uma API responsável pela
-            comunicação entre o sistema e o banco de dados.
-          </p>
-
-          <p>
-            A API permitirá salvar, atualizar e recuperar as informações de
-            cada usuário de forma segura, garantindo que todos os dados
-            permaneçam sincronizados entre diferentes dispositivos.
-          </p>
-
-          <p>
-            Além disso, ela possibilitará a autenticação de usuários,
-            gerenciamento de permissões e armazenamento do histórico de uso da
-            plataforma.
-          </p>
-
-        </div>
-
-        <div className={estilos.card}>
-
-          <h2>🏫 Perfis Institucionais</h2>
-
-          <p>
-            Para escolas, instituições ou profissionais responsáveis pela
-            manutenção, o perfil apresentará um painel completo contendo:
-          </p>
-
-          <ul>
-
-            <li> Quantidade total de detecções realizadas;</li>
-
-            <li> Número de reservatórios cadastrados;</li>
-
-            <li> Status de cada dispositivo (Ativo ou Inativo);</li>
-
-            <li> Estatísticas gerais do sistema;</li>
-
-            <li> Histórico de monitoramento;</li>
-
-            <li> Registro de ocorrências e alertas emitidos.</li>
-
-          </ul>
-
-        </div>
-
-        <div className={estilos.card}>
-
-          <h2> Objetivo</h2>
-
-          <p>
-            O perfil reunirá todas as informações importantes em um único
-            ambiente, permitindo uma visualização rápida dos dados e auxiliando
-            no acompanhamento do funcionamento do sistema de monitoramento dos
-            reservatórios de água.
-          </p>
-
-          <span className={estilos.status}>
-            Disponível em breve.
+          <span className={estilos.username}>
+            @{usuario?.username}
           </span>
 
-        </div>
+          <span className={estilos.level}>
+            Bebedouro de Água
+          </span>
 
+          <p className={estilos.bio}>
+            {bio.bio}
+          </p>
+
+          <div className={estilos.stats}>
+            <div className={estilos.stat}>
+              <h2>12</h2>
+              <span>Amigos</span>
+            </div>
+
+            <div className={estilos.stat}>
+              <h2>120</h2>
+              <span>Análises</span>
+            </div>
+
+            <div className={estilos.stat}>
+              <h2>97%</h2>
+              <span>Água Potável</span>
+            </div>
+
+            <div className={estilos.stat}>
+              <h2>18</h2>
+              <span>Dias Consecutivos</span>
+            </div>
+          </div>
+
+          <button
+            className={estilos.editButton}
+            onClick={abrirModal}
+          >
+            <FaEdit />
+            Editar Perfil
+          </button>
+        </div>
       </div>
 
+      <div className={estilos.gridInferior}>
+        <div className={estilos.card}>
+          <h2>Conquistas</h2>
+
+          <div className={estilos.badges}>
+            <span>Primeira Detecção</span>
+            <span>100 Análises</span>
+            <span>Guardião</span>
+            <span>Mestre Ambiental</span>
+          </div>
+        </div>
+
+        <div className={estilos.card}>
+          <h2>Atividade Recente</h2>
+
+          <ul className={estilos.lista}>
+            <li>Detectou água do Rio Azul</li>
+            <li>Registrou 500 ml de água</li>
+            <li>Nova conquista desbloqueada</li>
+            <li>Sequência de 18 dias</li>
+          </ul>
+        </div>
+      </div>
+
+      {editar && (
+        <div className={estilos.overlay}>
+          <div className={estilos.modal}>
+            <h2>Editar Perfil</h2>
+
+            {form && (
+              <>
+                <input
+                  value={form.nome}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      nome: e.target.value,
+                    })
+                  }
+                  placeholder="Nome"
+                />
+
+                <input
+                  value={form.username}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      username: e.target.value,
+                    })
+                  }
+                  placeholder="Username"
+                />
+              </>
+            )}
+
+            <textarea
+              value={bioForm.bio}
+              onChange={(e) =>
+                setBioForm({
+                  bio: e.target.value,
+                })
+              }
+              placeholder="Bio"
+            />
+
+            <div className={estilos.salvarbutton}>
+              <button onClick={salvar}>
+                Salvar
+              </button>
+
+              <button onClick={cancelar}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
