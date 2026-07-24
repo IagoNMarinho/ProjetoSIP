@@ -58,8 +58,7 @@ main > h3 {
     gap: 15px;
     padding: 30px;
     border-radius: 20px;
-    background-color: var(--cor-fundo-transparente3);
-    backdrop-filter: blur(10px);
+    background-color: var(--cor-fundo-transparente4);
 }
 
 .conteiner form label {
@@ -171,7 +170,7 @@ main > h3 {
     align-items: center;
     text-align: center;
     border-radius: 20px;
-    background-color: var(--cor-fundo-transparente3);
+    background-color: var(--cor-fundo-transparente4);
     backdrop-filter: blur(10px);
     transition: 0.3s;
     cursor: pointer;
