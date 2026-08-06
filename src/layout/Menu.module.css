@@ -17,7 +17,7 @@
     overflow: visible;
 
     transition: .35s;
-    z-index: 999;
+    z-index: 2999;
     backdrop-filter:  blur(10px);
 }
 

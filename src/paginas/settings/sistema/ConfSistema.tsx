@@ -103,10 +103,6 @@ export function ConfSistema() {
                             style={{ display: "none" }}
                         />
 
-                        <span>
-                            Logo ou imagem da instituição
-                        </span>
-
                     </div>
 
                     <div className={estilos.formulario}>

@@ -72,7 +72,7 @@ export function LoginUsuario(){
     const navegacao = useNavigate()
 
     const cadastro = () => {
-        navegacao('cadastro')
+        navegacao('/cadastro')
     }
 
     return(
