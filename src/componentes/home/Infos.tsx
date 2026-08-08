@@ -10,7 +10,7 @@ import { FaFlask } from "react-icons/fa"
 import { MdHealthAndSafety } from "react-icons/md"
 import { IoIosAlert } from "react-icons/io"
 import { TbPlugConnected } from "react-icons/tb"
-import { FaCalendarWeek } from "react-icons/fa"
+import { MdDangerous } from "react-icons/md"
 
 export function Infos() {
 
@@ -93,7 +93,7 @@ export function Infos() {
 
                                 <div className={estilos.box}>
                                     <span className={estilos.critico}>
-                                        <FaCalendarWeek />
+                                        <MdDangerous />
                                     </span>
                                     <div className={estilos.dados}>
                                         <h1 className={estilos.t1}>{stats.critica}</h1>
