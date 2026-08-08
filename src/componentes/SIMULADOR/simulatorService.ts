@@ -1,5 +1,3 @@
-
-
 export interface SensorData {
   ph: number;
   turbidity: number;
@@ -13,7 +11,7 @@ export interface Analysis {
   location: string;
   fixedLocation: boolean;
   sensors: SensorData;
-  status: "Potável" | "Atenção" | "Imprópria";
+  status: "Potável" | "Atenção" | "Crítica";
 }
 
 class SimulatorService {
@@ -75,10 +73,10 @@ class SimulatorService {
     switch (type) {
       case 0:
         return {
-          ph: this.random(4.5, 5.8),
-          turbidity: this.random(1, 4),
-          temperature: this.random(20, 28),
-          tds: this.random(150, 300),
+          ph: this.random(0, 2),
+          turbidity: this.random(1000, 100),
+          temperature: this.random(34, 28),
+          tds: this.random(650, 1000),
         };
 
       case 1:
@@ -99,9 +97,9 @@ class SimulatorService {
 
       default:
         return {
-          ph: this.random(6.5, 8),
-          turbidity: this.random(0, 4),
-          temperature: this.random(22, 28),
+          ph: this.random(0, 2),
+          turbidity: this.random(1000, 100),
+          temperature: this.random(34, 28),
           tds: this.random(650, 1000),
         };
     }
@@ -119,7 +117,7 @@ class SimulatorService {
 
     if (problems === 1) return "Atenção";
 
-    return "Imprópria";
+    return "Crítica";
   }
 
   generateReading(fixedLocation = true): Analysis {

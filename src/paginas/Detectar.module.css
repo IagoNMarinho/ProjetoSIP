@@ -186,9 +186,7 @@
 }
 
 .warning{
-
     background: #f9a825;
-
 }
 
 .bad{
@@ -198,89 +196,56 @@
 }
 
 .infoCard{
-
     background: white;
-
     padding: 25px;
-
     border-radius: 12px;
-
     box-shadow: 0 5px 15px rgba(0,0,0,.08);
-
     margin-bottom: 30px;
-
 }
 
 .infoCard p{
-
     margin: 12px 0;
-
     font-size: 16px;
-
 }
 
 .empty{
-
     background: white;
-
     padding: 60px;
-
     border-radius: 12px;
-
     text-align: center;
-
     box-shadow: 0 5px 15px rgba(0,0,0,.08);
-
 }
 
 .empty h2{
-
     color:#1565c0;
-
     margin-bottom:15px;
-
 }
 
 .empty p{
-
     color:#666;
-
 }
 
 @media(max-width:768px){
 
     .statusBar{
-
         flex-direction:column;
-
         gap:10px;
-
         text-align:center;
-
     }
 
     .buttons{
-
         flex-direction:column;
-
     }
 
     .buttons button{
-
         width:100%;
-
     }
 
     .statusCard h1{
-
         font-size:2rem;
-
     }
 
     .card span{
-
         font-size:1.6rem;
-
     }
-
 }

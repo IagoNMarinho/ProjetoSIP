@@ -11,7 +11,7 @@ export function Home() {
     }
 
     return (
-        <>
+        <main className={estilos.home}>
             <div className={estilos.conteiner}>
                 <div className={estilos.intro}>
                     <h2 className={estilos.subtitulo}>Projeto</h2>
@@ -51,6 +51,6 @@ export function Home() {
                 < Infos />
             </div>
 
-        </>
+        </main>
     )
 }

@@ -166,8 +166,8 @@
     background: var(--cor-primaria-base);
 }
 
-.semana{
-    background: var(--cor-terciaria-semana);
+.critico{
+    background: var(--cor-terciaria-erro);
 }
 
 .alerta{

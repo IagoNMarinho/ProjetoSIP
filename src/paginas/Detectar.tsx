@@ -43,35 +43,23 @@ export default function Detectar() {
     }, []);
 
     const handleConnect = async () => {
-
         await connect();
-
     };
 
     const handleDisconnect = () => {
-
         disconnect();
-
     };
 
     const handleDetection = () => {
-
         detectOnce(fixedLocation);
-
     };
 
- 
     const handleStartMonitoring = () => {
-
         startMonitoring(5000, fixedLocation);
-
     };
-
 
     const handleStopMonitoring = () => {
-
         stopMonitoring();
-
     };
 
 
@@ -96,9 +84,7 @@ export default function Detectar() {
                 </span>
 
                 <span>
-
                     {currentTime}
-
                 </span>
 
             </div>
@@ -106,63 +92,38 @@ export default function Detectar() {
             <div className={styles.buttons}>
 
                 <button
-
                     onClick={handleConnect}
-
                     disabled={connected || loading}
-
                 >
-
                     Conectar
-
                 </button>
 
                 <button
-
                     onClick={handleDisconnect}
-
                     disabled={!connected}
-
                 >
-
                     Desconectar
-
                 </button>
 
                 <button
-
                     onClick={handleDetection}
-
                     disabled={!connected}
-
                 >
-
                     Nova Detecção
-
                 </button>
 
                 <button
-
                     onClick={handleStartMonitoring}
-
                     disabled={!connected || monitoring}
-
                 >
-
                     Iniciar Monitoramento
-
                 </button>
 
                 <button
-
                     onClick={handleStopMonitoring}
-
                     disabled={!monitoring}
-
                 >
-
                     Parar Monitoramento
-
                 </button>
 
             </div>
@@ -172,19 +133,13 @@ export default function Detectar() {
                 <label>
 
                     <input
-
                         type="checkbox"
-
                         checked={fixedLocation}
-
                         onChange={(e) =>
                             setFixedLocation(e.target.checked)
                         }
-
                     />
-
                     Local Fixo
-
                 </label>
 
             </div>
@@ -241,11 +196,8 @@ export default function Detectar() {
                     <div className={styles.infoCard}>
 
                         <p>
-
                             <strong>Local:</strong>{" "}
-
                             {lastAnalysis.location}
-
                         </p>
 
                         <p>
@@ -277,15 +229,11 @@ export default function Detectar() {
                 <div className={styles.empty}>
 
                     <h2>
-
                         Nenhuma análise realizada.
-
                     </h2>
 
                     <p>
-
                         Conecte o Arduino e faça uma detecção.
-
                     </p>
 
                 </div>

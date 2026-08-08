@@ -1,6 +1,6 @@
-import type { Analysis } from "../SIMULADOR/simulatorService";
+import type { Analysis } from "../SIMULADOR/simulatorService"
 
-const STORAGE_KEY = "water-monitor-history";
+const STORAGE_KEY = "water-monitor-history"
 
 class StorageService {
 
@@ -116,6 +116,21 @@ class StorageService {
     return this.getHistory().length;
   }
 
+  getStatistics() { //função para captar a quantidade de analises
+    const history = this.getHistory();
+    return {
+      total: history.length,
+      potavel: history.filter(
+          item => item.status === "Potável"
+      ).length,
+      atencao: history.filter(
+          item => item.status === "Atenção"
+      ).length,
+      critica: history.filter(
+          item => item.status === "Crítica"
+      ).length
+    };
+  }
 
   clearHistory(): void {
     localStorage.removeItem(STORAGE_KEY);

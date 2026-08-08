@@ -1,6 +1,6 @@
 import estilos from './ConfigPerfil.module.css'
 
-import perfil from '../../../assets/imagens/perfil.png'
+import semfoto from '../../../assets/imagens/perfil.png'
 
 import { useState, useContext, useRef } from 'react'
 import { UsuarioContexto } from '../../../contextos/UsuarioContexto'
@@ -84,7 +84,7 @@ import { MdSupervisorAccount } from "react-icons/md"
                     <div className={estilos.fotoArea}>
                         <img
                             className={estilos.foto}
-                            src={usuarioGoogle?.picture || perfil} 
+                            src={usuarioGoogle?.picture || semfoto} 
                             alt="foto do usuário" />
 
                         <button onClick={() => inputFoto.current?.click()}>

@@ -12,11 +12,11 @@
         transparent 30%),
 
         radial-gradient(circle at bottom left,
-        var(--bola-login2),
+        var(--bola-login1),
         transparent 35%),
 
         radial-gradient(circle at center,
-        var(--bola-login2),
+        var(--bola-login3),
         transparent 25%),
 
         radial-gradient(circle at bottom right,

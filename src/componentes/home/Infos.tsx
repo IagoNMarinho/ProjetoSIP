@@ -3,6 +3,8 @@ import arduino from '../../assets/imagens/arduino.jpg'
 import aguato from '../../assets/imagens/FotoArthur.jpeg'
 
 import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import storageService from '../SIMULADOR/storageService'
 
 import { FaFlask } from "react-icons/fa"
 import { MdHealthAndSafety } from "react-icons/md"
@@ -16,6 +18,17 @@ export function Infos() {
     const analises = () => {
         navegacao('/analises')
     }
+
+    const [stats, setStats] = useState({
+        total: 0,
+        potavel: 0,
+        atencao: 0,
+        critica: 0
+    })
+
+    useEffect(()=>{
+        setStats(storageService.getStatistics())
+    },[])
 
     return (
             <section className={estilos.sectionInfos}>
@@ -62,7 +75,7 @@ export function Infos() {
                                     </span>
 
                                     <div className={estilos.dados}>
-                                        <h1 className={estilos.t1}>07</h1>
+                                        <h1 className={estilos.t1}>{stats.total}</h1>
                                         <h3 className={estilos.t2}>Análises concluídas</h3>
                                     </div>
                                 </div>
@@ -73,18 +86,18 @@ export function Infos() {
                                     </span>
 
                                 <div className={estilos.dados}>
-                                        <h1 className={estilos.t1}>04</h1>
-                                        <h3 className={estilos.t2}>Análises em alerta</h3>
+                                        <h1 className={estilos.t1}>{stats.atencao}</h1>
+                                        <h3 className={estilos.t2}>Análises pendentes</h3>
                                     </div>
                                 </div>
 
                                 <div className={estilos.box}>
-                                    <span className={estilos.semana}>
+                                    <span className={estilos.critico}>
                                         <FaCalendarWeek />
                                     </span>
                                     <div className={estilos.dados}>
-                                        <h1 className={estilos.t1}>01</h1>
-                                        <h3 className={estilos.t2}>Análises da semana</h3>
+                                        <h1 className={estilos.t1}>{stats.critica}</h1>
+                                        <h3 className={estilos.t2}>Análises críticas</h3>
                                     </div>
                                 </div>
 
@@ -94,7 +107,7 @@ export function Infos() {
                                     </span>
 
                                     <div className={estilos.dados}>
-                                        <h1 className={estilos.t1}>02</h1>
+                                        <h1 className={estilos.t1}>{stats.potavel}</h1>
                                         <h3 className={estilos.t2}>Resultado adequado</h3>
                                     </div>
                                 </div>

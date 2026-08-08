@@ -1,3 +1,9 @@
+.home{
+    background: var(--background);
+    padding: 0;
+    border-radius: 20px;
+}
+
 .conteiner {
     display: flex;
 
@@ -61,6 +67,7 @@
 
     flex-direction: column;
     justify-content: space-between;
+    border-radius: 20px;
 }
 
 .cardsSection{
@@ -70,7 +77,6 @@
     display: flex;
     justify-content: center;
 
-    background: var(--background);
 }
 
 .infosSection{
@@ -79,8 +85,6 @@
 
     display: flex;
     justify-content: center;
-
-    background: var(--background);
 }
 
 .intro{

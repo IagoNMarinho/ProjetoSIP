@@ -7,6 +7,8 @@
     --cor-secundaria-base: #1E7AC1;
     --cor-secundaria-escura: #102241;
 
+    --cor-rodape: #3586FF;
+
     --fundo-modal: rgba(0, 99, 191, 0.4);
 
     --background: radial-gradient(
@@ -22,19 +24,19 @@
 
         radial-gradient(
             circle at center,
-            var(--bola-login2),
+            var(--bola-login1),
             transparent 25%
         ),
 
         radial-gradient(
             circle at bottom right,
-            var(--bola-login2),
+            var(--bola-login3),
             transparent 35%
         ),
 
         radial-gradient(
             circle at top right,
-            var(--bola-login2),
+            var(--bola-login3),
             transparent 15%
         ),
 
@@ -50,12 +52,12 @@
     --cor-terciaria-seguras: #21a82f;
     --cor-terciaria-seguras2: #bdeaa4b5;
     --cor-terciaria-alertas: #fff83b;
-    --cor-terciaria-alertas2: #fffcc9b5;
+    --cor-terciaria-alertas2: #fffcc9b5;  
     --cor-terciaria-semana: #ffc62a;
 
-    --bola-login1: rgba(0, 183, 255, 0.8);
-    --bola-login2: rgba(0, 89, 255, 0.8);
-    --bola-login3: rgba(0, 99, 191, 0.801);
+    --bola-login1: rgba(141, 193, 245, 0.8), rgba(27, 141, 255, 0.8), rgba(140, 127, 255, 0.8);
+    --bola-login2: #83b9f0, #2d92f7, #547ff6;
+    --bola-login3:  #4AB6FF, #20F8FF, #80fce7;
 
     --cor-fundo-transparente: rgba(255, 255, 255, 0.25);
     --cor-fundo-transparente3: rgba(255, 255, 255, 0.555);

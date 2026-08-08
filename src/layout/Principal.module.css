@@ -3,7 +3,7 @@
     display: grid;
     min-height:100vh;
     grid-template-columns:80px 1fr;
-    grid-template-rows:1fr 90px;
+    grid-template-rows:1fr 230px;
     grid-template-areas:
     "lateral conteudo"
     "lateral rodape";
@@ -16,11 +16,9 @@ aside{
 }
 
 main{
-    grid-area:conteudo;
-
-    padding:30px;
-
-    transition:.35s;
+    grid-area: conteudo;
+    padding: 30px;
+    transition: .35s;
 }
 
 footer{
