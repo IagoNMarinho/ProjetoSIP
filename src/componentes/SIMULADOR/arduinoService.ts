@@ -2,7 +2,6 @@ import simulatorService from "../SIMULADOR/simulatorService";
 import type { Analysis } from "../SIMULADOR/simulatorService";
 
 class ArduinoService {
-
   async connect(): Promise<boolean> {
     return simulatorService.connect();
   }
@@ -22,13 +21,9 @@ class ArduinoService {
   startMonitoring(
     callback: (analysis: Analysis) => void,
     interval: number = 5000,
-    fixedLocation: boolean = true
+    fixedLocation: boolean = true,
   ): void {
-    simulatorService.startMonitoring(
-      callback,
-      interval,
-      fixedLocation
-    );
+    simulatorService.startMonitoring(callback, interval, fixedLocation);
   }
 
   stopMonitoring(): void {

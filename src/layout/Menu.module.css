@@ -32,7 +32,7 @@
     border-radius: 12px;
     background: transparent;
     color: var(--cor-terciaria-clara);
-    font-size: 1.3rem;
+    font-size: var(--tamanho-base2);
     cursor: pointer;
     transition: .5s;
 }

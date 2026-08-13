@@ -1,114 +1,141 @@
 .conteiner {
-    width: 100%;
+  width: 100%;
+  min-height: 100vh;
 
-    background-image: url(https://images.pexels.com/photos/866351/pexels-photo-866351.jpeg?_gl=1*84ffzh*_ga*MTkxMzUwMzE1MC4xNzg0MTM1Nzk5*_ga_8JE65Q40S6*czE3ODUyODE0MTQkbzQkZzEkdDE3ODUyODE0NTgkajE2JGwwJGgw);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    padding: 0;
-    border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  padding: 40px 20px;
 }
 
-.ondasBox{
-    position: relative;
-    width: 100%;
-    height: 100vh;
+.secao {
+  width: 100%;
+  max-width: 1200px;
+
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 20px;
+
+  padding: 12px;
+}
+
+.informacoes {
+  background: linear-gradient(-90deg, var(--cor-secundaria-clara), var(--cor-primaria-clara));
+
+  border-radius: 15px;
+
+  padding: 20px;
+
+  color: var(--cor-secundaria-escura2);
+
+  display: flex;
+  flex-direction: column;
 }
 
 .titulo {
-    position: relative;
-    display: flex;
-    z-index: 1001;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
 
-    height: 100%;
-    width: 100%;
-
-    font-family: var(--fonte-titulo);
-    font-size: var(--tamanho-titulo);
-    color: var(--cor-primaria-escura);
-    text-shadow:
-        -2px -2px 0 var(--cor-secundaria-base),
-         2px -2px 0 var(--cor-primaria-clara),
-        -2px  2px 0 var(--cor-secundaria-clara),
-         2px  2px 0 var(--cor-primaria-clara);
-    text-transform: uppercase;
-
+  gap: 12px;
 }
 
-.titulo h1{
-    font-family: var(--fonte-titulo);
+.icone {
+  width: 42px;
+  height: 42px;
+
+  color: var(--cor-secundaria-escura2);
 }
 
-.conteudo{
-    padding: 20px;
-    background: var(--cor-terciaria-clara);
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    border-radius: 0 0 20px 20px;
+.titulo h1 {
+  margin: 0;
+
+  font-size: 32px;
+  font-weight: 800;
 }
 
-.conteudo h1{
-    font-family: var(--fonte-subtitulo);
-    font-size: var(--tamanho-titulo);
-    color: var(--cor-primaria-base);
-    border-bottom: 2px solid var(--cor-primaria-base);
+.titulo span {
+  display: block;
+
+  font-size: 13px;
+
+  color: var(--cor-secundaria-escura);
 }
 
-.conteudo p{
-    font-size: var(--tamanho-base2);
-    color: var(--cor-secundaria-base);
+.linha {
+  width: 100%;
+  height: 2px;
+
+  margin: 10px 0;
+
+  background-color: var(--cor-secundaria-escura2);
 }
 
-.onda{
-    width: 100%;
-    height: 100px;
-    position: absolute;
-    bottom: 0;
-    background-image: url(../assets/imagens/onda.png);
-    background-size: 1000px 100px;
+.informacoes p {
+  margin: 5px 0;
 
-    animation: ondaAnimada 5s ease-in-out infinite alternate;
+  font-size: var(--tamanho-base1);
+  line-height: 1.15;
+
+  color: var(--cor-primaria-escura);
 }
 
-.onda1{
-    z-index: 1000;
-    opacity: 1;
-    background-position-x: 400px;
+.classificacoes {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
 }
 
-.onda2{
-    z-index: 999;
-    opacity: 0.5;
-    background-position-x: 300px;
+.nivel {
+  min-height: 65px;
+  padding: 10px 15px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(-90deg, var(--cor-secundaria-clara), var(--cor-primaria-clara));
 }
 
-.onda3{
-    z-index: 998;
-    opacity: 0.2;
-    background-position-x: 200px;
+.circulo {
+  flex-shrink: 0;
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
 }
 
-.onda4{
-    z-index: 997;
-    opacity: 0.8;
-    background-position-x: 100px;
+.nivel h2 {
+  margin: 0;
+
+  font-size: 24px;
+  font-weight: 800;
+
+  color: var(--cor-secundaria-escura2);
 }
 
-@keyframes ondaAnimada{
-    0%{
-        transform: translateY(0px);
-    }
-    100%{
-        transform: translateY(10px);
-    }
+.nivel p {
+  margin: 0;
+
+  font-size: 11px;
+  line-height: 1.05;
+
+  color: var(--cor-secundaria-escura);
+}
+
+.critico .circulo {
+  background-color: var(--cor-terciaria-erro);
+}
+
+.atencao .circulo {
+  background-color: var(--cor-terciaria-atencao);
+}
+
+.ideal .circulo {
+  background-color: var(--cor-terciaria-seguras);
+}
+
+.boa .circulo {
+  background-color: var(--cor-terciaria-alertas);
 }

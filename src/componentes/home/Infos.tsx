@@ -1,6 +1,6 @@
 import estilos from './Infos.module.css'
 import arduino from '../../assets/imagens/arduino.jpg'
-import aguato from '../../assets/imagens/FotoArthur.jpeg'
+import aguato from '../../assets/imagens/aguato-mascote-removebg-preview.png'
 
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'

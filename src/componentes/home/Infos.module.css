@@ -227,7 +227,7 @@
 
 .aguato img{
     width: 100%;
-    max-width: 380px;
+    margin-top: -80px;
     object-fit: contain;
 }
 

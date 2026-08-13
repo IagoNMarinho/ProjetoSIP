@@ -45,17 +45,13 @@ class SimulatorService {
     }
   }
 
-
   isConnected() {
     return this.connected;
   }
 
-  
   private random(min: number, max: number) {
     return Number((Math.random() * (max - min) + min).toFixed(2));
   }
-
-
 
   private generateGoodValues(): SensorData {
     return {
@@ -65,7 +61,6 @@ class SimulatorService {
       tds: this.random(120, 450),
     };
   }
-
 
   private generateBadValues(): SensorData {
     const type = Math.floor(Math.random() * 4);
@@ -127,9 +122,7 @@ class SimulatorService {
 
     const good = Math.random() < 0.7;
 
-    const sensors = good
-      ? this.generateGoodValues()
-      : this.generateBadValues();
+    const sensors = good ? this.generateGoodValues() : this.generateBadValues();
 
     return {
       id: crypto.randomUUID(),
@@ -151,7 +144,7 @@ class SimulatorService {
   startMonitoring(
     callback: (analysis: Analysis) => void,
     interval = 5000,
-    fixedLocation = true
+    fixedLocation = true,
   ) {
     if (!this.connected) {
       throw new Error("Arduino não conectado.");

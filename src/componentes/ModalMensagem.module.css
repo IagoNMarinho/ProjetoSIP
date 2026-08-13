@@ -43,11 +43,9 @@
 }
 
 .titulo {
-    background: linear-gradient(
-        135deg,
-        var(--cor-secundaria-escura),
-        var(--cor-primaria-escura)
-    );
+    background: linear-gradient(135deg,
+            var(--cor-secundaria-escura),
+            var(--cor-primaria-escura));
     color: var(--cor-secundaria-clara);
     font-family: var(--fonte-titulo);
     font-size: var(--tamanho-base2);
@@ -97,6 +95,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -107,6 +106,7 @@
         opacity: 0;
         transform: translateY(15px) scale(0.97);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);

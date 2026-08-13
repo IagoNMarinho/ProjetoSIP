@@ -7,6 +7,8 @@
     --cor-secundaria-base: #1E7AC1;
     --cor-secundaria-escura: #102241;
 
+    --cor-secundaria-escura2: #001b7a;
+
     --cor-rodape: #3586FF;
 
     --fundo-modal: rgba(0, 99, 191, 0.45);
@@ -51,6 +53,7 @@
     --cor-terciaria-clara: #f8feff;
     --cor-terciaria-seguras: #21a82f;
     --cor-terciaria-seguras2: #bdeaa4b5;
+    --cor-terciaria-atencao: #fb9600;
     --cor-terciaria-alertas: #fff83b;
     --cor-terciaria-alertas2: #fffcc9b5;  
     --cor-terciaria-semana: #ffc62a;
