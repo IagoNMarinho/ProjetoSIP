@@ -126,20 +126,13 @@ export function Infos() {
                                 Reflexão de aguato
                             </h3>
                             <p>
-                                 texto texto texto texto texto texto texto texto texto texto texto texto texto texto
-                                 texto texto texto texto texto texto texto texto texto texto texto texto texto texto
-                                  texto texto texto texto texto texto texto texto texto texto texto texto texto texto
-                                   texto texto texto texto texto texto texto texto texto texto texto texto texto texto
-                                    texto texto texto texto texto texto texto texto texto texto texto texto texto texto
-                                     texto texto texto texto texto texto texto texto texto texto texto texto texto texto
-                                      texto texto texto texto texto texto texto texto texto texto texto texto texto texto
-                                      
+                                Se for desenvolvido um sistema composto por um detector de qualidade hídrica integrado a um software interativo, portátil e informativo, então será possível detectar previamente a presença de agentes contaminantes em reservatórios de água utilizados em ambientes acadêmicos, com destaque para escolas rurais, reduzindo os riscos à saúde dos usuários.       
                             </p>
                             <p>
-                                 texto texto texto texto texto texto texto texto texto texto texto texto texto texto
+                                Além disso, a disponibilização de informações em tempo real sobre a qualidade da água poderá auxiliar gestores, funcionários e estudantes na adoção de medidas preventivas mais rápidas e eficazes, contribuindo para a promoção da saúde coletiva e para a redução da exposição a doenças transmitidas pela água contaminada.
                             </p>
                             <p>
-                                 texto texto texto texto texto texto texto texto texto texto texto texto texto texto
+                                Espera-se também que a utilização do sistema favoreça a conscientização sobre a importância do monitoramento hídrico, incentivando práticas mais seguras relacionadas ao consumo e à gestão dos recursos hídricos dentro do ambiente escolar. 
                             </p>
                         </div>
 

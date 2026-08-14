@@ -47,8 +47,11 @@
             var(--cor-primaria-base),
            var(--cor-primaria-clara)
         );
+    
+    --background-2: linear-gradient(40deg,#4AB6FF, #20F8FF, #80fce7);
 
     --cor-terciaria-erro: #d90429;
+    --cor-terciaria-erro3: #c91130d0;
     --cor-terciaria-erro2: #ff8fa2b5;
     --cor-terciaria-clara: #f8feff;
     --cor-terciaria-seguras: #21a82f;

@@ -2,246 +2,180 @@ import { useEffect, useState } from "react";
 import { useArduino } from "../componentes/SIMULADOR/useArduino";
 import styles from "./Detectar.module.css";
 
+import { TbPlugConnected } from "react-icons/tb";
+import { TbPlugConnectedX } from "react-icons/tb";
+
 export default function Detectar() {
+  const {
+    connected,
+    loading,
+    monitoring,
 
-    const {
+    lastAnalysis,
 
-        connected,
-        loading,
-        monitoring,
+    connect,
+    disconnect,
 
-        lastAnalysis,
+    detectOnce,
 
-        connect,
-        disconnect,
+    startMonitoring,
+    stopMonitoring,
+  } = useArduino();
 
-        detectOnce,
+  const [fixedLocation, setFixedLocation] = useState(true);
 
-        startMonitoring,
-        stopMonitoring
+  const [currentTime, setCurrentTime] = useState("");
 
-    } = useArduino();
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
 
-    const [fixedLocation, setFixedLocation] = useState(true);
+      setCurrentTime(now.toLocaleString("pt-BR"));
+    }, 1000);
 
-    const [currentTime, setCurrentTime] = useState("");
+    return () => clearInterval(timer);
+  }, []);
 
-    useEffect(() => {
+  const handleConnect = async () => {
+    await connect();
+  };
 
-        const timer = setInterval(() => {
+  const handleDisconnect = () => {
+    disconnect();
+  };
 
-            const now = new Date();
+  const handleDetection = () => {
+    detectOnce(fixedLocation);
+  };
 
-            setCurrentTime(
-                now.toLocaleString("pt-BR")
-            );
+  const handleStartMonitoring = () => {
+    startMonitoring(5000, fixedLocation);
+  };
 
-        }, 1000);
+  const handleStopMonitoring = () => {
+    stopMonitoring();
+  };
 
-        return () => clearInterval(timer);
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Detectar Qualidade da Água</h1>
 
-    }, []);
+      <div className={styles.statusBar}>
+        <span
+          className={`${styles.status} ${connected ? styles.conectado : styles.desconectado}`}
+        >
+          {connected ? (
+            <>
+              <TbPlugConnected />
+              Conectado
+            </>
+          ) : (
+            <>
+              <TbPlugConnectedX />
+              Desconectado
+            </>
+          )}
+        </span>
 
-    const handleConnect = async () => {
-        await connect();
-    };
+        <span>{currentTime}</span>
+      </div>
 
-    const handleDisconnect = () => {
-        disconnect();
-    };
+      <div className={styles.buttons}>
+        <button onClick={handleConnect} disabled={connected || loading}>
+          Conectar
+        </button>
 
-    const handleDetection = () => {
-        detectOnce(fixedLocation);
-    };
+        <button onClick={handleDisconnect} disabled={!connected}>
+          Desconectar
+        </button>
 
-    const handleStartMonitoring = () => {
-        startMonitoring(5000, fixedLocation);
-    };
+        <button onClick={handleDetection} disabled={!connected}>
+          Nova Detecção
+        </button>
 
-    const handleStopMonitoring = () => {
-        stopMonitoring();
-    };
+        <button
+          onClick={handleStartMonitoring}
+          disabled={!connected || monitoring}
+        >
+          Iniciar Monitoramento
+        </button>
 
+        <button onClick={handleStopMonitoring} disabled={!monitoring}>
+          Parar Monitoramento
+        </button>
+      </div>
 
-    return (
-
-        <div className={styles.container}>
-
-            <h1 className={styles.title}>
-                Detectar Qualidade da Água
-            </h1>
-
-            <div className={styles.statusBar}>
-
-                <span>
-
-                    Arduino:
-
-                    {connected
-                        ? " 🟢 Conectado"
-                        : " 🔴 Desconectado"}
-
-                </span>
-
-                <span>
-                    {currentTime}
-                </span>
-
+      <div className={styles.locationBox}>
+        <label>
+          <input
+            type="checkbox"
+            checked={fixedLocation}
+            onChange={(e) => setFixedLocation(e.target.checked)}
+          />
+          Local Fixo
+        </label>
+      </div>
+      {lastAnalysis ? (
+        <>
+          <div className={styles.cards}>
+            <div className={styles.card}>
+              <h3>pH</h3>
+              <span>{lastAnalysis.sensors.ph}</span>
             </div>
 
-            <div className={styles.buttons}>
-
-                <button
-                    onClick={handleConnect}
-                    disabled={connected || loading}
-                >
-                    Conectar
-                </button>
-
-                <button
-                    onClick={handleDisconnect}
-                    disabled={!connected}
-                >
-                    Desconectar
-                </button>
-
-                <button
-                    onClick={handleDetection}
-                    disabled={!connected}
-                >
-                    Nova Detecção
-                </button>
-
-                <button
-                    onClick={handleStartMonitoring}
-                    disabled={!connected || monitoring}
-                >
-                    Iniciar Monitoramento
-                </button>
-
-                <button
-                    onClick={handleStopMonitoring}
-                    disabled={!monitoring}
-                >
-                    Parar Monitoramento
-                </button>
-
+            <div className={styles.card}>
+              <h3>Turbidez</h3>
+              <span>{lastAnalysis.sensors.turbidity} NTU</span>
             </div>
 
-            <div className={styles.locationBox}>
-
-                <label>
-
-                    <input
-                        type="checkbox"
-                        checked={fixedLocation}
-                        onChange={(e) =>
-                            setFixedLocation(e.target.checked)
-                        }
-                    />
-                    Local Fixo
-                </label>
-
+            <div className={styles.card}>
+              <h3>Temperatura</h3>
+              <span>{lastAnalysis.sensors.temperature} °C</span>
             </div>
-                        {lastAnalysis ? (
 
-                <>
+            <div className={styles.card}>
+              <h3>TDS</h3>
+              <span>{lastAnalysis.sensors.tds} ppm</span>
+            </div>
+          </div>
 
-                    <div className={styles.cards}>
+          <div
+            className={`${styles.statusCard} ${
+              lastAnalysis.status === "Potável"
+                ? styles.good
+                : lastAnalysis.status === "Atenção"
+                  ? styles.warning
+                  : styles.bad
+            }`}
+          >
+            <h2>Status da Água</h2>
 
-                        <div className={styles.card}>
-                            <h3>pH</h3>
-                            <span>{lastAnalysis.sensors.ph}</span>
-                        </div>
+            <h1>{lastAnalysis.status}</h1>
+          </div>
 
-                        <div className={styles.card}>
-                            <h3>Turbidez</h3>
-                            <span>
-                                {lastAnalysis.sensors.turbidity} NTU
-                            </span>
-                        </div>
+          <div className={styles.infoCard}>
+            <p>
+              <strong>Local:</strong> {lastAnalysis.location}
+            </p>
 
-                        <div className={styles.card}>
-                            <h3>Temperatura</h3>
-                            <span>
-                                {lastAnalysis.sensors.temperature} °C
-                            </span>
-                        </div>
+            <p>
+              <strong>Data:</strong>{" "}
+              {new Date(lastAnalysis.date).toLocaleDateString("pt-BR")}
+            </p>
 
-                        <div className={styles.card}>
-                            <h3>TDS</h3>
-                            <span>
-                                {lastAnalysis.sensors.tds} ppm
-                            </span>
-                        </div>
+            <p>
+              <strong>Hora:</strong>{" "}
+              {new Date(lastAnalysis.date).toLocaleTimeString("pt-BR")}
+            </p>
+          </div>
+        </>
+      ) : (
+        <div className={styles.empty}>
+          <h2>Nenhuma análise realizada.</h2>
 
-                    </div>
-
-                    <div
-                        className={`${styles.statusCard} ${
-                            lastAnalysis.status === "Potável"
-                                ? styles.good
-                                : lastAnalysis.status === "Atenção"
-                                ? styles.warning
-                                : styles.bad
-                        }`}
-                    >
-
-                        <h2>Status da Água</h2>
-
-                        <h1>{lastAnalysis.status}</h1>
-
-                    </div>
-
-                    <div className={styles.infoCard}>
-
-                        <p>
-                            <strong>Local:</strong>{" "}
-                            {lastAnalysis.location}
-                        </p>
-
-                        <p>
-
-                            <strong>Data:</strong>{" "}
-
-                            {new Date(
-                                lastAnalysis.date
-                            ).toLocaleDateString("pt-BR")}
-
-                        </p>
-
-                        <p>
-
-                            <strong>Hora:</strong>{" "}
-
-                            {new Date(
-                                lastAnalysis.date
-                            ).toLocaleTimeString("pt-BR")}
-
-                        </p>
-
-                    </div>
-
-                </>
-
-            ) : (
-
-                <div className={styles.empty}>
-
-                    <h2>
-                        Nenhuma análise realizada.
-                    </h2>
-
-                    <p>
-                        Conecte o Arduino e faça uma detecção.
-                    </p>
-
-                </div>
-
-            )}
-
+          <p>Conecte o Arduino e faça uma detecção.</p>
         </div>
-
-    );
-
+      )}
+    </div>
+  );
 }
