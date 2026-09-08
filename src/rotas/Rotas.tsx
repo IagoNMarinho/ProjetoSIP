@@ -22,7 +22,7 @@ import { Configuracao } from '../paginas/settings/perfil/Configuracao'
 import { Preferencias } from '../paginas/settings/preferencias/Preferencias'
 import { Sistema } from '../paginas/settings/sistema/Sistema'
 
-
+import { RotaProtegida } from './RotaProtegida'
 
 export function Rotas() {
     return (
@@ -50,77 +50,73 @@ export function Rotas() {
                 >
                     <Route
                         path="home"
-                        element={<Home />}
+                        element={<RotaProtegida><Home /></RotaProtegida>}
                     />
 
                     <Route
                         path="detectar"
-                        element={<Detectar />}
+                        element={<RotaProtegida><Detectar /></RotaProtegida>}
                     />
 
                      <Route
                         path="gole"
-                        element={<Gole />}
+                        element={<RotaProtegida><Gole /></RotaProtegida>}
                     />
                       <Route
                         path="analises"
-                        element={<Analises />}
+                        element={<RotaProtegida><Analises /></RotaProtegida>}
                     />
                      <Route
                         path="sobre"
-                        element={<Sobre />}
+                        element={<RotaProtegida><Sobre /></RotaProtegida>}
                     />
                     <Route
                         path="perfil"
-                        element={<Perfil />}
+                        element={<RotaProtegida><Perfil /></RotaProtegida>}
                     />
                       <Route
                         path="sensorsip"
-                        element={<Sensorsip />}
+                        element={<RotaProtegida><Sensorsip /></RotaProtegida>}
                     />
                       <Route
                         path="addreservatorio"
-                        element={<Addreservatorio />}
+                        element={<RotaProtegida><Addreservatorio /></RotaProtegida>}
                     />
                      <Route
                         path="mapa"
-                        element={<Mapa />}
+                        element={<RotaProtegida><Mapa /></RotaProtegida>}
                     />
                     <Route
                         path="dashboard"
-                        element={<Dashboard />}
-                    />
-                    <Route
-                        path="mapa"
-                        element={<Mapa />}
+                        element={<RotaProtegida><Dashboard /></RotaProtegida>}
                     />
                      <Route
                         path="consulta"
-                        element={<Consulta />}
+                        element={<RotaProtegida><Consulta /></RotaProtegida>}
                     />
                      <Route
                         path="projeto"
-                        element={<Projeto />}
+                        element={<RotaProtegida><Projeto /></RotaProtegida>}
                     />
                      <Route
                         path="metodologia"
-                        element={<Metodologia />}
+                        element={<RotaProtegida><Metodologia /></RotaProtegida>}
                     />
                      <Route
                         path="contato"
-                        element={<Contato />}
+                        element={<RotaProtegida><Contato /></RotaProtegida>}
                     />
                       <Route
                         path="configuracao"
-                        element={<Configuracao />}
+                        element={<RotaProtegida><Configuracao /></RotaProtegida>}
                     />
                       <Route
                         path="preferencias"
-                        element={<Preferencias />}
+                        element={<RotaProtegida><Preferencias /></RotaProtegida>}
                     />
                       <Route
                         path="sistema"
-                        element={<Sistema />}
+                        element={<RotaProtegida><Sistema /></RotaProtegida>}
                     />
                 </Route>
 

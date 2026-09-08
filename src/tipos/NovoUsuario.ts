@@ -4,6 +4,4 @@ export type NovoUsuarioTipo = {
     cpf: string
     email: string
     telefone: string
-    senha: string
-    confsenha: string
 }

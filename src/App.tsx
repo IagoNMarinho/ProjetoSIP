@@ -1,13 +1,13 @@
 import { Rotas } from './rotas/Rotas'
 import { LayoutProvider } from './contextos/LayoutContexto'
-import { UsuarioProvider } from './contextos/UsuarioContexto'
+import { AutenticacaoProvider } from './contextos/AutenticacaoContexto'
 
 function App(){
     return (
         <LayoutProvider>
-          <UsuarioProvider>
+          <AutenticacaoProvider>
             <Rotas />
-          </UsuarioProvider>
+          </AutenticacaoProvider>
         </LayoutProvider>
   )
 }
