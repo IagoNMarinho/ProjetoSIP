@@ -1,0 +1,117 @@
+.conteiner {
+  width: 100%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+  background-color: var(--cor-fundo-transparente4);
+  border-radius: 20px;
+}
+
+.titulo {
+  margin: 0 0 5px;
+  text-align: center;
+  font-family: var(--fonte-titulo);
+  font-size: var(--tamanho-logo2);
+  color: var(--cor-primaria-base);
+  text-shadow:
+    -2px -2px 0 var(--cor-primaria-clara),
+    2px -2px 0 var(--cor-primaria-escura),
+    -2px 2px 0 var(--cor-primaria-escura),
+    2px 2px 0 var(--cor-primaria-escura);
+}
+
+.grupoPaineis {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.painel {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(
+    -60deg,
+    var(--cor-primaria-base),
+    var(--cor-primaria-clara)
+  );
+}
+
+.painelCabecalho {
+  width: 100%;
+}
+
+.painelTitulo {
+  width: 100%;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  color: var(--cor-secundaria-escura2);
+  font-size: var(--tamanho-base2);
+  text-shadow: 2px 2px 0 var(--cor-terciaria-clara);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+}
+
+.seta {
+  transition: transform 0.2s ease;
+  font-size: var(--tamanho-base1);
+  flex-shrink: 0;
+}
+
+.setaAberta {
+  transform: rotate(180deg);
+}
+
+.painelColapso {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.painelColapsoAberto {
+  max-height: 500px;
+}
+
+.painelCorpo {
+  padding: 0 20px 16px;
+  color: var(--cor-terciaria-clara);
+  font-size: var(--tamanho-base1);
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+.link {
+  color: var(--cor-secundaria-base);
+  font-size: var(--tamanho-base1);
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.link:hover {
+  color: var(--cor-secundaria-escura2);
+}
+
+@media (max-width: 768px) {
+  .conteiner {
+    padding: 18px;
+    border-radius: 15px;
+  }
+
+  .titulo {
+    font-size: var(--tamanho-logo1);
+  }
+
+  .painelTitulo {
+    padding: 12px 15px;
+    font-size: var(--tamanho-base1);
+  }
+}

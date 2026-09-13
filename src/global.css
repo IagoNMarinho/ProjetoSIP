@@ -61,6 +61,8 @@
     --cor-terciaria-alertas2: #fffcc9b5;  
     --cor-terciaria-semana: #ffc62a;
 
+    --borda-gradiente: #8C7FFF,#547FF6,#4f9dff,#7cf7c4;
+
     --bola-login1: rgba(141, 193, 245, 0.8), rgba(27, 141, 255, 0.8), rgba(140, 127, 255, 0.8);
     --bola-login2: #83b9f0, #2d92f7, #547ff6;
     --bola-login3:  #4AB6FF, #20F8FF, #80fce7;
@@ -69,6 +71,7 @@
     --cor-fundo-transparente3: rgba(255, 255, 255, 0.555);
     --cor-fundo-transparente2:rgba(254, 254, 254, 0.729);
     --cor-fundo-transparente4: rgba(255,255,255,.82);
+    --cor-fundo-transparente5: rgba(13, 27, 62, 0.75);
 
     --fonte-base: "TASA Explorer", sans-serif;
     --fonte-logo: "Limelight", sans-serif;
@@ -99,4 +102,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: var(--fonte-base2);
+}
+
+html{
+    scroll-behavior: smooth;
 }

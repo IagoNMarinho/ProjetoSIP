@@ -9,7 +9,6 @@ export function Metodologia() {
   const [modalMensagemTexto, setMensagemTexto] = useState("");
   const [modalMensagemTitulo, setMensagemTitulo] = useState("");
 
-  const exibirModal = () => setModalMensagemVisivel(true);
   const ocultarModal = () => {
     setModalMensagemVisivel(false);
   };
@@ -22,6 +21,13 @@ export function Metodologia() {
 
   return (
     <main className={estilos.conteiner}>
+      <div className={estilos.titulo2}>
+          <div>
+            <h1>Metodologia</h1>
+            <span>Entenda os sensores do projeto SIP!</span>
+          </div>
+      </div>
+      <div className={estilos.linha}></div>
       <section className={estilos.secao}>
         <article className={estilos.informacoes}>
           <div className={estilos.titulo}>
