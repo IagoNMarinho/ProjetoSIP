@@ -13,6 +13,7 @@
     inclusive depois de um F5 - porque o Firebase mantém a sessão salva no
     navegador de forma independente do estado do React. Por isso os dados do
     usuário não somem mais ao recarregar a página.
+    commit nova autenticacao
 */
 
 import { createContext, useState, useEffect, type ReactNode } from 'react'
