@@ -85,7 +85,7 @@ export function FirebaseConexao() {
       },
     );
 
-    // Cancela o listener quando o componente é desmontado,
+    // Cancela o listener quando o componente é desmontado,aa
     // evitando vazamento de memória (memory leak)
     return () => cancelarListener();
   }, []);
