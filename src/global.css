@@ -56,6 +56,7 @@
     --cor-terciaria-clara: #f8feff;
     --cor-terciaria-seguras: #21a82f;
     --cor-terciaria-seguras2: #bdeaa4b5;
+    --cor-terciaria-seguras3: #1e4620;
     --cor-terciaria-atencao: #fb9600;
     --cor-terciaria-alertas: #fff83b;
     --cor-terciaria-alertas2: #fffcc9b5;  
@@ -95,6 +96,9 @@
     --tamanho-celular3: 1.2rem;
     --tamanho-celular4: 1rem;
     --tamanho-celular5: 3rem;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--cor-secundaria-escura2) var(--cor-primaria-clara);
 }
 
 *{
@@ -106,4 +110,10 @@
 
 html{
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+}
+::-webkit-scrollbar {
+    background-color: var(--cor-rodape);
+    width: 8px;
+    height: 8px;
 }

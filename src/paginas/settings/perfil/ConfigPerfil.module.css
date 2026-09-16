@@ -27,6 +27,14 @@
     line-height: 1.5;
 }
 
+.mensagem{
+    text-align: center;
+    font-size: var(--tamanho-pequeno);
+    color: var(--cor-terciaria-erro);
+    font-weight: 500;
+    padding: 5px;
+}
+
 .conta{
     width: 100%;
     display: grid;

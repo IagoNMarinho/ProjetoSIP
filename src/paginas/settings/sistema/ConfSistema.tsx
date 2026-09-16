@@ -6,6 +6,13 @@ import { useContext, useState, useRef, useEffect } from "react";
 import { AutenticacaoContexto } from "../../../contextos/AutenticacaoContexto";
 import { autenticacao, bancoDados } from "../../../firebase/FirebaseConexao";
 import { doc, updateDoc } from "firebase/firestore";
+import { Toast } from "../../../componentes/SUPORTE/Toast/Toast";
+import { enviarParaCloudinary } from "../../../componentes/APICloudinary/Cloudinary";
+import { updateProfile } from "firebase/auth";
+
+import {useForm} from 'react-hook-form'
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { FaBuilding } from "react-icons/fa";
 import { MdNotificationsActive } from "react-icons/md";
@@ -21,72 +28,145 @@ import { FaFileCsv } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 
+const instituicaoSchema = z.object({
+  nome: z.string().min(8, {
+    message: "Informe um Nome Completo com no mínimo 8 caracteres.",
+  }),
+  cnpj: z.string().regex(/^\d{14}$/, {
+    message: "CNPJ deve conter 14 números",
+  }),
+  email: z.email({
+    message: "Informe um Email válido.",
+  }),
+  telefone: z.string().regex(/^\d{11}$/, {
+    message: "Telefone deve conter 11 números.",
+  }),
+});
+
+type FormValues = z.infer<typeof instituicaoSchema>;
+
 export function ConfSistema() {
   const usuarioLogado = autenticacao.currentUser;
 
   // Os dados da instituição já vêm prontos do AutenticacaoContexto -
   // não precisamos buscar no Firestore aqui dentro, o Context já
   // faz isso automaticamente (inclusive depois de um F5).
-  const { usuarioContexto, atualizarUsuarioContexto } =
-    useContext(AutenticacaoContexto);
+  const { usuarioContexto, atualizarUsuarioContexto } = useContext(AutenticacaoContexto);
 
   const [editando, setEditando] = useState(false); //controla se os campos podem ser editados
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [cnpj, setCnpj] = useState("");
+  
+  const { register, handleSubmit, reset, formState: { errors }, } = useForm<FormValues>({ resolver: zodResolver(instituicaoSchema) });
 
-  // Preview local da foto/logo (antes de ser salva de verdade).
-  // Ainda não persiste no Firebase Storage - ver nota em trocarFoto.
-  const [fotoPreview, setFotoPreview] = useState<string | null>(null);
 
-  // Preenche os campos assim que os dados da instituição estiverem
-  // disponíveis no Context (acontece automaticamente após login/F5)
-  useEffect(() => {
+  // Preenche os campos assim que os dados da instituição estiverem disponíveis 
+   useEffect(() => {
     if (!usuarioContexto) return;
 
-    setNome(usuarioContexto.nome ?? "");
-    setEmail(usuarioContexto.email ?? "");
-    setTelefone(usuarioContexto.telefone ?? "");
-    setCnpj(usuarioContexto.cnpj ?? "");
-  }, [usuarioContexto]);
+    reset({
+      nome: usuarioContexto.nome ?? "",
+      email: usuarioContexto.email ?? "",
+      telefone: usuarioContexto.telefone ?? "",
+      cnpj: usuarioContexto.cnpj ?? "",
+    });
+  }, [usuarioContexto, reset]);
 
-  async function salvarDados() {
+  const salvarDados = async (data: FormValues) => {
     if (!usuarioLogado) {
       console.log("Nenhuma instituição está logada.");
       return;
     }
     const uid = usuarioLogado.uid;
 
-    // Grava as alterações de verdade no Firestore -
-    // antes essa função só atualizava o Context, então as
-    // mudanças se perdiam a cada F5.
-    await updateDoc(doc(bancoDados, "instituicoes", uid), {
-      nome: nome,
-      email: email,
-      telefone: telefone,
-      cnpj: cnpj,
+    try {
+      await updateDoc(doc(bancoDados, "instituicoes", uid), {
+        nome: data.nome,
+        email: data.email,
+        telefone: data.telefone,
+        cnpj: data.cnpj,
+      });
+
+      await atualizarUsuarioContexto(uid);
+
+      setEditando(false);
+      mostrarToast("sucesso", "Sucesso", "Dados atualizados com sucesso!");
+    } catch (erro) {
+      console.error(erro);
+      mostrarToast("erro", "Erro", "Não foi possível salvar os dados. Tente novamente.");
+    }
+  };
+
+  const [fotoPreview, setFotoPreview] = useState<string | null>(null);
+  const [enviandoFoto, setEnviandoFoto] = useState(false);
+  const inputFoto = useRef<HTMLInputElement>(null);
+
+  // evita que a foto de uma conta "vaze" para outra na mesma aba.
+  useEffect(() => {
+    setFotoPreview((anterior) => {
+      if (anterior) URL.revokeObjectURL(anterior);
+      return null;
     });
+  }, [usuarioContexto?.uid]);
 
-    // Atualiza o Context com os dados recém-salvos, refletindo
-    // a mudança imediatamente em qualquer outra tela
-    await atualizarUsuarioContexto(uid);
+  async function trocarFoto(e: React.ChangeEvent<HTMLInputElement>) {
+      const arquivo = e.target.files?.[0];
+      if (!arquivo || !usuarioLogado) return;
+  
+      const tiposPermitidos = ["image/jpeg", "image/png", "image/webp"];
+      if (!tiposPermitidos.includes(arquivo.type)) {
+        mostrarToast("erro", "Formato inválido", "Envie uma imagem JPEG, PNG ou WEBP.");
+        return;
+      }
+  
+      const tamanhoMaximo = 5 * 1024 * 1024; // 5MB
+      if (arquivo.size > tamanhoMaximo) {
+        mostrarToast("erro", "Arquivo muito grande", "A imagem deve ter no máximo 5MB.");
+        return;
+      }
+  
+      const url = URL.createObjectURL(arquivo);
+      setFotoPreview(url); // feedback visual imediato, antes mesmo do upload terminar
+  
+      try {
+        setEnviandoFoto(true);
+  
+        const urlFoto = await enviarParaCloudinary(arquivo);
+  
+      await updateProfile(usuarioLogado, { photoURL: urlFoto });
+      await updateDoc(doc(bancoDados, "instituicoes", usuarioLogado.uid), { picture: urlFoto });
+      await atualizarUsuarioContexto(usuarioLogado.uid);
+  
+        mostrarToast("sucesso", "Sucesso", "Foto de perfil atualizada!");
+      } catch (erro) {
+        console.error(erro);
+        mostrarToast("erro", "Erro", "Não foi possível atualizar a foto. Tente novamente.");
+        setFotoPreview(null); // desfaz o preview, já que o upload falhou
+      } finally {
+        setEnviandoFoto(false);
+      }
+    }
 
-    setEditando(false); //bloqueia novamente os campos para edição
+  const [toast, setToast] = useState<{
+    exibir: boolean;
+    tipo: "sucesso" | "erro";
+    titulo: string;
+    texto: string;
+  }>({
+    exibir: false,
+    tipo: "sucesso",
+    titulo: "",
+    texto: "",
+  });
+
+  function mostrarToast(
+    tipo: "sucesso" | "erro",
+    titulo: string,
+    texto: string,
+  ) {
+    setToast({ exibir: true, tipo, titulo, texto });
   }
 
-  const inputFoto = useRef<HTMLInputElement>(null); //referência ao input de seleção de arquivos
-  function trocarFoto(e: React.ChangeEvent<HTMLInputElement>) {
-    const arquivo = e.target.files?.[0]; //obtém o primeiro arquivo selecionado
-
-    if (!arquivo) return; //encerra a função caso nenhum arquivo tenha sido escolhido
-    const url = URL.createObjectURL(arquivo); //cria uma URL temporária para exibir a imagem
-    setFotoPreview(url);
-
-    // Nota: isso só troca a imagem visualmente (preview local).
-    // Para persistir de verdade, seria necessário enviar o arquivo
-    // para o Firebase Storage e depois salvar a URL no Firestore -
-    // ainda não implementado aqui.
+  function fecharToast() {
+    setToast((prev) => ({ ...prev, exibir: false }));
   }
 
   return (
@@ -123,76 +203,86 @@ export function ConfSistema() {
               <button
                 className={estilos.botaoFoto}
                 onClick={() => inputFoto.current?.click()}
+                disabled={enviandoFoto}
               >
                 <CiEdit />
               </button>
             </div>
 
             <input
-              ref={inputFoto}
-              type="file"
-              accept="image/*"
-              onChange={trocarFoto}
-              style={{ display: "none" }}
+              ref={inputFoto} //permite acessar o input pelo botão
+              type="file" //aceita seleção de arquivos
+              accept="image/*" //permite apenas imagens
+              onChange={trocarFoto} //executa a troca da foto após a seleção
+              style={{ display: "none" }} //esconde o input do usuário
             />
           </div>
 
-          <div className={estilos.formulario}>
+          <form className={estilos.formulario}>
             <div className={estilos.campo}>
               <label>Nome da instituição:</label>
 
               <input
+                {...register("nome")}
                 className={estilos.input}
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
                 readOnly={!editando}
               />
+              {errors.nome && (
+                <p className={estilos.mensagem}>{errors.nome.message}</p>
+              )}
             </div>
 
             <div className={estilos.campo}>
               <label>Email institucional:</label>
 
               <input
+                {...register("email")}
                 className={estilos.input}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 readOnly={!editando}
               />
+              {errors.email && (
+                <p className={estilos.mensagem}>{errors.email.message}</p>
+              )}
             </div>
 
             <div className={estilos.campo}>
               <label>Telefone:</label>
 
               <input
+                {...register("telefone")}
                 className={estilos.input}
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
                 readOnly={!editando}
               />
+              {errors.telefone && (
+                <p className={estilos.mensagem}>{errors.telefone.message}</p>
+              )}
             </div>
 
             <div className={estilos.campo}>
               <label>CNPJ:</label>
 
               <input
+                {...register("cnpj")}
                 className={estilos.input}
-                value={cnpj}
-                onChange={(e) => setCnpj(e.target.value)}
                 readOnly={!editando}
               />
+              {errors.cnpj && (
+                <p className={estilos.mensagem}>{errors.cnpj.message}</p>
+              )}
             </div>
             <div className={estilos.botoes}>
               <button
                 className={estilos.botao}
+                type="button"
                 onClick={() => setEditando(true)}
               >
                 Fazer alterações
               </button>
-              <button className={estilos.botao} onClick={salvarDados}>
+              <button className={estilos.botao} type="submit">
                 Salvar dados
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </section>
 
@@ -462,6 +552,14 @@ export function ConfSistema() {
           </div>
         </div>
       </section>
+      
+            <Toast
+              exibir={toast.exibir}
+              tipo={toast.tipo}
+              titulo={toast.titulo}
+              texto={toast.texto}
+              aoFechar={fecharToast}
+            />
     </div>
   );
 }
