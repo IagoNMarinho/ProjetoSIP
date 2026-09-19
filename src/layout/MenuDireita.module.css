@@ -1,0 +1,85 @@
+.conteiner {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    background: linear-gradient(
+        180deg,
+        var(--cor-secundaria-escura),
+        var(--cor-secundaria-base)
+    );
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 2000;
+}
+
+.perfil {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.perfil:hover {
+    background: rgba(255, 255, 255, .35);
+}
+
+.perfilAtivo {
+    background: var(--cor-primaria-base);
+}
+
+.perfilAtivo:hover {
+    background: var(--cor-primaria-base);
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--cor-secundaria-base);
+    color: var(--cor-terciaria-clara);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar svg {
+    font-size: 28px;
+}
+
+.dadosPerfil {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.dadosPerfil h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var( --cor-primaria-clara);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dadosPerfil span {
+    font-size: 12px;
+    color: var( --cor-primaria-clara);
+}
+

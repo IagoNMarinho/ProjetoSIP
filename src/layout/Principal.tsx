@@ -1,31 +1,31 @@
 import estilos from './Principal.module.css'
-import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { Menu } from './Menu'
 import { Rodape } from './Rodape'
-import { LayoutContexto } from '../contextos/LayoutContexto'
+import { MenuDireita } from './MenuDireita'
+import { MenuSuperior } from './MenuSuperior'
 
 export function Principal() {
 
-    const { menuAbertoContexto } =
-        useContext(LayoutContexto)
-
     return (
-        <div
-            className={estilos.gridConteiner}
-            style={{
-                gridTemplateColumns:
-                    menuAbertoContexto
-                        ? '240px 1fr'
-                        : '80px 1fr'
-            }}
-        >
+        <div className={estilos.gridConteiner}>
+
             <Menu />
+
             <main className={estilos.conteudo}>
-                <Outlet />
+
+                <MenuSuperior />
+
+                <section className={estilos.areaConteudo}>
+                    <Outlet />
+                </section>
+
+                <Rodape />
+
             </main>
-            <Rodape />
+
+            <MenuDireita />
 
         </div>
     )

@@ -1,76 +1,56 @@
 import estilos from './Menu.module.css'
-import { useContext } from 'react'
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { LayoutContexto } from '../contextos/LayoutContexto'
 
 import { Submenu } from './Submenu'
 import { Suporte } from '../componentes/SUPORTE/Suporte'
-import { useState } from 'react'
 
 import { FaHome } from "react-icons/fa"
 import { FaMagnifyingGlass } from "react-icons/fa6"
 import { IoIosStats } from "react-icons/io"
 import { FaBook } from "react-icons/fa"
-import { TiThMenu } from "react-icons/ti"
-import { CgProfile } from "react-icons/cg"
-import { FaGlassWaterDroplet } from "react-icons/fa6"
 import { IoIosSettings } from "react-icons/io"
 import { FaQuestion } from "react-icons/fa"
 
 export function Menu() {
 
-    const {
-        menuAbertoContexto,
-        setMenuAbertoContexto
-    } = useContext(LayoutContexto)
-
     const location = useLocation()
 
-    function controlarMenu() {
-        setMenuAbertoContexto(!menuAbertoContexto)
-    }
-    
-    const [modalAberto, setModalAberto] = useState(false);
+    const [modalAberto, setModalAberto] = useState(false)
+
     function exibirModal() {
-        setModalAberto(true);
+        setModalAberto(true)
     }
+
     function ocultarModal() {
-        setModalAberto(false);
+        setModalAberto(false)
     }
 
     return (
+        <aside className={estilos.conteiner}>
 
-        <aside
-            className={estilos.conteiner}
-            style={{
-                width: menuAbertoContexto ? "240px" : "80px"
-            }}
-        >
 
-            <button
-                className={estilos.botaoMenu}
-                onClick={controlarMenu}
-            >
-                <TiThMenu />
-            </button>
 
             <nav>
 
                 <Link
                     to="/home"
-                    className={`${estilos.itemConteiner} ${location.pathname === "/home" ? estilos.ativo : ""}`}
+                    title="Home"
+                    className={`${estilos.itemConteiner} ${
+                        location.pathname === "/home"
+                            ? estilos.ativo
+                            : ""
+                    }`}
                 >
                     <FaHome />
 
-                    {menuAbertoContexto &&
-                        <span className={estilos.rotulo}>
-                            Home
-                        </span>
-                    }
-
+                    <span className={estilos.tooltip}>
+                        Home
+                    </span>
                 </Link>
 
-                   <Submenu
+
+                <Submenu
                     icone={<FaMagnifyingGlass />}
                     rota="/detectar"
                     titulo="Detectar"
@@ -82,23 +62,9 @@ export function Menu() {
                         {
                             titulo: "ADD Reservátorio",
                             rota: "/addreservatorio"
-                        },
+                        }
                     ]}
                 />
-
-                <Link
-                    to="/gole"
-                    className={`${estilos.itemConteiner} ${location.pathname === "/gole" ? estilos.ativo : ""}`}
-                >
-                    <FaGlassWaterDroplet />
-
-                    {menuAbertoContexto &&
-                        <span className={estilos.rotulo}>
-                            Gole+
-                        </span>
-                    }
-
-                </Link>
 
 
                 <Submenu
@@ -121,8 +87,8 @@ export function Menu() {
                     ]}
                 />
 
-                    <Submenu
-                    icone={ <FaBook />}
+                <Submenu
+                    icone={<FaBook />}
                     rota="/sobre"
                     titulo="Sobre"
                     itens={[
@@ -141,50 +107,44 @@ export function Menu() {
                     ]}
                 />
 
-                <Link
-                    to="/perfil"
-                    className={`${estilos.itemConteiner} ${location.pathname === "/perfil" ? estilos.ativo : ""}`}
+
+                <button
+                    onClick={exibirModal}
+                    title="Suporte"
+                    className={estilos.itemConteiner}
                 >
-                    <CgProfile />
+                    <FaQuestion />
 
-                    {menuAbertoContexto &&
-                        <span className={estilos.rotulo}>
-                            Perfil
-                        </span>
-                    }
+                    <span className={estilos.tooltip}>
+                        Suporte
+                    </span>
+                </button>
 
-                </Link>
-                    <button 
-                        onClick={exibirModal}
-                        className={
-                        `${estilos.itemConteiner} `}>
-                       <FaQuestion />
-                        {menuAbertoContexto &&
-                        <span className={estilos.rotulo}>
-                            Suporte
-                        </span>
-                    }
-                    </button>
 
                 <Link
                     to="/configuracao"
-                    className={`${estilos.itemConteiner} ${location.pathname === "/configuracao" ? estilos.ativo : ""}`}
+                    title="Configuração"
+                    className={`${estilos.itemConteiner} ${
+                        location.pathname === "/configuracao"
+                            ? estilos.ativo
+                            : ""
+                    }`}
                 >
                     <IoIosSettings />
 
-                    {menuAbertoContexto &&
-                        <span className={estilos.rotulo}>
-                            Configuração
-                        </span>
-                    }
+                    <span className={estilos.tooltip}>
+                        Configuração
+                    </span>
                 </Link>
+
             </nav>
-                    <Suporte
-                            exibir={modalAberto}
-                            ocultar={ocultarModal}
-                        />
+
+
+            <Suporte
+                exibir={modalAberto}
+                ocultar={ocultarModal}
+            />
+
         </aside>
-
     )
-
 }

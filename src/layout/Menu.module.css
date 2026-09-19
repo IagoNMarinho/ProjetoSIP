@@ -1,91 +1,199 @@
-.conteiner{
-    position:  fixed;
-    top: 20px;
-    left: 20px;
+@property --angulo-borda {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
 
-    min-height: calc(100vh - 40px);
-    border-radius: 28px;
+.conteiner {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 80px;
+    height: 100vh;
+
+    box-sizing: border-box;
+
+    padding: 20px 10px;
+
     background: linear-gradient(
         180deg,
         var(--cor-secundaria-base),
         var(--cor-secundaria-escura)
     );
-    box-shadow: 0 15px 35px rgba(0,0,0,.18);
+
+    box-shadow: 8px 0 25px rgba(0, 0, 0, .15);
 
     display: flex;
     flex-direction: column;
-    overflow: visible;
-
-    transition: .35s;
-    z-index: 2999;
-    backdrop-filter:  blur(10px);
-}
-
-.botaoMenu{
-    align-self:  center;
-
-    width: 45px;
-    height: 45px;
-    margin: 18px;
-    border: none;
-
-    border-radius: 12px;
-    background: transparent;
-    color: var(--cor-terciaria-clara);
-    font-size: var(--tamanho-base2);
-    cursor: pointer;
-    transition: .5s;
-}
-
-.botaoMenu:hover{
-    background: rgba(255,255,255,.25);
-}
-
-nav{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
-}
-
-.itemConteiner{
-    display: flex;
     align-items: center;
 
-    gap: 18px;
-    height: 56px;
-    padding: 0 18px;
+    overflow: visible;
+
+    z-index: 2999;
+
+    isolation: isolate;
+}
+
+
+.conteiner::before {
+    content: '';
+
+    position: absolute;
+
+    inset: 5px;
+
+    border-radius: 14px;
+
+    padding: 2px;
+
+    background: conic-gradient(
+        from var(--angulo-borda),
+        var(--borda-gradiente)
+    );
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite: xor;
+
+    mask-composite: exclude;
+
+    animation: girar-borda 4s linear infinite;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+@keyframes girar-borda {
+    to {
+        --angulo-borda: 360deg;
+    }
+}
+
+
+.botaoMenu {
+    width: 46px;
+    height: 46px;
+
+    margin-bottom: 25px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: transparent;
+
+    color: var(--cor-terciaria-clara);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    cursor: default;
+}
+
+
+.conteiner nav {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    gap: 70px;
+}
+
+.itemConteiner {
+    position: relative;
+
+    width: 48px;
+    height: 48px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 15px;
+
+    background: transparent;
+
+    color: var(--cor-terciaria-clara);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     text-decoration: none;
-    border:  none;
-    cursor:  pointer;
-    background:  transparent;
 
-    color:  var(--cor-terciaria-clara);
-    border-radius: 18px;
-    transition: .3s;
+    cursor: pointer;
+
+    transition: .25s;
 }
 
-.itemConteiner:hover{
+.itemConteiner:hover {
     background: var(--cor-primaria-base);
 }
 
-.itemConteiner svg{
-    min-width:  22px;
-    font-size:  22px;
+
+.itemConteiner svg {
+    width: 21px;
+    height: 21px;
+
+    min-width: 21px;
+
+    font-size: 21px;
 }
 
-.rotulo{
+.tooltip {
+    position: absolute;
+
+    left: calc(100% + 12px);
+    top: 50%;
+
+    transform: translateY(-50%) translateX(-5px);
+
+    padding: 9px 13px;
+
+    background: var(--cor-secundaria-base);
+
+    color: var(--cor-terciaria-clara);
+
+    border-radius: 10px;
+
     white-space: nowrap;
+
+    font-size: 13px;
     font-weight: 600;
-    transition:  .5s;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+
+    opacity: 0;
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition: .2s;
+
+    z-index: 99999;
 }
 
-.ativo{
+.itemConteiner:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(-50%) translateX(0);
+}
+
+
+.ativo {
     background: var(--cor-primaria-base);
 }
 
-.ativo svg,
-.ativo span{
+.ativo svg {
     color: var(--cor-terciaria-clara);
 }
