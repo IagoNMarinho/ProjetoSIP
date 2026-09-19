@@ -1,5 +1,5 @@
 import { initializeApp, FirebaseError } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -25,7 +25,13 @@ const autenticacao = getAuth(conexao);
 export const bancoDados = getFirestore(conexao);
 
 // Habilita o serviço de armazenamento de arquivos 
+
 export const armazenamento = getStorage(conexao);
+
+//Define que o usuário será automaticamente deslogado ao fechar a aba ou o navegador (sessão não persiste entre reaberturas).
+setPersistence(autenticacao, browserSessionPersistence).catch((error) => {
+  console.error("Erro ao definir persistência de autenticação:", error);
+}); 
 
 // Disponibiliza o serviço de autenticação para o resto do app
 export { autenticacao };

@@ -1,12 +1,6 @@
 import { FirebaseError } from "firebase/app";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  GoogleAuthProvider,
-  signInWithCredential,
-} from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithCredential,} from "firebase/auth";
+import { doc, getDoc, setDoc, getDocs, query, collection, where}from "firebase/firestore";
 import { autenticacao, bancoDados } from "../firebase/FirebaseConexao";
 
 // As funções de autenticação serão disponibilizadas como um Custom Hook
@@ -42,7 +36,8 @@ export function useAutenticacao() {
         username: dados.username,
         cpf: dados.cpf,
         telefone: dados.telefone,
-          picture: "",
+        email: email,
+        picture: "",
         tipo: "usuario",
       });
       return "sucesso";
@@ -89,6 +84,7 @@ export function useAutenticacao() {
         picture: "",
         telefone: dados.telefone,
         codigo: dados.codigo,
+        email: email,
         tipo: "instituicao",
       });
       return "sucesso";
@@ -182,6 +178,26 @@ export function useAutenticacao() {
 
       const usuario = credencial.user;
       const uid = usuario.uid;
+      const email = usuario.email ?? "";
+
+      // Verifica se já existe um documento de usuário cadastrado com este e-mail
+      if (email) {
+         const consultaEmail = query(collection(bancoDados, "usuarios"),where("email", "==", email),);
+         const resultado = await getDocs(consultaEmail);
+         const contaComOutroUid = resultado.docs.find((d) => d.id !== uid);
+
+         if (contaComOutroUid) {
+           // Já existe cadastro com esse e-mail feito de outra forma.
+           // Remove a conta duplicada que o Firebase acabou de criar
+           // no Authentication, evitando dois UIDs para o mesmo e-mail.
+           try {
+             await usuario.delete();
+           } catch {
+             await signOut(autenticacao);
+           }
+           return `Este e-mail já possui um cadastro. Faça login com e-mail e senha.`;
+         }
+       }
 
       // Verifica se o usuário já possui cadastro no Firestore
       const referenciaUsuario = doc(bancoDados, "usuarios", uid);
