@@ -4,7 +4,7 @@ import Status from "../componentes/detectar/Status";
 import Feedback from "../componentes/detectar/Feedback";
 import Fundo from "../componentes/detectar/Fundo";
 
-export default function Detectar() {
+export function Detectar() {
   return (
     <main className={estilos.detectar}>
       <section className={estilos.expedicao}>
