@@ -1,11 +1,18 @@
 import estilos from './MenuSuperior.module.css'
-
 import { FaMagnifyingGlass } from 'react-icons/fa6'
-
 import { useEffect, useState } from 'react'
+import {
+    autenticacao,
+    bancoDados
+} from '../firebase/FirebaseConexao'
+import {
+    doc,
+    getDoc
+} from 'firebase/firestore'
+import {
+    onAuthStateChanged
+} from 'firebase/auth'
 
-import { autenticacao, bancoDados } from '../firebase/FirebaseConexao'
-import { doc, getDoc } from 'firebase/firestore'
 
 export function MenuSuperior() {
 
@@ -13,51 +20,64 @@ export function MenuSuperior() {
 
     const [dataAtual, setDataAtual] = useState('')
 
+
     useEffect(() => {
 
-        async function carregarNomeUsuario() {
+        const cancelarObservador = onAuthStateChanged(
+            autenticacao,
+            async (usuarioLogado) => {
 
-            const usuarioLogado = autenticacao.currentUser
+                if (!usuarioLogado) {
+                    setNomeUsuario('Usuário')
+                    return
+                }
 
-            if (!usuarioLogado) {
-                return
-            }
 
-            if (usuarioLogado.displayName) {
-                setNomeUsuario(usuarioLogado.displayName)
-            }
+                if (usuarioLogado.displayName) {
 
-            try {
-
-                const documento = await getDoc(
-                    doc(
-                        bancoDados,
-                        'usuarios',
-                        usuarioLogado.uid
+                    setNomeUsuario(
+                        usuarioLogado.displayName
                     )
-                )
-
-                if (documento.exists()) {
-
-                    const dados = documento.data()
-
-                    if (dados.nome) {
-                        setNomeUsuario(dados.nome)
-                    }
 
                 }
 
-            } catch (erro) {
+                try {
+                    const documento = await getDoc(
+                        doc(
+                            bancoDados,
+                            'usuarios',
+                            usuarioLogado.uid
+                        )
+                    )
 
-                console.error(
-                    'Erro ao carregar nome do usuário:',
-                    erro
-                )
+                    if (documento.exists()) {
+
+                        const dados = documento.data()
+
+                        if (dados.nome) {
+
+                            setNomeUsuario(
+                                dados.nome
+                            )
+
+                        }
+
+                    }
+
+                } catch (erro) {
+
+                    console.error(
+                        'Erro ao carregar nome do usuário:',
+                        erro
+                    )
+
+                }
 
             }
-        }
+        )
 
-        carregarNomeUsuario()
+
+        return () => cancelarObservador()
 
     }, [])
 
@@ -66,14 +86,15 @@ export function MenuSuperior() {
 
         const hoje = new Date()
 
-        const dataFormatada = hoje.toLocaleDateString(
-            'pt-BR',
-            {
-                weekday: 'long',
-                day: 'numeric',
-                month: 'long'
-            }
-        )
+        const dataFormatada =
+            hoje.toLocaleDateString(
+                'pt-BR',
+                {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long'
+                }
+            )
 
         setDataAtual(dataFormatada)
 
@@ -95,6 +116,7 @@ export function MenuSuperior() {
                 </h5>
 
             </div>
+
 
             <div className={estilos.pesquisa}>
 
