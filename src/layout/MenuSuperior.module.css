@@ -1,0 +1,57 @@
+.conteiner {
+    height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    flex-shrink: 0;
+
+    background: var(--cor-primaria-base);
+}
+
+.pesquisa {
+    width: min(500px, 60%);
+
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 16px;
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, .65);
+
+    box-sizing: border-box;
+}
+
+.pesquisa svg {
+    font-size: 18px;
+
+    opacity: .65;
+
+    flex-shrink: 0;
+}
+
+.pesquisa input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    font-size: 15px;
+
+    color: var(--cor-secundaria-escura);
+}
+
+.pesquisa input::placeholder {
+    color: #777;
+}

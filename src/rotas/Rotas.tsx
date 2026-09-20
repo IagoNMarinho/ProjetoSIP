@@ -3,8 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { LoginUsuario } from '../paginas/LoginUsuario'
 import { CadastroUsuario } from '../paginas/CadastroUsuario'
 import { Home } from '../paginas/Home'
-import Detectar from '../paginas/Detectar';
-import { Gole } from '../paginas/Gole'
+import { Detectar } from '../paginas/Detectar';
 import { Analises } from '../paginas/Analises'
 import { Sobre } from '../paginas/Sobre'
 import { Perfil } from  '../paginas/Perfil'
@@ -21,7 +20,7 @@ import { Contato } from '../paginas/Contato'
 import { Configuracao } from '../paginas/settings/perfil/Configuracao'
 import { Preferencias } from '../paginas/settings/preferencias/Preferencias'
 import { Sistema } from '../paginas/settings/sistema/Sistema'
-
+import { Amigos } from '../paginas/Amigos'
 import { RotaProtegida } from './RotaProtegida'
 
 export function Rotas() {
@@ -56,11 +55,6 @@ export function Rotas() {
                     <Route
                         path="detectar"
                         element={<RotaProtegida><Detectar /></RotaProtegida>}
-                    />
-
-                     <Route
-                        path="gole"
-                        element={<RotaProtegida><Gole /></RotaProtegida>}
                     />
                       <Route
                         path="analises"
@@ -117,6 +111,10 @@ export function Rotas() {
                       <Route
                         path="sistema"
                         element={<RotaProtegida><Sistema /></RotaProtegida>}
+                    />
+                    <Route
+                        path="amigos"
+                        element={<RotaProtegida><Amigos /></RotaProtegida>}
                     />
                 </Route>
 
