@@ -51,6 +51,14 @@
     background: var(--cor-terciaria-clara);
 }
 
+.mensagem{
+    text-align: center;
+    font-size: var(--tamanho-pequeno);
+    color: var(--cor-terciaria-erro);
+    font-weight: 500;
+    padding: 5px;
+}
+
 .avatar{
     position: absolute;
     left: 65px;

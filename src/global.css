@@ -11,6 +11,10 @@
 
     --cor-rodape: #3586FF;
 
+    --cor-quarta-clara: #1d4ba2;
+    --cor-quarta-base: #112480;
+    --cor-quarta-escura: #000e53;
+
     --fundo-modal: rgba(0, 99, 191, 0.45);
 
     --background: radial-gradient(
@@ -54,6 +58,10 @@
     --cor-terciaria-erro3: #c91130d0;
     --cor-terciaria-erro2: #ff8fa2b5;
     --cor-terciaria-clara: #f8feff;
+
+    --cor-terciaria-amarelo: #ffea61;
+    --cor-terciaria-amarelo2: #fcff99;
+    
     --cor-terciaria-seguras: #21a82f;
     --cor-terciaria-seguras2: #bdeaa4b5;
     --cor-terciaria-seguras3: #1e4620;
@@ -63,6 +71,7 @@
     --cor-terciaria-semana: #ffc62a;
 
     --borda-gradiente: #8C7FFF,#547FF6,#4f9dff,#7cf7c4;
+    --cor-roxo1: #8C7FFF;
 
     --bola-login1: rgba(141, 193, 245, 0.8), rgba(27, 141, 255, 0.8), rgba(140, 127, 255, 0.8);
     --bola-login2: #83b9f0, #2d92f7, #547ff6;
@@ -110,10 +119,9 @@
 
 html{
     scroll-behavior: smooth;
-    scrollbar-gutter: stable;
 }
 ::-webkit-scrollbar {
     background-color: var(--cor-rodape);
-    width: 8px;
-    height: 8px;
+    max-width: 8px;
+    max-height: 8px;
 }

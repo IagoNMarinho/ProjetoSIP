@@ -57,8 +57,6 @@ export function ConfigPerfil() {
 
   const { register, handleSubmit, reset, formState: { errors }, } = useForm<FormValues>({ resolver: zodResolver(perfilSchema) });
 
-  // Preenche o formulário assim que os dados do Context chegarem
-  // (inclusive depois de um F5).
   useEffect(() => {
     if (!usuarioContexto) return;
 

@@ -53,6 +53,14 @@
     gap: 10px;
 }
 
+.mensagem{
+    text-align: center;
+    font-size: var(--tamanho-pequeno);
+    color: var(--cor-terciaria-erro);
+    font-weight: 500;
+    padding: 5px;
+}
+
 .fotoContainer{
     position: relative;
     width: 130px;
