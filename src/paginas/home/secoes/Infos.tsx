@@ -1,10 +1,10 @@
 import estilos from './Infos.module.css'
-import arduino from '../../assets/imagens/arduino.jpg'
-import aguato from '../../assets/imagens/aguato-mascote-removebg-preview.png'
+import arduino from '../../../assets/imagens/arduino.jpg'
+import aguato from '../../../assets/imagens/aguato-mascote-removebg-preview.png'
 
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import storageService from '../SIMULADOR/storageService'
+import storageService from '../../../componentes/SIMULADOR/storageService' 
 
 import { FaFlask } from "react-icons/fa"
 import { MdHealthAndSafety } from "react-icons/md"

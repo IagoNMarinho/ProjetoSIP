@@ -1,12 +1,12 @@
 import estilos from "./Secao3.module.css";
 import { FaCircle } from "react-icons/fa6";
-import grafico from "../../assets/imagens/grafico.png";
+import grafico from "../../../assets/imagens/grafico.png";
 
 import { useEffect, useState } from "react";
-import storageService from "../SIMULADOR/storageService";
-import type { Analysis } from "../SIMULADOR/simulatorService";
+import storageService from "../../../componentes/SIMULADOR/storageService";
+import type { Analysis } from "../../../componentes/SIMULADOR/simulatorService";
 
-import { ModalAnalises } from "../ModalAnalises";
+import { ModalAnalises } from "../../../componentes/SUPORTE/modal/ModalAnalises";
 
 export function Secao3() {
   const [modalAberto, setModalAberto] = useState(false); //controla se o modal aparece

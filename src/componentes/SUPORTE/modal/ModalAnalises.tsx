@@ -1,5 +1,5 @@
 import estilos from "./ModalAnalises.module.css";
-import type { Analysis } from "./SIMULADOR/simulatorService";
+import type { Analysis } from "../../SIMULADOR/simulatorService";
 import { FaCircle } from "react-icons/fa6";
 
 interface ModalAnalisesProps {

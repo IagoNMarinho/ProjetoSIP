@@ -1,7 +1,7 @@
 import estilos from './Contato.module.css'
-import aguato from '../assets/imagens/logo.jpeg'
+import aguato from '../../../assets/imagens/logo.jpeg'
 
-import { ModalMensagem } from '../componentes/ModalMensagem'
+import { ModalMensagem } from '../../../componentes/SUPORTE/modal/ModalMensagem'
 
 import { useState} from 'react'
 

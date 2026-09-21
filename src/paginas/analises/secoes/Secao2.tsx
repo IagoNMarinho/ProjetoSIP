@@ -5,7 +5,7 @@ import { IoIosAlert } from "react-icons/io"
 import { MdDangerous } from "react-icons/md"
 
 import { useEffect, useState } from 'react'
-import storageService from '../SIMULADOR/storageService'
+import storageService from '../../../componentes/SIMULADOR/storageService'
 
 export function Secao2() {
 

@@ -1,8 +1,8 @@
 import estilos from './Analises.module.css'
-import { Secao1 } from '../componentes/analises/Secao1'
-import { Secao2 } from '../componentes/analises/Secao2'
-import { Secao3 } from '../componentes/analises/Secao3'
-import { Secao4 } from '../componentes/analises/Secao4'
+import { Secao1 } from './secoes/Secao1'
+import { Secao2 } from './secoes/Secao2'
+import { Secao3 } from './secoes/Secao3'
+import { Secao4 } from './secoes/Secao4'
 
 export function Analises() {
     return (

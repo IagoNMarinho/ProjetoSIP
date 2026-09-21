@@ -1,5 +1,5 @@
 import estilos from "./Perfil.module.css";
-import semfoto from "../assets/imagens/perfil.png";
+import semfoto from "../../assets/imagens/perfil.png";
 
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaEdit } from "react-icons/fa";
@@ -7,12 +7,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { AutenticacaoContexto } from "../contextos/AutenticacaoContexto";
-import { autenticacao, bancoDados } from "../firebase/FirebaseConexao";
+import { AutenticacaoContexto } from "../../contextos/AutenticacaoContexto";
+import { autenticacao, bancoDados } from "../../firebase/FirebaseConexao";
 import { doc, updateDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-import { enviarParaCloudinary } from "../componentes/APICloudinary/Cloudinary";
-import { Toast } from "../componentes/SUPORTE/Toast/Toast";
+import { enviarParaCloudinary } from "../../componentes/APICloudinary/Cloudinary";
+import { Toast } from "../../componentes/SUPORTE/Toast/Toast";
 
 const perfilSocialSchema = z.object({
   nome: z.string().min(3, {

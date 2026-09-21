@@ -8,9 +8,9 @@ se não, ele bloqueia o envio e mostra os erros para o usuário.
 
 import { useNavigate } from "react-router-dom";
 import estilos from "./LoginUsuario.module.css";
-import login from "../assets/imagens/logo.png";
+import login from "../../assets/imagens/logo.png";
 
-import { ModalMensagem } from "../componentes/ModalMensagem";
+import { ModalMensagem } from "../../componentes/SUPORTE/modal/ModalMensagem";
 import { FaCircleUser } from "react-icons/fa6";
 import { LuSchool } from "react-icons/lu";
 
@@ -20,9 +20,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useAutenticacao } from "../hooks/useAutenticacao";
-import { autenticacao } from "../firebase/FirebaseConexao";
-import { AutenticacaoContexto } from "../contextos/AutenticacaoContexto";
+import { useAutenticacao } from "../../hooks/useAutenticacao";
+import { autenticacao } from "../../firebase/FirebaseConexao";
+import { AutenticacaoContexto } from "../../contextos/AutenticacaoContexto";
 
 import { GoogleLogin } from "@react-oauth/google";
 

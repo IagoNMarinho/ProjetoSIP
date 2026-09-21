@@ -1,5 +1,5 @@
 import estilos from './Secao1.module.css'
-import analise from '../../assets/imagens/logo.png'
+import analise from '../../../assets/imagens/logo.png'
 
 export function Secao1() {
     return (

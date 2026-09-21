@@ -5,8 +5,8 @@ import { AiFillAlert } from "react-icons/ai";
 import { GiWaterBottle } from "react-icons/gi";
 
 import { useEffect, useState } from 'react'
-import storageService from '../SIMULADOR/storageService'
-import type { Analysis } from '../SIMULADOR/simulatorService';
+import storageService from '../../../componentes/SIMULADOR/storageService'
+import type { Analysis } from '../../../componentes/SIMULADOR/simulatorService';
 
 export function Secao4() {
 

@@ -1,7 +1,7 @@
 import estilos from './Home.module.css'
 import { useNavigate } from 'react-router-dom'
-import { Cards } from '../componentes/home/Cards'
-import { Infos } from '../componentes/home/Infos'
+import { Cards } from './secoes/Cards'
+import { Infos } from './secoes/Infos'
 
 export function Home() {
 

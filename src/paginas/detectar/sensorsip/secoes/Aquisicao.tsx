@@ -1,7 +1,7 @@
 import estilos from "./Aquisicao.module.css";
 import { Link } from "react-router-dom";
 
-import imagemGato from "../../assets/imagens/logo.jpeg";
+import imagemGato from "../../../../assets/imagens/logo.jpeg";
 
 type AquisicaoProps = {
   id?: string;

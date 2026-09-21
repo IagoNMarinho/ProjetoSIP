@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import estilos from "./Sensorsip.module.css";
-import { EstadoHardware } from "../componentes/sensorsip/Hardware";
-import { SensorInfo } from "../componentes/sensorsip/SensorInfo";
-import { Aquisicao } from "../componentes/sensorsip/Aquisicao";
+import { EstadoHardware } from "./secoes/Hardware";
+import { SensorInfo } from "./secoes/SensorInfo";
+import { Aquisicao } from "./secoes/Aquisicao";
 
-import imagemEsp32 from "../assets/imagens/esp32.webp";
-import imagemPh from "../assets/imagens/sensor-de-ph.jpg";
-import imagemTurbidez from "../assets/imagens/Sensor-de-turbidez.png";
-import imagemTds from "../assets/imagens/medidor-de-tds-sensor.jpg";
-import imagemTemperatura from "../assets/imagens/sensor-de-temperatura-ds18b20.jpg";
+import imagemEsp32 from "../../../assets/imagens/esp32.webp";
+import imagemPh from "../../../assets/imagens/sensor-de-ph.jpg";
+import imagemTurbidez from "../../../assets/imagens/Sensor-de-turbidez.png";
+import imagemTds from "../../../assets/imagens/medidor-de-tds-sensor.jpg";
+import imagemTemperatura from "../../../assets/imagens/sensor-de-temperatura-ds18b20.jpg";
 
 const QUANTIDADE_ITENS = 5;
 const INTERVALO = 5000;

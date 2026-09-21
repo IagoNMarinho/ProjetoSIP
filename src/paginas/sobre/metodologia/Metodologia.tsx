@@ -2,7 +2,7 @@ import estilos from "./Metodologia.module.css";
 import { FaWater } from "react-icons/fa6";
 
 import { useState } from "react";
-import { ModalMensagem } from "../componentes/ModalMensagem";
+import { ModalMensagem } from "../../../componentes/SUPORTE/modal/ModalMensagem";
 
 export function Metodologia() {
   const [modalMensagemVisivel, setModalMensagemVisivel] = useState(false);

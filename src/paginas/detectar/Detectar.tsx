@@ -1,8 +1,8 @@
 import estilos from "./Detectar.module.css";
-import barco from "../assets/imagens/barco-cat.png";
-import Status from "../componentes/detectar/Status";
-import Feedback from "../componentes/detectar/Feedback";
-import Fundo from "../componentes/detectar/Fundo";
+import barco from "../../assets/imagens/barco-cat.png";
+import Status from "./secoes/Status";
+import Feedback from "./secoes/Feedback";
+import Fundo from "./secoes/Fundo";
 
 export function Detectar() {
   return (

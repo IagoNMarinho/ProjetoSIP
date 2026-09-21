@@ -1,7 +1,7 @@
 import estilos from './Sobre.module.css'
-import login from '../assets/imagens/logo.png'
-import FotoArthur from '../assets/imagens/FotoArthur.jpeg'
-import FotoIago from '../assets/imagens/FotoIago.jpeg'
+import login from '../../assets/imagens/logo.png'
+import FotoArthur from '../../assets/imagens/FotoArthur.jpeg'
+import FotoIago from '../../assets/imagens/FotoIago.jpeg'
 
 export function Sobre() {
     return (

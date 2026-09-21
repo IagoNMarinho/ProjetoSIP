@@ -12,7 +12,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { enviarParaCloudinary } from "../../../componentes/APICloudinary/Cloudinary";
 
-import { Confirmar } from "../../../componentes/SUPORTE/Confirmar";
+import { Confirmar } from "../../../componentes/SUPORTE/confirmar/Confirmar";
 import { Toast } from "../../../componentes/SUPORTE/Toast/Toast";
 
 import { useForm } from "react-hook-form";
