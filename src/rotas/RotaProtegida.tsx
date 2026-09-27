@@ -12,7 +12,7 @@ export function RotaProtegida({ children }: RotaProtegidaProps) {
 
   // Enquanto o Firebase verifica se existe uma sessão salva
   if (carregandoAutenticacaoContexto) {
-    return <div>Carregando segurança...</div>;
+    return null
   }
 
   // Se não houver usuário autenticado, volta para o login

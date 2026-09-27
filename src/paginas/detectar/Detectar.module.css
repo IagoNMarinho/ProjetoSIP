@@ -1,7 +1,6 @@
 .detectar {
   margin: 0;
   padding: 0;
-  border-radius: 20px;
 }
 
 .expedicao {
@@ -20,7 +19,6 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   align-items: center;
-  border-radius: 20px 20px 0 0;
 }
 
 .barco {

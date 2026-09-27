@@ -1,0 +1,74 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background:
+    radial-gradient(circle at top left, var(--bola-login3), transparent 30%),
+    radial-gradient(circle at bottom left, var(--bola-login1), transparent 35%),
+    radial-gradient(circle at center, var(--bola-login2), transparent 25%),
+    radial-gradient(
+      circle at bottom right,
+      var(--bola-login3),
+      transparent 35%
+    ),
+    radial-gradient(circle at top right, var(--bola-login1), transparent 15%),
+    linear-gradient(60deg, var(--cor-primaria-base), var(--cor-primaria-clara));
+  color: var(--cor-terciaria-clara);
+  font-family: system-ui, sans-serif;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+}
+
+.splashSaindo {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splashMascote {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  animation: giro 1.2s linear infinite;
+  user-select: none;
+}
+
+.splashTexto {
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  animation: pulso 1.6s ease-in-out infinite;
+}
+
+.splashErro {
+  max-width: 90%;
+  text-align: center;
+  color: var(--cor-terciaria-erro);
+  font-size: 1.1rem;
+}
+
+.splashBotao {
+  padding: 0.6rem 1.4rem;
+  border: 1px solid var(--cor-primaria-base);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--cor-secundaria-base);
+  cursor: pointer;
+}
+
+@keyframes giro {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulso {
+  50% {
+    opacity: 0.4;
+  }
+}

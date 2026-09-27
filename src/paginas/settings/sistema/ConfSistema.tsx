@@ -4,13 +4,19 @@ import perfil from "../../../assets/imagens/perfil.png";
 
 import { useContext, useState, useRef, useEffect } from "react";
 import { AutenticacaoContexto } from "../../../contextos/AutenticacaoContexto";
-import { autenticacao, bancoDados } from "../../../firebase/FirebaseConexao";
+import {
+  autenticacao,
+  bancoDados,
+  bancoTempoReal,
+} from "../../../firebase/FirebaseConexao";
 import { doc, updateDoc } from "firebase/firestore";
 import { Toast } from "../../../componentes/SUPORTE/Toast/Toast";
 import { enviarParaCloudinary } from "../../../componentes/APICloudinary/Cloudinary";
 import { updateProfile } from "firebase/auth";
 
-import {useForm} from 'react-hook-form'
+import { onValue, ref, set as setRTDB } from "firebase/database";
+
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -51,15 +57,20 @@ export function ConfSistema() {
   // Os dados da instituição já vêm prontos do AutenticacaoContexto -
   // não precisamos buscar no Firestore aqui dentro, o Context já
   // faz isso automaticamente (inclusive depois de um F5).
-  const { usuarioContexto, atualizarUsuarioContexto } = useContext(AutenticacaoContexto);
+  const { usuarioContexto, atualizarUsuarioContexto } =
+    useContext(AutenticacaoContexto);
 
   const [editando, setEditando] = useState(false); //controla se os campos podem ser editados
-  
-  const { register, handleSubmit, reset, formState: { errors }, } = useForm<FormValues>({ resolver: zodResolver(instituicaoSchema) });
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({ resolver: zodResolver(instituicaoSchema) });
 
-  // Preenche os campos assim que os dados da instituição estiverem disponíveis 
-   useEffect(() => {
+  // Preenche os campos assim que os dados da instituição estiverem disponíveis
+  useEffect(() => {
     if (!usuarioContexto) return;
 
     reset({
@@ -91,7 +102,11 @@ export function ConfSistema() {
       mostrarToast("sucesso", "Sucesso", "Dados atualizados com sucesso!");
     } catch (erro) {
       console.error(erro);
-      mostrarToast("erro", "Erro", "Não foi possível salvar os dados. Tente novamente.");
+      mostrarToast(
+        "erro",
+        "Erro",
+        "Não foi possível salvar os dados. Tente novamente.",
+      );
     }
   };
 
@@ -108,42 +123,56 @@ export function ConfSistema() {
   }, [usuarioContexto?.uid]);
 
   async function trocarFoto(e: React.ChangeEvent<HTMLInputElement>) {
-      const arquivo = e.target.files?.[0];
-      if (!arquivo || !usuarioLogado) return;
-  
-      const tiposPermitidos = ["image/jpeg", "image/png", "image/webp"];
-      if (!tiposPermitidos.includes(arquivo.type)) {
-        mostrarToast("erro", "Formato inválido", "Envie uma imagem JPEG, PNG ou WEBP.");
-        return;
-      }
-  
-      const tamanhoMaximo = 5 * 1024 * 1024; // 5MB
-      if (arquivo.size > tamanhoMaximo) {
-        mostrarToast("erro", "Arquivo muito grande", "A imagem deve ter no máximo 5MB.");
-        return;
-      }
-  
-      const url = URL.createObjectURL(arquivo);
-      setFotoPreview(url); // feedback visual imediato, antes mesmo do upload terminar
-  
-      try {
-        setEnviandoFoto(true);
-  
-        const urlFoto = await enviarParaCloudinary(arquivo);
-  
-      await updateProfile(usuarioLogado, { photoURL: urlFoto });
-      await updateDoc(doc(bancoDados, "instituicoes", usuarioLogado.uid), { picture: urlFoto });
-      await atualizarUsuarioContexto(usuarioLogado.uid);
-  
-        mostrarToast("sucesso", "Sucesso", "Foto de perfil atualizada!");
-      } catch (erro) {
-        console.error(erro);
-        mostrarToast("erro", "Erro", "Não foi possível atualizar a foto. Tente novamente.");
-        setFotoPreview(null); // desfaz o preview, já que o upload falhou
-      } finally {
-        setEnviandoFoto(false);
-      }
+    const arquivo = e.target.files?.[0];
+    if (!arquivo || !usuarioLogado) return;
+
+    const tiposPermitidos = ["image/jpeg", "image/png", "image/webp"];
+    if (!tiposPermitidos.includes(arquivo.type)) {
+      mostrarToast(
+        "erro",
+        "Formato inválido",
+        "Envie uma imagem JPEG, PNG ou WEBP.",
+      );
+      return;
     }
+
+    const tamanhoMaximo = 5 * 1024 * 1024; // 5MB
+    if (arquivo.size > tamanhoMaximo) {
+      mostrarToast(
+        "erro",
+        "Arquivo muito grande",
+        "A imagem deve ter no máximo 5MB.",
+      );
+      return;
+    }
+
+    const url = URL.createObjectURL(arquivo);
+    setFotoPreview(url); // feedback visual imediato, antes mesmo do upload terminar
+
+    try {
+      setEnviandoFoto(true);
+
+      const urlFoto = await enviarParaCloudinary(arquivo);
+
+      await updateProfile(usuarioLogado, { photoURL: urlFoto });
+      await updateDoc(doc(bancoDados, "instituicoes", usuarioLogado.uid), {
+        picture: urlFoto,
+      });
+      await atualizarUsuarioContexto(usuarioLogado.uid);
+
+      mostrarToast("sucesso", "Sucesso", "Foto de perfil atualizada!");
+    } catch (erro) {
+      console.error(erro);
+      mostrarToast(
+        "erro",
+        "Erro",
+        "Não foi possível atualizar a foto. Tente novamente.",
+      );
+      setFotoPreview(null); // desfaz o preview, já que o upload falhou
+    } finally {
+      setEnviandoFoto(false);
+    }
+  }
 
   const [toast, setToast] = useState<{
     exibir: boolean;
@@ -167,6 +196,44 @@ export function ConfSistema() {
 
   function fecharToast() {
     setToast((prev) => ({ ...prev, exibir: false }));
+  }
+
+  const [intervaloMonitoramento, setIntervaloMonitoramento] = useState(10);
+
+  useEffect(() => {
+    const cancelar = onValue(
+      ref(
+        bancoTempoReal,
+        "sensores/dispositivo-001/controle/intervaloMonitoramento",
+      ),
+      (snap) => setIntervaloMonitoramento(snap.val() ?? 10),
+    );
+    return () => cancelar();
+  }, []);
+
+  async function alterarIntervaloMonitoramento(segundos: number) {
+    setIntervaloMonitoramento(segundos);
+    try {
+      await setRTDB(
+        ref(
+          bancoTempoReal,
+          "sensores/dispositivo-001/controle/intervaloMonitoramento",
+        ),
+        segundos,
+      );
+      mostrarToast(
+        "sucesso",
+        "Sucesso",
+        "Intervalo de monitoramento atualizado!",
+      );
+    } catch (erro) {
+      console.error(erro);
+      mostrarToast(
+        "erro",
+        "Erro",
+        "Não foi possível salvar o intervalo de monitoramento.",
+      );
+    }
   }
 
   return (
@@ -218,7 +285,10 @@ export function ConfSistema() {
             />
           </div>
 
-          <form className={estilos.formulario}>
+          <form
+            className={estilos.formulario}
+            onSubmit={handleSubmit(salvarDados)}
+          >
             <div className={estilos.campo}>
               <label>Nome da instituição:</label>
 
@@ -299,20 +369,25 @@ export function ConfSistema() {
         <div className={estilos.listaOpcoes}>
           <div className={estilos.opcao}>
             <div className={estilos.info}>
-              <strong>Frequência de atualização dos dados</strong>
+              <strong>Intervalo de monitoramento</strong>
 
               <span>
-                Defina com que frequência os dados dos dispositivos serão
+                Defina com que frequência os dados do dispositivo serão
                 atualizados.
               </span>
             </div>
 
-            <select className={estilos.select}>
-              <option>Automático</option>
-              <option>5 minutos</option>
-              <option>15 minutos</option>
-              <option>30 minutos</option>
-              <option>1 hora</option>
+            <select
+              className={estilos.select}
+              value={intervaloMonitoramento}
+              onChange={(e) =>
+                alterarIntervaloMonitoramento(Number(e.target.value))
+              }
+            >
+              <option value={10}>10 segundos</option>
+              <option value={30}>30 segundos</option>
+              <option value={60}>1 minuto</option>
+              <option value={300}>5 minutos</option>
             </select>
           </div>
 
@@ -552,14 +627,14 @@ export function ConfSistema() {
           </div>
         </div>
       </section>
-      
-            <Toast
-              exibir={toast.exibir}
-              tipo={toast.tipo}
-              titulo={toast.titulo}
-              texto={toast.texto}
-              aoFechar={fecharToast}
-            />
+
+      <Toast
+        exibir={toast.exibir}
+        tipo={toast.tipo}
+        titulo={toast.titulo}
+        texto={toast.texto}
+        aoFechar={fecharToast}
+      />
     </div>
   );
 }

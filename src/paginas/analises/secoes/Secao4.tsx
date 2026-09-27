@@ -4,53 +4,28 @@ import { FaBottleWater } from "react-icons/fa6";
 import { AiFillAlert } from "react-icons/ai";
 import { GiWaterBottle } from "react-icons/gi";
 
-import { useEffect, useState } from 'react'
-import storageService from '../../../componentes/SIMULADOR/storageService'
-import type { Analysis } from '../../../componentes/SIMULADOR/simulatorService';
+import { useAnalises } from '../../../hooks/useAnalises';
 
 export function Secao4() {
 
-    const [analises, setAnalises] = useState<Analysis[]>([])
-    useEffect(() => {
-        setAnalises(
-            storageService.getHistory()
-        )
-    },[])
+    const { analises } = useAnalises();
 
-    const media = (valores: number[]) => {
-        if(valores.length === 0){
-            return 0
+    //só calcula a media com os valores que existem de verdade, ignorando os sensores nao configurados ainda
+    const media = (valores: (number | null)[]) => {
+        const validos = valores.filter((valor): valor is number => valor !== null)
+        if (validos.length === 0){
+            return null
         }
-
-        const soma = valores.reduce(
-            (total, valor) => total+ valor, 0
+        const soma = validos.reduce(
+            (total, valor) => total + valor, 0
         )
-        return soma / valores.length
+        return soma / validos.length
     }
 
-    const mediaPh = media(
-        analises.map(
-            analise => analise.sensors.ph
-        )
-    )
-
-    const mediaTurbidez = media(
-        analises.map(
-            analise => analise.sensors.turbidity
-        )
-    )
-
-    const mediaTemperatura = media(
-        analises.map(
-            analise => analise.sensors.temperature
-        )
-    )
-
-    const mediaTds = media(
-        analises.map(
-            analise => analise.sensors.tds
-        )
-    )
+    const mediaPh = media(analises.map(analise => analise.ph))
+    const mediaTurbidez = media(analises.map(analise => analise.turbidez))
+    const mediaTemperatura = media(analises.map(analise => analise.temp))
+    const mediaTds = media(analises.map(analise => analise.tds))
 
     return (
         <div className={estilos.conteiner}>
@@ -69,7 +44,7 @@ export function Secao4() {
                     </span>
 
                     <div className={estilos.dados}>
-                        <h1>{mediaPh.toFixed(1)} </h1>
+                        <h1>{mediaPh !== null ? mediaPh.toFixed(1) : "--"} </h1>
                         <h3>PH médio</h3>
                     </div>
         
@@ -81,7 +56,7 @@ export function Secao4() {
                     </span>
 
                     <div className={estilos.dados}>
-                        <h1>{mediaTurbidez.toFixed(1)} NTU</h1>
+                        <h1>{mediaTurbidez !== null ? `${mediaTurbidez.toFixed(1)} NTU` : "--"}</h1>
                         <h3>Turbidez média</h3>
                     </div>
 
@@ -93,7 +68,7 @@ export function Secao4() {
                     </span>
 
                     <div className={estilos.dados}>
-                        <h1>{mediaTemperatura.toFixed(1)} ºC</h1>
+                        <h1>{mediaTemperatura !== null ? `${mediaTemperatura.toFixed(1)} ºC` : "--"}</h1>
                         <h3>Temperatura média</h3>
                     </div>
 
@@ -105,7 +80,7 @@ export function Secao4() {
                     </span>
 
                     <div className={estilos.dados}>
-                        <h1>{mediaTds.toFixed(1)} mg/L</h1>
+                        <h1>{mediaTds !== null ? `${mediaTds.toFixed(1)} ppm` : "--"}</h1>
                         <h3>Sólidos dissolvidos médios</h3>
                     </div>
 

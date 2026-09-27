@@ -275,10 +275,9 @@ export function Metodologia() {
             <span className={estilos.circulo}></span>
 
             <div>
-              <h2>0 - 250 ppm</h2>
+              <h2>0 - 50 ppm</h2>
               <p>
-                Não próprio para consumo! Faltam alguns minerais benéficos para
-                a saúde.
+                Água extremamente pura (como destilada ou deionizada). Pouco ideal para consumo contínuo, pois faltam minerais essenciais.
               </p>
             </div>
           </div>
@@ -287,8 +286,8 @@ export function Metodologia() {
             <span className={estilos.circulo}></span>
 
             <div>
-              <h2>300 ppm - 500 ppm</h2>
-              <p>Boa! Pequena quantidade de partículas em suspensão.</p>
+              <h2>51 ppm - 300 ppm</h2>
+              <p>Faixa excelente e ideal para água potável e consumo humano</p>
             </div>
           </div>
 
@@ -296,7 +295,7 @@ export function Metodologia() {
             <span className={estilos.circulo}></span>
 
             <div>
-              <h2>600 ppm - 900 ppm</h2>
+              <h2>301 ppm - 600 ppm</h2>
               <p>
                 Inaceitável! A água deve ser purificada utilizando purificadores
                 de osmose reversa.
@@ -304,12 +303,12 @@ export function Metodologia() {
             </div>
           </div>
 
-          <div className={`${estilos.nivel} ${estilos.boa}`}>
+          <div className={`${estilos.nivel} ${estilos.critico}`}>
             <span className={estilos.circulo}></span>
 
             <div>
-              <h2> 1000 ppm</h2>
-              <p>Inseguro! A água pode ter efeitos adversos para a saúde.</p>
+              <h2> 601 ppm - 1000+ ppm</h2>
+              <p>Níveis elevados indicam excesso de minerais, contaminação química ou presença de metais pesados, tornando a água inadequada ou de gosto desagradável.</p>
             </div>
           </div>
         </article>

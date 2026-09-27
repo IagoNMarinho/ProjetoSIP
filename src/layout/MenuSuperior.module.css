@@ -9,7 +9,12 @@
 
     flex-shrink: 0;
 
-    background: var(--cor-primaria-base);
+    
+    background:linear-gradient(-90deg, #83b9f0, #2d92f7, #547ff6);
+}
+
+.titulo{
+    color: var(--cor-terciaria-clara)
 }
 
 .pesquisa {

@@ -2,29 +2,21 @@ import estilos from "./Secao3.module.css";
 import { FaCircle } from "react-icons/fa6";
 import grafico from "../../../assets/imagens/grafico.png";
 
-import { useEffect, useState } from "react";
-import storageService from "../../../componentes/SIMULADOR/storageService";
-import type { Analysis } from "../../../componentes/SIMULADOR/simulatorService";
+import { useState } from "react";
+import { useAnalises, type Analise } from "../../../hooks/useAnalises";
 
 import { ModalAnalises } from "../../../componentes/SUPORTE/modal/ModalAnalises";
 
 export function Secao3() {
-  const [modalAberto, setModalAberto] = useState(false); //controla se o modal aparece
-
-  const [modoModal, setModoModal] = useState<"todas" | "detalhes">("todas"); //determina se estamos mostrando todas ou detalhes
-
-  const [analiseSelecionada, setAnaliseSelecionada] = useState<Analysis | null>(
+  const [modalAberto, setModalAberto] = useState(false);
+  const [modoModal, setModoModal] = useState<"todas" | "detalhes">("todas"); //determina se mostra todas ou detalhes
+  const [analiseSelecionada, setAnaliseSelecionada] = useState<Analise | null>(
     null,
   ); //guarda qual análise o usuário clicou
-
-  const [analises, setAnalises] = useState<Analysis[]>([]); //função para puxar todas as análises do storageservice
-  useEffect(() => {
-    setAnalises(storageService.getHistory());
-  }, []);
-
+  const { analises } = useAnalises(); //busca as analises reais do Firestore, ja em tempo real
   const analisesRecentes = analises.slice(0, 5);
 
-  const nomeStatus = (status: Analysis["status"]) => {
+  const nomeStatus = (status: Analise["status"]) => {
     if (status === "Potável") {
       return "Adequada";
     }
@@ -33,7 +25,8 @@ export function Secao3() {
     }
     return "Crítica";
   };
-  const classeStatus = (status: Analysis["status"]) => {
+
+  const classeStatus = (status: Analise["status"]) => {
     if (status === "Potável") {
       return estilos.adequada;
     }
@@ -59,19 +52,16 @@ export function Secao3() {
           </button>
         </div>
 
-        {analisesRecentes.map((analise, index) => (
-          <div 
-            className={estilos.card} 
-            key={analise.id}
-        >
+        {analisesRecentes.map((analise) => (
+          <div className={estilos.card} key={analise.id}>
             <div className={estilos.box1}>
-              <h2>Análise #{index + 1}</h2>
-              <p>Local: {analise.location}</p>
+              <h2>{analise.codigo}</h2>
+              <p>Local: {analise.local ?? "não informado"}</p>
             </div>
             <div className={estilos.box1}>
-              <p>{new Date(analise.date).toLocaleDateString("pt-BR")}</p>
+              <p>{analise.data.toLocaleDateString("pt-BR")}</p>
               <p>
-                {new Date(analise.date).toLocaleTimeString("pt-BR", {
+                {analise.data.toLocaleTimeString("pt-BR", {
                   hour: "2-digit",
                   minute: "2-digit",
                 })}
@@ -89,8 +79,8 @@ export function Secao3() {
                   setModoModal("detalhes");
                   setModalAberto(true);
                 }}
-                >
-                    <span>Ver detalhes</span>
+              >
+                <span>Ver detalhes</span>
               </button>
             </div>
           </div>
@@ -116,16 +106,14 @@ export function Secao3() {
         analiseSelecionada={analiseSelecionada}
         modo={modoModal}
         selecionarAnalise={(analise) => {
-            setAnaliseSelecionada(analise)
+          setAnaliseSelecionada(analise);
         }}
-        abrirDetalhes={() => 
-            setModoModal('detalhes')
-        }
+        abrirDetalhes={() => setModoModal("detalhes")}
         ocultar={() => {
           setModalAberto(false);
           setAnaliseSelecionada(null);
         }}
       />
     </div>
-  )
+  );
 }

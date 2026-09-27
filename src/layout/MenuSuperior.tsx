@@ -1,136 +1,74 @@
-import estilos from './MenuSuperior.module.css'
-import { FaMagnifyingGlass } from 'react-icons/fa6'
-import { useEffect, useState } from 'react'
-import {
-    autenticacao,
-    bancoDados
-} from '../firebase/FirebaseConexao'
-import {
-    doc,
-    getDoc
-} from 'firebase/firestore'
-import {
-    onAuthStateChanged
-} from 'firebase/auth'
-
+import estilos from "./MenuSuperior.module.css";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { autenticacao, bancoDados } from "../firebase/FirebaseConexao";
+import { doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 export function MenuSuperior() {
+  const [nomeUsuario, setNomeUsuario] = useState("Usuário");
 
-    const [nomeUsuario, setNomeUsuario] = useState('Usuário')
+  const [dataAtual, setDataAtual] = useState("");
 
-    const [dataAtual, setDataAtual] = useState('')
+  useEffect(() => {
+    const cancelarObservador = onAuthStateChanged(
+      autenticacao,
+      async (usuarioLogado) => {
+        if (!usuarioLogado) {
+          setNomeUsuario("Usuário");
+          return;
+        }
 
+        if (usuarioLogado.displayName) {
+          setNomeUsuario(usuarioLogado.displayName);
+        }
 
-    useEffect(() => {
+        try {
+          const documento = await getDoc(
+            doc(bancoDados, "usuarios", usuarioLogado.uid),
+          );
 
-        const cancelarObservador = onAuthStateChanged(
-            autenticacao,
-            async (usuarioLogado) => {
+          if (documento.exists()) {
+            const dados = documento.data();
 
-                if (!usuarioLogado) {
-                    setNomeUsuario('Usuário')
-                    return
-                }
-
-
-                if (usuarioLogado.displayName) {
-
-                    setNomeUsuario(
-                        usuarioLogado.displayName
-                    )
-
-                }
-
-                try {
-                    const documento = await getDoc(
-                        doc(
-                            bancoDados,
-                            'usuarios',
-                            usuarioLogado.uid
-                        )
-                    )
-
-                    if (documento.exists()) {
-
-                        const dados = documento.data()
-
-                        if (dados.nome) {
-
-                            setNomeUsuario(
-                                dados.nome
-                            )
-
-                        }
-
-                    }
-
-                } catch (erro) {
-
-                    console.error(
-                        'Erro ao carregar nome do usuário:',
-                        erro
-                    )
-
-                }
-
+            if (dados.nome) {
+              setNomeUsuario(dados.nome);
             }
-        )
+          }
+        } catch (erro) {
+          console.error("Erro ao carregar nome do usuário:", erro);
+        }
+      },
+    );
 
+    return () => cancelarObservador();
+  }, []);
 
-        return () => cancelarObservador()
+  useEffect(() => {
+    const hoje = new Date();
 
-    }, [])
+    const dataFormatada = hoje.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    });
 
+    setDataAtual(dataFormatada);
+  }, []);
 
-    useEffect(() => {
+  return (
+    <header className={estilos.conteiner}>
+      <div className={estilos.titulo}>
+        <h1>Olá, {nomeUsuario}!</h1>
 
-        const hoje = new Date()
+        <h5>{dataAtual}</h5>
+      </div>
 
-        const dataFormatada =
-            hoje.toLocaleDateString(
-                'pt-BR',
-                {
-                    weekday: 'long',
-                    day: 'numeric',
-                    month: 'long'
-                }
-            )
+      <div className={estilos.pesquisa}>
+        <FaMagnifyingGlass />
 
-        setDataAtual(dataFormatada)
-
-    }, [])
-
-
-    return (
-
-        <header className={estilos.conteiner}>
-
-            <div className={estilos.titulo}>
-
-                <h1>
-                    Olá, {nomeUsuario}!
-                </h1>
-
-                <h5>
-                    {dataAtual}
-                </h5>
-
-            </div>
-
-
-            <div className={estilos.pesquisa}>
-
-                <FaMagnifyingGlass />
-
-                <input
-                    type="text"
-                    placeholder="Pesquisar..."
-                />
-
-            </div>
-
-        </header>
-
-    )
-
+        <input type="text" placeholder="Pesquisar..." />
+      </div>
+    </header>
+  );
 }
