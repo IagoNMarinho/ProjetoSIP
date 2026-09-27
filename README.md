@@ -11,7 +11,7 @@ Diante disso, este projeto propõe um sistema de monitoramento da potabilidade d
 O projeto tem duas frentes de desenvolvimento:
 
 1. **Aplicação web**, onde a comunidade escolar acompanha os dados da água em tempo real e o histórico de análises.
-2. **Dispositivo físico** utilizando o modelo de ESP32-S3 juntamente com os sensores, que fica de fato em contato com a água, faz as leituras e envia para a nuvem.
+2. **Dispositivo físico** utilizando o modelo de ESP32-S3 juntamente com os sensores de pH, TDS (Total de Sólidos Dissolvidos), Turbidez e Temperatura, que fica de fato em contato com a água, faz as leituras e envia para a nuvem.
 
 As duas se conectam através do back-end no Firebase, que funciona como ponte entre o hardware e a aplicação.
 
@@ -24,10 +24,10 @@ Construída em React + TypeScript, com Vite e CSS Modules para estilização.
 Ao entrar na aplicação, o usuário passa por uma tela de autenticação, possibilitando acesso a página principal de detecção, onde pode:
 
 - **Iniciar um monitoramento contínuo**, em que o dispositivo envia leituras em intervalos configuráveis, ou disparar uma **leitura imediata**, para conferir a água a qualquer momento, fora do padrão de monitoramento;
-- Acompanhar um **painel de status** com os valores de PH, Turbidez, TDS e Temperatura, que muda de cor conforme o resultado — verde quando está tudo bem, amarelo em alerta, vermelho em situação crítica;
+- Acompanhar um **painel de status** com os valores de PH, Turbidez, TDS e Temperatura, que muda de cor conforme o resultado: verde quando está tudo bem, amarelo em alerta, vermelho em situação crítica;
 - Consultar o **histórico de análises**, com gráficos das coletas anteriores;
   
-Toda coleta — venha do monitoramento automático ou de uma leitura avulsa, é salva no Firestore, o que garante que nada se perde e que o histórico fica sempre disponível para consulta.
+Toda coleta, sendo do monitoramento automático ou de uma leitura avulsa, é salva no Firestore, o que garante que nada se perde e que o histórico fica sempre disponível para consulta.
 
 ## Dispositivo físico (ESP32-S3)
 
