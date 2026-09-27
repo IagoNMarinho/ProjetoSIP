@@ -276,7 +276,7 @@
 
 .resultadoFinal[data-status="critica"] {
   background-color: var(--cor-terciaria-erro3);
-  color: var(--cor-terciaria-erro);
+  color: var(--cor-terciaria-clara);
 }
 
 .resultadoFinal[data-status="indefinido"] {

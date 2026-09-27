@@ -130,7 +130,7 @@ export function ModalAnalises({
                   onClick={() => setFiltroStatus("Atenção")}
                 >
                   <FaCircle />
-                  Pendente
+                  Atenção
                 </button>
 
                 <button

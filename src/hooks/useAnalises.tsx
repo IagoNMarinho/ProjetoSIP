@@ -35,10 +35,8 @@ export function useAnalises() {
   const cancelarSnapshotRef = useRef<() => void>(() => {});
 
   useEffect(() => {
-  console.log("useAnalises: efeito iniciou");
 
   const cancelarAuth = onAuthStateChanged(autenticacao, (usuario) => {
-    console.log("useAnalises: auth confirmou, uid =", usuario?.uid);
 
     cancelarSnapshotRef.current();
 
@@ -59,7 +57,6 @@ export function useAnalises() {
     cancelarSnapshotRef.current = onSnapshot(
       consulta,
       (snapshot) => {
-        console.log("useAnalises: snapshot chegou, docs =", snapshot.docs.length);
         const lista = snapshot.docs.map((doc) => {
           const dados = doc.data();
           return {
@@ -78,7 +75,6 @@ export function useAnalises() {
         setCarregando(false);
       },
       (e) => {
-        console.log("useAnalises: erro no snapshot =", e);
         setErro(e.message);
         setCarregando(false);
       },

@@ -3,8 +3,7 @@ import arduino from '../../../assets/imagens/arduino.jpg'
 import aguato from '../../../assets/imagens/aguato-mascote-removebg-preview.png'
 
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import storageService from '../../../componentes/SIMULADOR/storageService' 
+import { useAnalises } from '../../../hooks/useAnalises'
 
 import { FaFlask } from "react-icons/fa"
 import { MdHealthAndSafety } from "react-icons/md"
@@ -18,17 +17,11 @@ export function Infos() {
     const analises = () => {
         navegacao('/analises')
     }
+    const sensorsip = () => {
+        navegacao('/sensorsip')
+    }
 
-    const [stats, setStats] = useState({
-        total: 0,
-        potavel: 0,
-        atencao: 0,
-        critica: 0
-    })
-
-    useEffect(()=>{
-        setStats(storageService.getStatistics())
-    },[])
+    const { estatisticas } = useAnalises()
 
     return (
             <section className={estilos.sectionInfos}>
@@ -44,14 +37,12 @@ export function Infos() {
                             <div className={estilos.sensor}>
                                 <h3 className={estilos.t1}>Adquira nosso Sensor SIP!</h3>
                                 <p>
-                                    Como a comunicação entre o hardware e a aplicação ainda
-                                    não foi definida, esta página permanecerá em
-                                    desenvolvimento até que sejam estabelecidos o método de
-                                    integração, o protocolo de comunicação e o envio dos
-                                    dados para a aplicação.
+                                    Entre em contato com os desenvolvedores do projeto e adquira seu sensor SIP!
                                 </p>
                             </div>
-                            <button className={estilos.botao}>
+                            <button 
+                                onClick={sensorsip}
+                                className={estilos.botao}>
                                 Adquira aqui
                             </button>
                         </div>
@@ -59,14 +50,6 @@ export function Infos() {
                         <div className={estilos.dashboard}>
                                 <div className={estilos.dashUP}>
                                     <h3 className={estilos.t1}>Dahboard SIP</h3>
-                                    <div className={estilos.connect}>
-                                        <span>
-                                            <TbPlugConnected />
-                                        </span>
-                                        <p>
-                                            Dispositivo #004 conectado
-                                        </p>
-                                    </div>
                                 </div>
                             <div className={estilos.dados}>
                                 <div className={estilos.box}>
@@ -75,7 +58,7 @@ export function Infos() {
                                     </span>
 
                                     <div className={estilos.dados}>
-                                        <h1 className={estilos.t1}>{stats.total}</h1>
+                                        <h1 className={estilos.t1}>{estatisticas.total}</h1>
                                         <h3 className={estilos.t2}>Análises concluídas</h3>
                                     </div>
                                 </div>
@@ -86,7 +69,7 @@ export function Infos() {
                                     </span>
 
                                 <div className={estilos.dados}>
-                                        <h1 className={estilos.t1}>{stats.atencao}</h1>
+                                        <h1 className={estilos.t1}>{estatisticas.atencao}</h1>
                                         <h3 className={estilos.t2}>Análises pendentes</h3>
                                     </div>
                                 </div>
@@ -96,7 +79,7 @@ export function Infos() {
                                         <MdDangerous />
                                     </span>
                                     <div className={estilos.dados}>
-                                        <h1 className={estilos.t1}>{stats.critica}</h1>
+                                        <h1 className={estilos.t1}>{estatisticas.critica}</h1>
                                         <h3 className={estilos.t2}>Análises críticas</h3>
                                     </div>
                                 </div>
@@ -107,7 +90,7 @@ export function Infos() {
                                     </span>
 
                                     <div className={estilos.dados}>
-                                        <h1 className={estilos.t1}>{stats.potavel}</h1>
+                                        <h1 className={estilos.t1}>{estatisticas.potavel}</h1>
                                         <h3 className={estilos.t2}>Resultado adequado</h3>
                                     </div>
                                 </div>
