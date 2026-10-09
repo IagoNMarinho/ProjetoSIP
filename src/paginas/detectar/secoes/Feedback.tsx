@@ -11,24 +11,32 @@ import { useDispositivoContexto } from "../../../contextos/DispositivoContexto";
 const ALGAS_QUANTIDADE = 16;
 
 export default function Feedback() {
-  const { leituras, corStatus } = useDispositivoContexto();
+  const { leituras, corStatus, estado, aguardandoImediata, reservatorioEmUso } = useDispositivoContexto()
+
+  const temLeituraValida = estado === "medindo" || aguardandoImediata;
+  const leiturasVisiveis = temLeituraValida ? leituras : null;
+  const statusVisivel = temLeituraValida ? corStatus : "indefinido";
+
+  const textoLocal = !temLeituraValida
+    ? "--"
+    : reservatorioEmUso
+      ? `${reservatorioEmUso.codigo} - ${reservatorioEmUso.local}`
+      : "Nenhum selecionado";
 
   const textoStatus = {
     adequada: "Segura!",
     atencao: "Atenção!",
     critica: "Crítica!",
     indefinido: "Aguardando...",
-  }[corStatus];
+  }[statusVisivel];
 
   // Resultado principal da análise
-  const resultadoFeedback =
-  corStatus === "adequada"
-    ? "ÁGUA POTÁVEL"
-    : corStatus === "atencao"
-      ? "ATENÇÃO"
-      : corStatus === "indefinido"
-        ? "SEM LEITURA"
-        : "ÁGUA IMPRÓPRIA";
+  const resultadoFeedback = {
+    adequada: "ÁGUA POTÁVEL",
+    atencao: "ATENÇÃO",
+    critica: "CRÍTICA",
+    indefinido: "SEM LEITURA",
+  }[statusVisivel];
 
   // Cria as algas decorativas do cenário
   const algas = useMemo(
@@ -70,30 +78,30 @@ export default function Feedback() {
         </svg>
       </div>
 
-      <div className={estilos.feedback} data-status={corStatus} role="status">
+      <div className={estilos.feedback} data-status={statusVisivel} role="status">
         <h1>{textoStatus}</h1>
       </div>
 
       <div className={estilos.painel}>
         <dl className={estilos.dados}>
           <div className={estilos.box}>
-            <dt className={estilos.rotulo}>Feedback:</dt>
+            <dt className={estilos.rotulo} role="status">Feedback:</dt>
 
-            <dd className={estilos.resultadoFinal} data-status={corStatus}>{resultadoFeedback}</dd>
+            <dd className={estilos.resultadoFinal} data-status={statusVisivel}>{resultadoFeedback}</dd>
           </div>
 
           <div className={estilos.box}>
             <dt className={estilos.rotulo}>Local realizado:</dt>
 
-            <dd className={estilos.resultado}>Reservatório 1</dd>
+            <dd className={estilos.resultado}>{textoLocal}</dd>
           </div>
 
           <div className={estilos.box}>
             <dt className={estilos.rotulo}>Horário realizado:</dt>
 
             <dd className={estilos.resultado}>
-              <time dateTime={leituras.hora?.toISOString()}>
-                {leituras.hora?.toLocaleTimeString("pt-BR", {
+              <time dateTime={leiturasVisiveis?.hora?.toISOString()}>
+                {leiturasVisiveis?.hora?.toLocaleTimeString("pt-BR", {
                   hour: "2-digit",
                   minute: "2-digit",
                 }) ?? "--"}
@@ -105,7 +113,7 @@ export default function Feedback() {
             <dt className={estilos.rotulo}>Data:</dt>
 
             <dd className={estilos.resultado}>
-              {leituras.hora?.toLocaleDateString("pt-BR") ?? "--"}
+              {leiturasVisiveis?.hora?.toLocaleDateString("pt-BR") ?? "--"}
             </dd>
           </div>
         </dl>
@@ -114,14 +122,14 @@ export default function Feedback() {
           <div className={estilos.sensor}>
             <dt>pH</dt>
 
-            <dd>{leituras.ph ?? "--"}</dd>
+            <dd>{leiturasVisiveis?.ph ?? "--"}</dd>
           </div>
 
           <div className={estilos.sensor}>
             <dt>TDS</dt>
 
             <dd>
-              {leituras.tds ?? "--"}
+              {leiturasVisiveis?.tds ?? "--"}
               <small>ppm</small>
             </dd>
           </div>
@@ -130,7 +138,7 @@ export default function Feedback() {
             <dt>Turbidez</dt>
 
             <dd>
-              {leituras.turbidez ?? "--"}
+              {leiturasVisiveis?.turbidez ?? "--"}
               <small>NTU</small>
             </dd>
           </div>
@@ -139,7 +147,7 @@ export default function Feedback() {
             <dt>Temp.</dt>
 
             <dd>
-              {leituras.temp ?? "--"}
+              {leiturasVisiveis?.temp ?? "--"}
               <small>°C</small>
             </dd>
           </div>

@@ -1,13 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { onValue, ref, set } from "firebase/database";
-import { collection, doc, runTransaction, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  runTransaction,
+  Timestamp,
+} from "firebase/firestore";
 import {
   bancoTempoReal,
   bancoDados,
   autenticacao,
 } from "../firebase/FirebaseConexao";
 import { onAuthStateChanged } from "firebase/auth";
-
 import { avaliaGeral, type Leituras } from "../medicao/avaliarQualidade";
 
 const caminho_base = "sensores/dispositivo-001";
@@ -19,6 +24,12 @@ export type EstadoDispositivo =
   | "offline"
   | "pausado"
   | "medindo";
+
+export interface ReservatorioEmUso {
+  reservatorioId: string;
+  codigo: string;
+  local: string;
+}
 
 function parseHoraTexto(texto: string | null): Date | null {
   if (typeof texto !== "string") return null;
@@ -71,6 +82,9 @@ export function useDispositivo() {
   const estadoAnterior = useRef<EstadoDispositivo | null>(null);
   const chaveEmProcessamento = useRef<number | null>(null);
   const [usuarioId, setUsuarioId] = useState<string | null>(null);
+  const [reservatorioEmUso, setReservatorioEmUso] =
+    useState<ReservatorioEmUso | null>(null);
+  const [reservatorioCarregado, setReservatorioCarregado] = useState(false);
 
   useEffect(() => {
     const cancelar = onAuthStateChanged(autenticacao, (usuario) => {
@@ -78,6 +92,35 @@ export function useDispositivo() {
     });
     return () => cancelar();
   }, []);
+
+  //acompanha em tempo real o reservatorio escolhido em "Utilizar"
+  useEffect(() => {
+    if (!usuarioId) {
+      setReservatorioEmUso(null);
+      setReservatorioCarregado(false);
+      return;
+    }
+
+    const cancelar = onSnapshot(
+      doc(bancoDados, "reservatorioEmUso", usuarioId),
+      (documento) => {
+        const dados = documento.data();
+        setReservatorioEmUso(
+          dados
+            ? {
+                reservatorioId: dados.reservatorioId,
+                codigo: dados.codigo,
+                local: dados.local,
+              }
+            : null,
+        );
+        setReservatorioCarregado(true);
+      },
+      (e) => setErro(e.message),
+    );
+
+    return () => cancelar();
+  }, [usuarioId]);
 
   useEffect(() => {
     //escuta o nó do dispositivo em tempo real
@@ -178,6 +221,8 @@ export function useDispositivo() {
   useEffect(() => {
     if (!leituras.hora) return;
     if (!usuarioId) return; //espera a autenticacao confirmar antes de tentar salvar
+    if (!reservatorioCarregado) return; //espera saber qual reservatorio esta em uso, senao a analise sairia sem local
+    if (estado !== "medindo" && !aguardandoImediata) return; //só salva se o dispositivo está ativo/online ou se é o retorno de uma leitura imediata
     const chave = leituras.hora.getTime();
     if (ultimaHoraSalva.current === chave) return; //essa leitura ja foi salva com sucesso
     if (chaveEmProcessamento.current === chave) return; //ja tem uma tentativa em andamento pra essa mesma leitura
@@ -188,7 +233,9 @@ export function useDispositivo() {
       try {
         await salvarAnalise({
           data: Timestamp.fromDate(leituras.hora as Date),
-          local: null,
+          local: reservatorioEmUso?.local ?? null,
+          reservatorioId: reservatorioEmUso?.reservatorioId ?? null,
+          reservatorioCodigo: reservatorioEmUso?.codigo ?? null,
           usuarioId: autenticacao.currentUser?.uid ?? null,
           tds: leituras.tds,
           ph: leituras.ph,
@@ -209,7 +256,14 @@ export function useDispositivo() {
         chaveEmProcessamento.current = null;
       }
     })();
-  }, [leituras, corStatus, usuarioId]);
+  }, [
+    leituras,
+    corStatus,
+    usuarioId,
+    reservatorioCarregado,
+    reservatorioEmUso,
+  ]);
+
   async function enviarComando(novoValor: boolean) {
     setEnviandoComando(true);
     setErro(null);
@@ -256,6 +310,7 @@ export function useDispositivo() {
     intervaloMonitoramentoS,
     progressoMonitoramento,
     aguardandoImediata,
+    reservatorioEmUso,
     erro,
     enviandoComando,
     conectar: () => enviarComando(true),

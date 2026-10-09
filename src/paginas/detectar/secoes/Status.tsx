@@ -13,7 +13,11 @@ export default function Status() {
     conectar,
     desconectar,
     iniciarImediata,
+    reservatorioEmUso
   } = useDispositivoContexto();
+
+  const temLeituraValida = estado === "medindo" || aguardandoImediata;
+  const leiturasVisiveis = temLeituraValida ? leituras : null;
 
   return (
     <section className={estilos.conteiner}>
@@ -90,32 +94,38 @@ export default function Status() {
         <div className={estilos.parametros} aria-live="polite">
           <div className={estilos.box}>
             <span className={estilos.parametro}>PH</span>
-            <span className={estilos.resultado}>{leituras.ph ?? "--"}</span>
+            <span className={estilos.resultado}>
+              {leiturasVisiveis?.ph ?? "--"}</span>
           </div>
           <div className={estilos.box}>
             <span className={estilos.parametro}>Turb.</span>
             <span className={estilos.resultado}>
-              {leituras.turbidez ?? "--"}
+              {leiturasVisiveis?.turbidez ?? "--"}
               <small>NTU</small>
             </span>
           </div>
           <div className={estilos.box}>
             <span className={estilos.parametro}>TDS</span>
             <span className={estilos.resultado}>
-              {leituras.tds ?? "--"}
+              {leiturasVisiveis?.tds ?? "--"}
               <small>ppm</small>
             </span>
           </div>
           <div className={estilos.box}>
             <span className={estilos.parametro}>Temp.</span>
             <span className={estilos.resultado}>
-              {leituras.temp ?? "--"}
+              {leiturasVisiveis?.temp ?? "--"}
               <small>ºC</small>
             </span>
           </div>
         </div>
         <p className={estilos.tempo}>
           monitorando a cada: {intervaloMonitoramentoS}s
+        </p>
+        <p className={estilos.tempo}>
+          {reservatorioEmUso
+            ? `reservatório: ${reservatorioEmUso.codigo} - ${reservatorioEmUso.local}`
+            : "nenhum reservatório selecionado"}
         </p>
       </div>
     </section>

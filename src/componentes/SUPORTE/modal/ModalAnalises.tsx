@@ -3,7 +3,6 @@ import type { Analise } from "../../../hooks/useAnalises";
 import { useState } from "react";
 
 import { FaCircle } from "react-icons/fa6";
-import { IoIosCloseCircle } from "react-icons/io";
 
 interface ModalAnalisesProps {
   exibir: boolean;

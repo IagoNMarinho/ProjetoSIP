@@ -43,7 +43,7 @@ export function Secao2() {
 
                 <div className={estilos.dados}>
                     <h1>{estatisticas.atencao}</h1>
-                    <h3>Análises pendentes</h3>
+                    <h3>Análises em alerta</h3>
                 </div>
 
             </div>
