@@ -4,8 +4,11 @@ import {
   collection,
   doc,
   onSnapshot,
+  query,
   runTransaction,
+  serverTimestamp,
   Timestamp,
+  where,
 } from "firebase/firestore";
 import {
   bancoTempoReal,
@@ -15,9 +18,13 @@ import {
 import { onAuthStateChanged } from "firebase/auth";
 import { avaliaGeral, type Leituras } from "../medicao/avaliarQualidade";
 
-const caminho_base = "sensores/dispositivo-001";
 const limite_offline_ms = 25000; // 2 envios perdidos
 const tempo_limite_imediata_ms = 15000;
+
+export interface AcessoDispositivo {
+  codigo: string;
+  caminhoSensor: string;
+}
 
 export type EstadoDispositivo =
   | "carregando"
@@ -82,9 +89,18 @@ export function useDispositivo() {
   const estadoAnterior = useRef<EstadoDispositivo | null>(null);
   const chaveEmProcessamento = useRef<number | null>(null);
   const [usuarioId, setUsuarioId] = useState<string | null>(null);
-  const [reservatorioEmUso, setReservatorioEmUso] =
-    useState<ReservatorioEmUso | null>(null);
+  const [reservatorioEmUso, setReservatorioEmUso] = useState<ReservatorioEmUso | null>(null);
   const [reservatorioCarregado, setReservatorioCarregado] = useState(false);
+
+  const [acessoDono, setAcessoDono] = useState<AcessoDispositivo | null>(null);
+  const [donoCarregado, setDonoCarregado] = useState(false);
+
+  //cada usuario controla o proprio dispositivo (instituicao ou usuario comum)
+  const acesso = acessoDono;
+  const permitido = acesso !== null;
+  const podeControlar = permitido;
+  const caminhoSensor = acesso?.caminhoSensor ?? null;
+  const permissaoCarregada = donoCarregado;
 
   useEffect(() => {
     const cancelar = onAuthStateChanged(autenticacao, (usuario) => {
@@ -92,6 +108,42 @@ export function useDispositivo() {
     });
     return () => cancelar();
   }, []);
+
+  //acompanha o dispositivo do usuario logado (instituicao ou usuario comum)
+  useEffect(() => {
+    if (!usuarioId) {
+      setAcessoDono(null);
+      setDonoCarregado(false);
+      return;
+    }
+
+    const cancelar = onSnapshot(
+      query(
+        collection(bancoDados, "dispositivos"),
+        where("donoId", "==", usuarioId),
+      ),
+      (resultado) => {
+        //por enquanto usa o primeiro dispositivo ativo encontrado
+        const encontrado = resultado.docs.find((d) => d.data().ativo !== false);
+        setAcessoDono(
+          encontrado
+            ? {
+                codigo: encontrado.id,
+                caminhoSensor:
+                  encontrado.data().caminhoSensor ?? `sensores/${encontrado.id}`,
+              }
+            : null,
+        );
+        setDonoCarregado(true);
+      },
+      (e) => {
+        setErro(e.message);
+        setDonoCarregado(true);
+      },
+    );
+
+    return () => cancelar();
+  }, [usuarioId]);
 
   //acompanha em tempo real o reservatorio escolhido em "Utilizar"
   useEffect(() => {
@@ -121,11 +173,21 @@ export function useDispositivo() {
 
     return () => cancelar();
   }, [usuarioId]);
-
+  
   useEffect(() => {
+    if (!permissaoCarregada) return;
+    if (!caminhoSensor) {
+      //sem permissao: nao escuta o dispositivo
+      setLeituras({ tds: null, ph: null, turbidez: null, temp: null, hora: null });
+      setUltimoContatoTexto(null);
+      setCarregando(false);
+      return;
+    }
+    setCarregando(true);
+
     //escuta o nó do dispositivo em tempo real
     const cancelar = onValue(
-      ref(bancoTempoReal, caminho_base),
+      ref(bancoTempoReal, caminhoSensor),
       (snapshot) => {
         const dados = snapshot.val();
         setLeituras({
@@ -154,7 +216,7 @@ export function useDispositivo() {
       cancelar();
       clearInterval(intervalo);
     };
-  }, []);
+  }, [caminhoSensor, permissaoCarregada]);
 
   const ultimoContato = parseHoraTexto(ultimoContatoTexto);
   const online =
@@ -162,7 +224,7 @@ export function useDispositivo() {
     agora - ultimoContato.getTime() < limite_offline_ms;
 
   let estado: EstadoDispositivo;
-  if (carregando) estado = "carregando";
+  if (carregando || !permissaoCarregada) estado = "carregando";
   else if (!online) estado = "offline";
   else if (ativo) estado = "medindo";
   else estado = "pausado";
@@ -219,6 +281,7 @@ export function useDispositivo() {
 
   //salva automaticamente cada nova leitura no Firestore, do monitoramento continuo ou da leitura imediata
   useEffect(() => {
+    if (!acessoDono) return; //so o dono do dispositivo salva a analise    
     if (!leituras.hora) return;
     if (!usuarioId) return; //espera a autenticacao confirmar antes de tentar salvar
     if (!reservatorioCarregado) return; //espera saber qual reservatorio esta em uso, senao a analise sairia sem local
@@ -236,6 +299,7 @@ export function useDispositivo() {
           local: reservatorioEmUso?.local ?? null,
           reservatorioId: reservatorioEmUso?.reservatorioId ?? null,
           reservatorioCodigo: reservatorioEmUso?.codigo ?? null,
+          dispositivoCodigo: acesso?.codigo ?? null,
           usuarioId: autenticacao.currentUser?.uid ?? null,
           tds: leituras.tds,
           ph: leituras.ph,
@@ -262,14 +326,17 @@ export function useDispositivo() {
     usuarioId,
     reservatorioCarregado,
     reservatorioEmUso,
+    acesso,
+    acessoDono,
   ]);
 
   async function enviarComando(novoValor: boolean) {
+    if (!caminhoSensor || !podeControlar) return; //sem permissao nao envia comando
     setEnviandoComando(true);
     setErro(null);
     try {
       await set(
-        ref(bancoTempoReal, `${caminho_base}/controle/ativo`),
+        ref(bancoTempoReal, `${caminhoSensor}/controle/ativo`),
         novoValor,
       );
       if (novoValor) {
@@ -283,6 +350,7 @@ export function useDispositivo() {
   }
 
   async function iniciarImediata() {
+    if (!caminhoSensor || !podeControlar) return; //sem permissao nao envia comando
     setEnviandoComando(true);
     setErro(null);
     horaAntesDoComando.current = leituras.hora?.getTime() ?? 0;
@@ -290,7 +358,7 @@ export function useDispositivo() {
     setAguardandoImediata(true);
     try {
       await set(
-        ref(bancoTempoReal, `${caminho_base}/controle/comando`),
+        ref(bancoTempoReal, `${caminhoSensor}/controle/comando`),
         "imediata",
       );
     } catch (e) {
@@ -303,6 +371,34 @@ export function useDispositivo() {
     }
   }
 
+   //usuario (ou instituicao) informa o codigo de ativacao do proprio dispositivo na pagina Detectar
+  async function ativarCodigo(codigoAtivacao: string): Promise<string> {
+    if (!usuarioId) return "Faça login para ativar um código.";
+    try {
+      const refDispositivo = doc(bancoDados, "dispositivos", codigoAtivacao);
+
+      //reivindica o dispositivo (so funciona se o codigo existir e estiver livre)
+      await runTransaction(bancoDados, async (t) => {
+        const snap = await t.get(refDispositivo);
+
+        if (!snap.exists() || snap.data().ativo === false) {
+          throw new Error("Código de ativação inválido.");
+        }
+        if (snap.data().donoId) {
+          throw new Error("Este código já foi utilizado.");
+        }
+
+        t.update(refDispositivo, {
+          donoId: usuarioId,
+          ativadoEm: serverTimestamp(),
+        });
+      });
+      return "sucesso";
+    } catch (e) {
+      return e instanceof Error ? e.message : "Erro ao ativar o código.";
+    }
+  }
+  
   return {
     leituras,
     estado,
@@ -313,6 +409,10 @@ export function useDispositivo() {
     reservatorioEmUso,
     erro,
     enviandoComando,
+    permitido,
+    podeControlar,
+    permissaoCarregada,
+    ativarCodigo,
     conectar: () => enviarComando(true),
     desconectar: () => enviarComando(false),
     iniciarImediata,

@@ -40,9 +40,13 @@ const CadastroSchema = z
     telefone: z.string().regex(/^\d{11}$/, {
       message: "Telefone deve conter 11 números.",
     }),
-    codigo: z.string().regex(/^\d{4}$/, {
-      message: "O código deve conter 4 caracteres.",
-    }),
+    codigo: z
+      .string()
+      .trim()
+      .toUpperCase()
+      .regex(/^[A-HJKMNP-Z2-9]{8}$/, {
+        message: "O código deve conter 8 caracteres (letras e números).",
+      }),
     senha: z.string().min(8, {
       message: "Informe uma senha com no mínimo 8 caracteres.",
     }),
@@ -198,7 +202,8 @@ export function CadastroInstituicao() {
             </div>
 
             <div className={estilos.inputgroup} id={estilos.inteiro}>
-              <input {...register("codigo")} className={estilos.campo} />
+              <input {...register("codigo")} className={estilos.campo} 
+                maxLength={8}/>
               <label>Código de Ativação</label>
 
               {errors.codigo && (

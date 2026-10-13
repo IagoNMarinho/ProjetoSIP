@@ -13,7 +13,8 @@ export default function Status() {
     conectar,
     desconectar,
     iniciarImediata,
-    reservatorioEmUso
+    reservatorioEmUso,
+    podeControlar,
   } = useDispositivoContexto();
 
   const temLeituraValida = estado === "medindo" || aguardandoImediata;
@@ -28,7 +29,10 @@ export default function Status() {
           type="button"
           onClick={conectar}
           disabled={
-            enviandoComando || estado === "medindo" || estado === "carregando"
+            !podeControlar ||
+            enviandoComando ||
+            estado === "medindo" ||
+            estado === "carregando"
           }
         >
           Monitorar
@@ -37,7 +41,7 @@ export default function Status() {
         <button
           type="button"
           onClick={desconectar}
-          disabled={enviandoComando || estado !== "medindo"}
+          disabled={!podeControlar || enviandoComando || estado !== "medindo"}
         >
           Parar
         </button>
@@ -46,6 +50,7 @@ export default function Status() {
           type="button"
           onClick={iniciarImediata}
           disabled={
+            !podeControlar ||
             enviandoComando ||
             aguardandoImediata ||
             estado === "offline" ||
@@ -54,6 +59,11 @@ export default function Status() {
         >
           Imediata
         </button>
+        {!podeControlar && (
+          <p className={estilos.tempo}>
+            Somente a instituição pode controlar o dispositivo.
+          </p>
+        )}
       </div>
 
       <div className={estilos.painel2}>

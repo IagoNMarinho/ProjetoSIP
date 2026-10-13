@@ -1,12 +1,11 @@
 import { FirebaseError } from "firebase/app";
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithCredential,} from "firebase/auth";
-import { doc, getDoc, setDoc, getDocs, query, collection, where}from "firebase/firestore";
+import { doc, getDoc, setDoc, getDocs, query, collection, where, runTransaction, serverTimestamp}from "firebase/firestore";
 import { autenticacao, bancoDados } from "../firebase/FirebaseConexao";
 
 // As funções de autenticação serão disponibilizadas como um Custom Hook
 export function useAutenticacao() {
-  // Responsável por cadastrar o usuário no Firebase Authentication
-  // e salvar seus demais dados no Cloud Firestore
+  // Responsável por cadastrar o usuário no Firebase Authentication e salvar seus demais dados no Cloud Firestore
   const cadastrarUsuario = async (
     email: string,
     senha: string,
@@ -66,29 +65,58 @@ export function useAutenticacao() {
     senha: string,
     dados: { nome: string; cnpj: string; telefone: string; codigo: string },
   ): Promise<string> => {
+    // guarda a credencial fora do try para poder desfazer a conta em caso de erro
+    let credencial;
     try {
       // Cria a conta no Firebase Authentication
-      const credencial = await createUserWithEmailAndPassword(
+      credencial = await createUserWithEmailAndPassword(
         autenticacao,
         email,
         senha,
       );
-
       // Obtém o UID gerado pelo Firebase Authentication
       const uid = credencial.user.uid;
 
-      // Salva os dados adicionais do usuário no Firestore
-      await setDoc(doc(bancoDados, "instituicoes", uid), {
-        nome: dados.nome,
-        cnpj: dados.cnpj,
-        picture: "",
-        telefone: dados.telefone,
-        codigo: dados.codigo,
-        email: email,
-        tipo: "instituicao",
+      const refDispositivo = doc(bancoDados, "dispositivos", dados.codigo);
+      const refInstituicao = doc(bancoDados, "instituicoes", uid);
+
+      // Valida o código, reivindica o dispositivo e salva os dados da instituição
+      // na mesma transação (ou grava tudo, ou não grava nada)
+      await runTransaction(bancoDados, async (t) => {
+        const snap = await t.get(refDispositivo);
+
+        if (!snap.exists() || snap.data().ativo === false) {
+          throw new Error("Código de ativação inválido.");
+        }
+        if (snap.data().donoId) {
+          throw new Error("Este código já foi utilizado.");
+        }
+
+        t.update(refDispositivo, {
+          donoId: uid,
+          ativadoEm: serverTimestamp(),
+        });
+        t.set(refInstituicao, {
+          nome: dados.nome,
+          cnpj: dados.cnpj,
+          picture: "",
+          telefone: dados.telefone,
+          codigo: dados.codigo,
+          email: email,
+          tipo: "instituicao",
+        });
       });
       return "sucesso";
     } catch (error) {
+      // se a conta foi criada mas o código falhou, remove a conta do Authentication
+      if (credencial) {
+        try {
+          await credencial.user.delete();
+        } catch {
+          await signOut(autenticacao);
+        }
+      }
+
       if (error instanceof FirebaseError) {
         switch (error.code) {
           case "auth/email-already-in-use":
@@ -104,6 +132,8 @@ export function useAutenticacao() {
             return `Erro no cadastro! (${error.code}: ${error.message})`;
         }
       }
+      // erros lançados por nós (código inválido / já utilizado)
+      if (error instanceof Error) return error.message;
       return `Erro imprevisto! (${error})`;
     }
   };
@@ -230,11 +260,30 @@ export function useAutenticacao() {
     }
   };
 
+  async function ativarCodigoUsuario(codigo: string, uid: string) {
+    const dispositivo = await getDoc(doc(bancoDados, "dispositivos", codigo));
+
+    if (!dispositivo.exists() || dispositivo.data().ativo === false) {
+      throw new Error("Código inválido.");
+    }
+    if (!dispositivo.data().instituicaoId) {
+      throw new Error("Este código ainda não foi ativado por uma instituição.");
+    }
+
+    await setDoc(doc(bancoDados, "vinculos", `${uid}_${codigo}`), {
+      uid,
+      codigo,
+      tipo: "convidado",
+      criadoEm: serverTimestamp(),
+    });
+  }
+
   return {
     cadastrarUsuario,
     cadastrarInstituicao,
     validarUsuario,
     deslogar,
     loginComGoogle,
+    ativarCodigoUsuario
   };
 }

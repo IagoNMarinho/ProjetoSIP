@@ -1,13 +1,46 @@
+import { useEffect, useState, type MouseEvent } from "react";
 import estilos from "./Detectar.module.css";
 import barco from "../../assets/imagens/barco-cat.png";
 import Status from "./secoes/Status";
 import Feedback from "./secoes/Feedback";
 import Fundo from "./secoes/Fundo";
-import { DispositivoProvider } from "../../contextos/DispositivoContexto";
+import { GuardaDispositivo } from "./secoes/GuardaDispositivo";
+import { AtivarCodigo } from "./secoes/AtivarCodigo";
+import {
+  DispositivoProvider,
+  useDispositivoContexto,
+} from "../../contextos/DispositivoContexto";
+
 
 export function Detectar() {
   return (
     <DispositivoProvider>
+      <DetectarConteudo />
+    </DispositivoProvider>
+  );
+}
+
+function DetectarConteudo() {
+  const { permitido, permissaoCarregada } = useDispositivoContexto();
+  const [modalCodigo, setModalCodigo] = useState(false);
+
+  //sem permissao: o "Explorar" abre o modal em vez de rolar a pagina
+  const explorar = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (permissaoCarregada && !permitido) {
+      e.preventDefault();
+      setModalCodigo(true);
+    }
+  };
+
+  //quando o codigo for aceito, fecha o modal e leva o usuario ate o status
+  useEffect(() => {
+    if (permitido && modalCodigo) {
+      setModalCodigo(false);
+      document.getElementById("status")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [permitido, modalCodigo]);
+
+  return (
       <main className={estilos.detectar}>
         <section className={estilos.expedicao}>
           <div className={estilos.nuvens} aria-hidden="true">
@@ -27,7 +60,7 @@ export function Detectar() {
             <p>
               Inicie seu monitoramento contínuo e garanta um consumo mais seguro!
             </p>
-            <a href="#status">Explorar</a>
+            <a href="#status" onClick={explorar}>Explorar</a>
           </div>
 
           <svg
@@ -51,14 +84,16 @@ export function Detectar() {
           </svg>
         </section>
         <Fundo>
-          <div id="status">
+        <div id="status">
+          <GuardaDispositivo aoInformarCodigo={() => setModalCodigo(true)}>
             <Status />
-          </div>
-          <div id="feedback">
-            <Feedback />
-          </div>
-        </Fundo>
+        <div id="feedback">
+          <Feedback />
+        </div>
+          </GuardaDispositivo>
+        </div>
+      </Fundo>
+      {modalCodigo && <AtivarCodigo ocultar={() => setModalCodigo(false)} />}
       </main>
-    </DispositivoProvider>
   );
 }

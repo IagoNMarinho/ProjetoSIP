@@ -3,6 +3,7 @@ import { Secao1 } from './secoes/Secao1'
 import { Secao2 } from './secoes/Secao2'
 import { Secao3 } from './secoes/Secao3'
 import { Secao4 } from './secoes/Secao4'
+import { Secao5 } from './secoes/Secao5'
 
 export function Analises() {
     return (
@@ -10,6 +11,7 @@ export function Analises() {
             <Secao1 />
             <Secao2 />
             <Secao3 />
+            <Secao5 />
             <Secao4 />
     </div>
       

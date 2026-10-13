@@ -1,6 +1,3 @@
-/*com esse arquivo torna-se possível reutilizar o mesmo modal para qualquer confirmação. Basta mudar o título, o texto e a função que 
-será executada ao confirmar, sem precisar criar um modal diferente para cada botão. Isso deixa o componente muito mais flexível e organizado */
-
 import estilos from './Confirmar.module.css'
 
 interface ModalMensagemProps {

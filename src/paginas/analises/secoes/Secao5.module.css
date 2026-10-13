@@ -1,0 +1,217 @@
+.conteiner{
+    display: flex;
+    
+    height: 100%;
+    width: 100%;
+
+    padding: 20px;
+    background: var(--cor-fundo-transparente2);
+    gap: 10px;
+    border-bottom: solid 1px var(--cor-primaria-base);
+}
+
+.analises{
+    width: 100%;
+    background-color: var(--cor-fundo-transparente2);
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.titulo{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px var(--cor-primaria-clara);
+}
+
+.titulo h2{
+    font-size: var(--tamanho-titulo);
+    font-family: var(--fonte-subtitulo);
+    font-weight: 100;
+    color: var(--cor-primaria-base);
+}
+
+.titulo button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--cor-primaria-base);
+    transition: .5s;
+}
+
+.titulo button:hover{
+    font-weight: 800;
+}   
+
+.card{
+    margin: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cor-terciaria-clara);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.box1{
+    width: 25%;
+}
+
+.box2{
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+.critico, .pendente, .adequada{
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    width: 100px;
+}
+
+.critico{
+    color: var(--cor-terciaria-erro);
+    background: var(--cor-terciaria-erro2);
+    border: none;
+    border-radius: 2px;
+}
+
+.pendente{
+    color: var(--cor-terciaria-alertas);
+    background: var(--cor-terciaria-alertas2);
+    border: none;
+    border-radius: 2px;
+}
+
+.adequada{
+    color: var(--cor-terciaria-seguras);
+    background: var(--cor-terciaria-seguras2);
+    border: none;
+    padding: 8px;
+    border-radius: 2px;
+}
+
+.detalhes{
+    color: var(--cor-primaria-base);
+    background: transparent;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.detalhes:hover{
+    background: var(--cor-primaria-base);
+    color: var(--cor-terciaria-clara);
+}
+
+.detalhes span{
+    padding: 8px;
+}
+
+/* formulario do codigo de acesso */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 8px 8px;
+}
+
+.texto {
+  margin: 0;
+  color: var(--cor-primaria-escura);
+  font-size: var(--tamanho-base3);
+  line-height: 1.5;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rotulo {
+  color: var(--cor-primaria-escura);
+  font-size: var(--tamanho-base3);
+  font-weight: 600;
+}
+
+.input {
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--cor-secundaria-base, #ccc);
+  border-radius: 8px;
+  background: transparent;
+  font-size: var(--tamanho-base3);
+  color: var(--cor-quarta-escura, #333);
+  text-align: center;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  transition: border-color 0.2s ease;
+}
+
+.input::placeholder {
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.input:hover,
+.input:focus {
+  border-color: var(--cor-quarta-escura, #333);
+  outline: none;
+}
+
+.seletor {
+  margin: 8px 8px 0;
+  padding: 0.5rem 0.8rem;
+  border: 1.5px solid var(--cor-secundaria-base, #ccc);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--cor-quarta-escura, #333);
+  font-size: var(--tamanho-base3);
+}
+
+.botao {
+  align-self: flex-end;
+  background: var(--cor-primaria-escura);
+  border: none;
+  color: var(--cor-secundaria-clara);
+  min-width: 150px;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-size: var(--tamanho-base3);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.botao:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botaoSecundario {
+  display: block;
+  margin: 8px 8px 0 auto;
+  background: transparent;
+  border: 1.5px solid var(--cor-primaria-escura);
+  color: var(--cor-primaria-escura);
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: var(--tamanho-base3);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mensagem {
+  margin: 0;
+  color: var(--cor-terciaria-erro);
+  font-size: 0.8rem;
+}

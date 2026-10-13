@@ -34,6 +34,9 @@ import { FaFileCsv } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 
+import { CodigoAcessoInstituicao } from "../../../componentes/SUPORTE/modal/CodigoAcessoInstituicao";
+import { useCodigoAcesso } from "../../../hooks/useCodigoAcesso";
+
 const instituicaoSchema = z.object({
   nome: z.string().min(8, {
     message: "Informe um Nome Completo com no mínimo 8 caracteres.",
@@ -54,9 +57,6 @@ type FormValues = z.infer<typeof instituicaoSchema>;
 export function ConfSistema() {
   const usuarioLogado = autenticacao.currentUser;
 
-  // Os dados da instituição já vêm prontos do AutenticacaoContexto -
-  // não precisamos buscar no Firestore aqui dentro, o Context já
-  // faz isso automaticamente (inclusive depois de um F5).
   const { usuarioContexto, atualizarUsuarioContexto } =
     useContext(AutenticacaoContexto);
 
@@ -199,26 +199,23 @@ export function ConfSistema() {
   }
 
   const [intervaloMonitoramento, setIntervaloMonitoramento] = useState(10);
+  const { caminhoSensor } = useCodigoAcesso();
 
   useEffect(() => {
+    if (!caminhoSensor) return;
     const cancelar = onValue(
-      ref(
-        bancoTempoReal,
-        "sensores/dispositivo-001/controle/intervaloMonitoramento",
-      ),
+      ref(bancoTempoReal, `${caminhoSensor}/controle/intervaloMonitoramento`),
       (snap) => setIntervaloMonitoramento(snap.val() ?? 10),
     );
     return () => cancelar();
-  }, []);
+  }, [caminhoSensor]);
 
   async function alterarIntervaloMonitoramento(segundos: number) {
+    if (!caminhoSensor) return;
     setIntervaloMonitoramento(segundos);
     try {
       await setRTDB(
-        ref(
-          bancoTempoReal,
-          "sensores/dispositivo-001/controle/intervaloMonitoramento",
-        ),
+        ref(bancoTempoReal, `${caminhoSensor}/controle/intervaloMonitoramento`),
         segundos,
       );
       mostrarToast(
@@ -437,6 +434,7 @@ export function ConfSistema() {
               Configurar
             </button>
           </div>
+          <CodigoAcessoInstituicao />
         </div>
       </section>
 

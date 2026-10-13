@@ -1,0 +1,73 @@
+.caixa {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 24px;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.titulo {
+  margin: 0;
+  color: var(--cor-primaria-escura);
+  font-family: var(--fonte-titulo);
+  font-size: var(--tamanho-base2);
+  font-weight: 600;
+}
+
+.texto {
+  margin: 0;
+  color: var(--cor-primaria-escura);
+  font-size: var(--tamanho-base3);
+  line-height: 1.5;
+}
+
+.codigo {
+  margin: 0;
+  color: var(--cor-quarta-escura, #333);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+}
+
+.acoes {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.botao {
+  background: var(--cor-primaria-escura);
+  border: none;
+  color: var(--cor-secundaria-clara);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: var(--tamanho-base3);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.botao:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botaoSecundario {
+  background: transparent;
+  border: 1.5px solid var(--cor-primaria-escura);
+  color: var(--cor-primaria-escura);
+}
+
+.mensagem {
+  margin: 0;
+  color: var(--cor-terciaria-erro);
+  font-size: 0.8rem;
+}

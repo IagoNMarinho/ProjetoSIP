@@ -11,7 +11,12 @@ interface ModalMensagemProps {
 export function ModalMensagem({exibir, ocultar, titulo, texto, foto}: ModalMensagemProps){
     if(exibir){
         return(
-        <div className={estilos.fundo}>
+        <div 
+            className={estilos.fundo}
+            onMouseDown={(e) => {
+                if (e.target === e.currentTarget) ocultar();
+            }}
+        >
             <div className={estilos.conteiner}>
                 <p className={estilos.titulo}>{titulo}</p>
 

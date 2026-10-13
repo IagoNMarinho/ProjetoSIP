@@ -117,7 +117,12 @@ export function ModalReservatorio({
   };
 
   return (
-    <div className={estilos.fundo}>
+    <div 
+      className={estilos.fundo}
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) ocultar();
+      }}
+    >
       <div className={estilos.conteiner}>
         <div className={estilos.cabecalho}>
           <h2>
