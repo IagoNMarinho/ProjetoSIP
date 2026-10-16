@@ -1,0 +1,19 @@
+.area{
+    position: relative;
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 220px;
+    height: calc(100% - 50px);
+}
+
+.area > div{
+    position: absolute; 
+    inset: 0;
+}
+
+.vazio{
+    text-align: center;
+    padding: 2rem 0;
+    opacity: 0.7;
+}

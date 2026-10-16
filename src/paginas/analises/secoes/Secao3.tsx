@@ -1,11 +1,12 @@
 import estilos from "./Secao3.module.css";
 import { FaCircle } from "react-icons/fa6";
-import grafico from "../../../assets/imagens/grafico.png";
 
 import { useState } from "react";
 import { useAnalises, type Analise } from "../../../hooks/useAnalises";
 
 import { ModalAnalises } from "../../../componentes/SUPORTE/modal/ModalAnalises";
+import { useDadosGrafico, type PeriodoGrafico } from "../../../hooks/useDadosDashboard";
+import { GraficoPeriodos } from "../../../componentes/graficos/GraficoPeriodos";
 
 export function Secao3() {
   const [modalAberto, setModalAberto] = useState(false);
@@ -35,6 +36,9 @@ export function Secao3() {
     }
     return estilos.critico;
   };
+
+  const [periodo, setPeriodo] = useState<PeriodoGrafico>("dia"); //período escolhido no select do gráfico
+  const dadosGrafico = useDadosGrafico(analises, periodo); //quantidade de análises por intervalo, já agrupada para o gráfico
 
   return (
     <div className={estilos.conteiner}>
@@ -95,9 +99,16 @@ export function Secao3() {
       <div className={estilos.grafico}>
         <div className={estilos.titulo}>
           <h2>Gráfico</h2>
-          <button>semana ^</button>
+          <select
+            value={periodo}
+            onChange={(e) => setPeriodo(e.target.value as PeriodoGrafico)}
+          >
+            <option value="dia">dia</option>
+            <option value="semana">semana</option>
+            <option value="mês">mês</option>
+          </select>
         </div>
-        <img src={grafico} />
+        <GraficoPeriodos dados={dadosGrafico}/>
       </div>
 
       <ModalAnalises

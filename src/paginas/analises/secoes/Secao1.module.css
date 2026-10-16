@@ -41,3 +41,36 @@ figure img{
     font-family: var(--fonte-subtitulo);
     color: var(--cor-secundaria-base);
 }
+
+@media (max-width: 1200px) {
+    .conteiner{
+        height: 200px;
+    }
+}
+
+@media (max-width: 800px) {
+    .conteiner{
+        height: auto;
+        min-height: 160px;
+        padding: 12px;
+        gap: 12px;
+    }
+
+    figure{
+        flex: 0 0 clamp(90px, 25vw, 160px);
+        height: 160px;
+    }
+
+    .caixatexto{
+        flex: 1;
+        min-width: 0;
+    }
+
+    .caixatexto h1{
+        font-size: clamp(1.1rem, 5vw, var(--tamanho-titulo));
+    }
+
+    .caixatexto span{
+        font-size: clamp(0.85rem, 3.5vw, var(--tamanho-subtitulo));
+    }
+}

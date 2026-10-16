@@ -1,0 +1,75 @@
+.area {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.rosca {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.centro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.centro strong {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.centro span {
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
+
+.legenda {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  min-width: 160px;
+}
+
+.legenda li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.marca {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.nome {
+  flex: 1;
+}
+
+.valor {
+  font-weight: 600;
+}
+
+.valor small {
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+.vazio {
+  text-align: center;
+  opacity: 0.65;
+  padding: 32px 0;
+}

@@ -141,10 +141,6 @@ export function useAnalisesCompartilhadas() {
       setAnalises([]);
       return;
     }
-    console.log(
-      "consulta compartilhada",
-      JSON.stringify({ codigoAtual, instituicaoAtual }),
-    );
 
     setCarregandoAnalises(true);
     const cancelar = onSnapshot(

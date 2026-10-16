@@ -191,11 +191,11 @@ export function useDispositivo() {
       (snapshot) => {
         const dados = snapshot.val();
         setLeituras({
-          tds: dados?.SensorTDS?.valor ?? null,
-          ph: dados?.SensorPH?.valor ?? null,
-          turbidez: dados?.SensorTurbidez?.valor ?? null,
-          temp: dados?.SensorTemp?.valor ?? null,
-          hora: parseHoraTexto(dados?.SensorTDS?.hora ?? null),
+          tds: dados?.Coleta?.SensorTDS ?? null,
+          ph: dados?.Coleta?.SensorPH ?? null,
+          turbidez: dados?.Coleta?.SensorTurbidez ?? null,
+          temp: dados?.Coleta?.SensorTemp ?? null,
+          hora: parseHoraTexto(dados?.Coleta?.hora ?? null),
         });
         setUltimoContatoTexto(dados?.ultimoContato ?? null);
         setAtivo(dados?.controle?.ativo !== false);

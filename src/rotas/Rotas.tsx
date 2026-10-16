@@ -11,9 +11,7 @@ import { Principal } from '../layout/Principal'
 import { CadastroInstituicao } from '../paginas/cadastros/instituicao/CadastroInstituicao'
 import { Sensorsip } from '../paginas/detectar/sensorsip/Sensorsip'
 import { Addreservatorio } from '../paginas/detectar/reservatorios/Addreservatorio'
-import { Mapa } from '../paginas/analises/mapa/Mapa'
 import { Dashboard } from '../paginas/analises/dashboard/Dashboard'
-import { Consulta } from '../paginas/analises/consulta/Consulta'
 import { Projeto } from '../paginas/sobre/projeto/Projeto'
 import { Metodologia } from '../paginas/sobre/metodologia/Metodologia';
 import { Contato } from '../paginas/sobre/contato/Contato'
@@ -76,17 +74,9 @@ export function Rotas() {
                         path="addreservatorio"
                         element={<RotaProtegida><Addreservatorio /></RotaProtegida>}
                     />
-                     <Route
-                        path="mapa"
-                        element={<RotaProtegida><Mapa /></RotaProtegida>}
-                    />
                     <Route
                         path="dashboard"
                         element={<RotaProtegida><Dashboard /></RotaProtegida>}
-                    />
-                     <Route
-                        path="consulta"
-                        element={<RotaProtegida><Consulta /></RotaProtegida>}
                     />
                      <Route
                         path="projeto"

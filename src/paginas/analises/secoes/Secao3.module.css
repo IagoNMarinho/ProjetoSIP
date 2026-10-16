@@ -12,6 +12,7 @@
 
 .analises{
     width: 70%;
+    min-width: 0; 
     background-color: var(--cor-fundo-transparente2);
     padding: 10px;
     border-radius: 3px;
@@ -30,10 +31,11 @@
     color: var(--cor-primaria-base);
 }
 
-.titulo button{
+.titulo select, button{
     background: none;
     border: none;
     cursor: pointer;
+    text-align: center;
     color: var(--cor-primaria-base);
     transition: .5s;
 }
@@ -112,6 +114,7 @@
 
 .grafico{
     width: 30%;
+    min-width: 0; 
     background-color: var(--cor-fundo-transparente2);
     border-radius: 3px;
     padding: 10px;
@@ -120,4 +123,69 @@
 .grafico img{
     width: 100%;
     object-fit: fill;
+}
+
+@media (max-width: 1200px) {
+    .analises{
+        width: 60%;
+    }
+
+    .grafico{
+        width: 40%;
+    }
+
+    .box1{
+        width: auto;
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .box2{
+        width: auto;
+        flex: 0 0 auto;
+        gap: 12px;
+    }
+
+    .card{
+        gap: 10px;
+    }
+}
+
+@media (max-width: 800px) {
+    .conteiner{
+        flex-direction: column;
+        height: auto;
+        padding: 12px;
+    }
+
+    .analises,
+    .grafico{
+        width: 100%;
+    }
+
+    .titulo{
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .card{
+        flex-wrap: wrap;
+        margin: 8px 0;
+        gap: 8px 12px;
+    }
+
+    .box1{
+        flex: 1 1 40%;
+    }
+
+    .box1:nth-child(2){
+        text-align: right;
+    }
+
+    .box2{
+        flex: 1 1 100%;
+        width: 100%;
+        justify-content: space-between;
+    }
 }

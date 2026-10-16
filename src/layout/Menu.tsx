@@ -73,18 +73,11 @@ export function Menu() {
                     titulo="Análises"
                     itens={[
                         {
-                            titulo: "Mapa",
-                            rota: "/mapa"
-                        },
-                        {
                             titulo: "Dashboard",
                             rota: "/dashboard"
                         },
-                        {
-                            titulo: "Consulta",
-                            rota: "/consulta"
-                        }
                     ]}
+                        
                 />
 
                 <Submenu

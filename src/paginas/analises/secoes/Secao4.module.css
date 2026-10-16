@@ -58,3 +58,41 @@
     font-family: var(--fonte-subtitulo);
     color: var(--cor-secundaria-base);
 }
+
+@media (max-width: 1200px) {
+    .conteiner2{
+        gap: 12px;
+    }
+
+    .box{
+        flex: 1;
+        min-width: 0;
+        padding: 14px;
+    }
+
+    .dados h1{
+        font-size: var(--tamanho-titulo);
+    }
+}
+
+@media (max-width: 800px) {
+    .conteiner{
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .conteiner2{
+        flex-wrap: wrap;
+    }
+
+    .box{
+        flex: 1 1 calc(50% - 12px);
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .box{
+        flex: 1 1 100%;
+    }
+}

@@ -60,3 +60,39 @@
 .critica{
     background: var(--cor-terciaria-erro);
 }
+
+@media (max-width: 1200px) {
+    .conteiner{
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .box{
+        flex: 1;
+        min-width: 0;
+        padding: 14px;
+    }
+
+    .dados h1{
+        font-size: var(--tamanho-titulo);
+    }
+}
+
+@media (max-width: 800px) {
+    /* vira uma grade 2x2 */
+    .conteiner{
+        flex-wrap: wrap;
+        padding: 12px;
+    }
+
+    .box{
+        flex: 1 1 calc(50% - 12px);
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .box{
+        flex: 1 1 100%;
+    }
+}

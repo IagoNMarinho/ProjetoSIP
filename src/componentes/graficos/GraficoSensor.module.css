@@ -1,0 +1,60 @@
+.cartao {
+  background: var(--cor-fundo-transparente3);
+  border: 1px solid var(--cor-secundaria-clara);
+  outline: 2px solid var(--cor-terciaria-clara);
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: var(--tamanho-base3);
+}
+
+.topo h3 {
+  margin: 0;
+}
+
+.atual {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.atual strong {
+  font-size: 1.4rem;
+  line-height: 1.1;
+}
+
+.atual span {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.area {
+  width: 100%;
+  height: 200px;
+}
+
+.resumo {
+  display: flex;
+  background: none;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+.vazio {
+  text-align: center;
+  opacity: 0.65;
+  padding: 48px 0;
+  margin: 0;
+}
