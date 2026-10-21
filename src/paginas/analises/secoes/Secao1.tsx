@@ -1,11 +1,11 @@
 import estilos from './Secao1.module.css'
-import analise from '../../../assets/imagens/logo.png'
+import aguato from '../../../assets/imagens/aguato-mascote-removebg-preview.png'
 
 export function Secao1() {
     return (
         <div className={estilos.conteiner}>
             <figure>
-                <img src={analise}/>
+                <img src={aguato}/>
             </figure>
             <div className={estilos.caixatexto}>
                 <h1>

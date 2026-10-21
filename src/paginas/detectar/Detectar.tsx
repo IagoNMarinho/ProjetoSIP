@@ -84,15 +84,15 @@ function DetectarConteudo() {
           </svg>
         </section>
         <Fundo>
-        <div id="status">
-          <GuardaDispositivo aoInformarCodigo={() => setModalCodigo(true)}>
-            <Status />
-        <div id="feedback">
-          <Feedback />
-        </div>
-          </GuardaDispositivo>
-        </div>
-      </Fundo>
+          <div id="status">
+            <GuardaDispositivo aoInformarCodigo={() => setModalCodigo(true)}>
+              <Status />
+          <div id="feedback">
+            <Feedback />
+          </div>
+            </GuardaDispositivo>
+          </div>
+        </Fundo>
       {modalCodigo && <AtivarCodigo ocultar={() => setModalCodigo(false)} />}
       </main>
   );

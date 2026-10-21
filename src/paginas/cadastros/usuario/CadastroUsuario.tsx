@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import estilos from "./CadastroUsuario.module.css";
-import logo from "../../../assets/imagens/logo.png";
+import logo from "../../../assets/imagens/aguatologin.png";
 
 import { FaCircleUser } from "react-icons/fa6";
 import { LuSchool } from "react-icons/lu";

@@ -14,6 +14,8 @@ import { updateProfile } from "firebase/auth";
 import { enviarParaCloudinary } from "../../componentes/APICloudinary/Cloudinary";
 import { Toast } from "../../componentes/SUPORTE/Toast/Toast";
 
+import { useAnalises } from '../../hooks/useAnalises'
+
 const perfilSocialSchema = z.object({
   nome: z.string().min(3, {
     message: "O nome deve ter no mínimo 3 caracteres.",
@@ -160,6 +162,8 @@ export function Perfil() {
     setToast((prev) => ({ ...prev, exibir: false }));
   }
 
+  const {estatisticas} = useAnalises()
+  
   return (
     <div className={estilos.conteiner}>
       <div className={estilos.perfilCard}>
@@ -204,7 +208,7 @@ export function Perfil() {
             </div>
 
             <div className={estilos.stat}>
-              <h2>120</h2>
+              <h2>{estatisticas.total}</h2>
               <span>Análises</span>
             </div>
 

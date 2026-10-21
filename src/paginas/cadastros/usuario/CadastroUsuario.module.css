@@ -202,11 +202,22 @@
     width: 40%;
 }
 
-.conteiner2 img{
+.conteiner2 img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: drop-shadow(8px 8px 16px var(--cor-secundaria-base))
+    height: auto;
+    max-height: 90vh;
+    object-fit: contain;
+    filter: drop-shadow(8px 8px 16px var(--cor-secundaria-escura2));
+    animation: flutuar 3s ease-in-out infinite;
+}
+
+@keyframes flutuar {
+    0%, 100% {
+        transform: scale(1.05) translateY(0);
+    }
+    50% {
+        transform: scale(1.05) translateY(-15px);
+    }
 }
 
 .jalogin{

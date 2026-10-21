@@ -29,9 +29,16 @@ Ao entrar na aplicação, o usuário passa por uma tela de autenticação, possi
   
 Toda coleta, sendo do monitoramento automático ou de uma leitura avulsa, é salva no Firestore, o que garante que nada se perde e que o histórico fica sempre disponível para consulta.
 
-## Dispositivo físico (ESP32-S3)
+## Dispositivo físico (ESP32-S3) + Sensores
 
 O hardware é o que realmente entra em contato com a água. Ele é montado em torno de uma placa **ESP32-S3**, programada em C++ (Arduino), e tem como objetivo coletar os dados de qualidade da água de forma autônoma, funcionando à distância, sem precisar estar ligado a um computador, apenas com um powerbank.
+
+Os modelos de sensores utilizados na aplicação são:
+
+1. Sensor de Temperatura DS18B20 à Prova d'Água 1m - com Adaptador. [Ver especificações do sensor](https://www.usinainfo.com.br/sensor-de-temperatura/sensor-de-temperatura-ds18b20-a-prova-d-agua-1m-com-adaptador-8687.html)
+2. Medidor de TDS e Condutividade da Água TDS Meter V1.0, 0–1000 ppm, Saída Analógica. [Ver especificações do sensor](https://www.usinainfo.com.br/sensores-de-qualidade-da-agua/medidor-de-tds-sensor-de-condutividade-da-agua-analogico-8184.html)
+3. Kit Sensor de pH 0–14 com Eletrodo BNC e Módulo de Leitura PH4502C, Saída Analógica. [Ver especificações do sensor](https://www.usinainfo.com.br/sensores-de-qualidade-da-agua/sensor-de-ph-para-arduino-modulo-de-leitura-bnc-ph4502c-5316.html)
+4. Sensor de Turbidez da Água ST100 com Módulo, Saídas Analógica e Digital. [Ver especificações do sensor](https://www.usinainfo.com.br/sensores-de-qualidade-da-agua/sensor-de-turbidez-para-arduino-st100-modulo-de-leitura-8678.html)
 
 Os dados são enviados ao **Firebase Realtime Database**, e o dispositivo também responde a comandos vindos da aplicação web: ao clicar em "Parar" no site, ele continua enviando um sinal de vida (informando que segue ativo e conectado), mas pausa o envio das analises, assim a aplicação sabe diferenciar um dispositivo pausado de um dispositivo desligado ou com problema de conexão.
 
@@ -39,6 +46,6 @@ Os dados são enviados ao **Firebase Realtime Database**, e o dispositivo també
 
 O back-end do projeto é o **Firebase**, usado de duas formas complementares:
 
-- **Realtime Database**, como canal de comunicação em tempo real entre o ESP32 e a aplicação web, é onde o dispositivo grava cada leitura de TDS e seu sinal de vida, é o local que o site vai buscar os dados assim que chegam;
+- **Realtime Database**, como canal de comunicação em tempo real entre o ESP32 e a aplicação web, é onde o dispositivo grava cada leitura dos sensores e o sinal de vida, é o local que o site vai buscar os dados assim que chegam;
 - **Firestore**, como banco de dados definitivo do sistema, guarda o histórico de análises, os dados das instituições cadastradas e tudo que precisa ficar salvo para consulta posterior;
 - **Firebase Authentication**, controlando o acesso à aplicação, com persistência de sessão e rotas protegidas para quem não está autenticado.

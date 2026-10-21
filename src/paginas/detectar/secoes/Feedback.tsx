@@ -8,6 +8,10 @@ import { IoIosStats } from "react-icons/io";
 
 import { useDispositivoContexto } from "../../../contextos/DispositivoContexto";
 
+import baiacu from '../../../assets/imagens/baiacu.png'
+import contaminara from '../../../assets/imagens/contaminara.png'
+import aguato from '../../../assets/imagens/aguato-mascoteCabeca.png'
+
 const ALGAS_QUANTIDADE = 16;
 
 export default function Feedback() {
@@ -53,6 +57,14 @@ export default function Feedback() {
     [],
   );
 
+  // Imagem do mascote de acordo com o status
+  const imagemBaiacu = {
+    adequada: aguato,
+    atencao: baiacu,
+    critica: contaminara,
+    indefinido: baiacu,
+  }[statusVisivel];
+
   return (
     <section className={estilos.conteiner}>
       <div className={estilos.cenario} aria-hidden="true">
@@ -77,6 +89,14 @@ export default function Feedback() {
           />
         </svg>
       </div>
+
+      <img
+        src={imagemBaiacu}
+        className={estilos.baiacu}
+        data-status={statusVisivel}
+        alt=""
+        aria-hidden="true"
+      />
 
       <div className={estilos.feedback} data-status={statusVisivel} role="status">
         <h1>{textoStatus}</h1>
