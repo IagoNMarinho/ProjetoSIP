@@ -11,6 +11,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { autenticacao, bancoDados } from "../firebase/FirebaseConexao";
+import { registrarAtividade } from "./useAtividades";
 
 // sem 0, O, 1, I, L para evitar confusão na hora de digitar
 const alfabeto = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
@@ -112,6 +113,11 @@ export function useCodigoAcesso() {
           criadoEm: serverTimestamp(),
         });
         await lote.commit();
+        registrarAtividade(
+          usuarioId,
+          "codigo-acesso",
+          "Novo código de acesso gerado",
+        );
         return;
       }
       setErro("Não foi possível gerar o código. Tente novamente.");

@@ -37,6 +37,8 @@ import { CiEdit } from "react-icons/ci";
 import { CodigoAcessoInstituicao } from "../../../componentes/SUPORTE/modal/CodigoAcessoInstituicao";
 import { useCodigoAcesso } from "../../../hooks/useCodigoAcesso";
 
+import { registrarAtividade } from "../../../hooks/useAtividades";
+
 const instituicaoSchema = z.object({
   nome: z.string().min(8, {
     message: "Informe um Nome Completo com no mínimo 8 caracteres.",
@@ -222,7 +224,15 @@ export function ConfSistema() {
         "sucesso",
         "Sucesso",
         "Intervalo de monitoramento atualizado!",
-      );
+      );      
+      if (usuarioLogado) {
+        registrarAtividade(
+          usuarioLogado.uid,
+          "intervalo-monitoramento",
+          "Intervalo de monitoramento alterado",
+          `Novo intervalo: ${segundos} segundos`,
+        );
+      }
     } catch (erro) {
       console.error(erro);
       mostrarToast(
@@ -381,10 +391,11 @@ export function ConfSistema() {
                 alterarIntervaloMonitoramento(Number(e.target.value))
               }
             >
-              <option value={10}>10 segundos</option>
               <option value={30}>30 segundos</option>
               <option value={60}>1 minuto</option>
               <option value={300}>5 minutos</option>
+              <option value={600}>10 minutos</option>
+              <option value={1800}>30 minutos</option>
             </select>
           </div>
 

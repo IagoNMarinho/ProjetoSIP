@@ -17,6 +17,7 @@ import {
 } from "../firebase/FirebaseConexao";
 import { onAuthStateChanged } from "firebase/auth";
 import { avaliaGeral, type Leituras } from "../medicao/avaliarQualidade";
+import { registrarAtividade } from "./useAtividades";
 
 const limite_offline_ms = 25000; // 2 envios perdidos
 const tempo_limite_imediata_ms = 15000;
@@ -38,7 +39,7 @@ export interface ReservatorioEmUso {
   local: string;
 }
 
-function parseHoraTexto(texto: string | null): Date | null {
+export function parseHoraTexto(texto: string | null): Date | null {
   if (typeof texto !== "string") return null;
   const [dataParte, horaParte] = texto.split(" ");
   if (!dataParte || !horaParte) return null;
@@ -88,6 +89,8 @@ export function useDispositivo() {
   const inicioEsperaImediata = useRef<number | null>(null);
   const estadoAnterior = useRef<EstadoDispositivo | null>(null);
   const chaveEmProcessamento = useRef<number | null>(null);
+  const onlineAnterior = useRef<boolean | null>(null);
+  const ultimoStatusRegistrado = useRef<string | null>(null);
   const [usuarioId, setUsuarioId] = useState<string | null>(null);
   const [reservatorioEmUso, setReservatorioEmUso] = useState<ReservatorioEmUso | null>(null);
   const [reservatorioCarregado, setReservatorioCarregado] = useState(false);
@@ -229,6 +232,19 @@ export function useDispositivo() {
   else if (ativo) estado = "medindo";
   else estado = "pausado";
 
+  //registra no feed de atividades quando o dispositivo conecta ou desconecta
+  useEffect(() => {
+    if (!acessoDono || !usuarioId || carregando || !permissaoCarregada) return;
+    const anterior = onlineAnterior.current;
+    onlineAnterior.current = online;
+    if (anterior === null || anterior === online) return; //primeira leitura so guarda o estado
+    registrarAtividade(
+      usuarioId,
+      online ? "conexao" : "desconexao",
+      online ? "Dispositivo conectado" : "Dispositivo desconectado",
+    );
+  }, [online, acessoDono, usuarioId, carregando, permissaoCarregada]);
+
   //se o dispositivo estava offline e voltou a responder, reinicia a contagem do zero
   useEffect(() => {
     const acabouDeReconectar =
@@ -294,6 +310,13 @@ export function useDispositivo() {
 
     (async () => {
       try {
+        const statusAnalise =
+          corStatus === "adequada"
+            ? "Potável"
+            : corStatus === "atencao"
+              ? "Atenção"
+              : "Crítica";
+
         await salvarAnalise({
           data: Timestamp.fromDate(leituras.hora as Date),
           local: reservatorioEmUso?.local ?? null,
@@ -313,6 +336,26 @@ export function useDispositivo() {
                 : "Crítica",
         });
         ultimaHoraSalva.current = chave; //so marca como salva depois da confirmacao real
+        
+        //registra no feed: leitura imediata concluida e mudanca de qualidade
+        if (aguardandoImediata) {
+          registrarAtividade(
+            usuarioId,
+            "leitura-imediata",
+            `Leitura imediata: ${statusAnalise}`,
+          );
+        }
+        if (
+          ultimoStatusRegistrado.current !== null &&
+          ultimoStatusRegistrado.current !== statusAnalise
+        ) {
+          registrarAtividade(
+            usuarioId,
+            "qualidade",
+            `Qualidade da água: ${statusAnalise}`,
+          );
+        }
+        ultimoStatusRegistrado.current = statusAnalise;
       } catch (e) {
         setErro(e instanceof Error ? e.message : "erro ao salvar analise");
         //nao marca como salva - na proxima vez que o efeito rodar (ex: proximo sinal de vida), tenta de novo sozinho
@@ -339,6 +382,13 @@ export function useDispositivo() {
         ref(bancoTempoReal, `${caminhoSensor}/controle/ativo`),
         novoValor,
       );
+      if (usuarioId) {
+        registrarAtividade(
+          usuarioId,
+          novoValor ? "monitoramento-iniciado" : "monitoramento-pausado",
+          novoValor ? "Monitoramento iniciado" : "Monitoramento pausado",
+        );
+      }
       if (novoValor) {
         inicioCicloMonitoramento.current = Date.now();
       }

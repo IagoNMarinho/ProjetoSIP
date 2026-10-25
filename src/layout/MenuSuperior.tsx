@@ -1,48 +1,17 @@
 import estilos from "./MenuSuperior.module.css";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { useEffect, useState } from "react";
-import { autenticacao, bancoDados } from "../firebase/FirebaseConexao";
-import { doc, getDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { useContext, useEffect, useState } from "react";
+import { autenticacao } from "../firebase/FirebaseConexao";
+
+import { AutenticacaoContexto } from "../contextos/AutenticacaoContexto";
 
 export function MenuSuperior() {
-  const [nomeUsuario, setNomeUsuario] = useState("Usuário");
+  const usuarioLogado = autenticacao.currentUser;
+  const { usuarioContexto } = useContext(AutenticacaoContexto);
 
   const [dataAtual, setDataAtual] = useState("");
 
-  useEffect(() => {
-    const cancelarObservador = onAuthStateChanged(
-      autenticacao,
-      async (usuarioLogado) => {
-        if (!usuarioLogado) {
-          setNomeUsuario("Usuário");
-          return;
-        }
-
-        if (usuarioLogado.displayName) {
-          setNomeUsuario(usuarioLogado.displayName);
-        }
-
-        try {
-          const documento = await getDoc(
-            doc(bancoDados, "usuarios", usuarioLogado.uid),
-          );
-
-          if (documento.exists()) {
-            const dados = documento.data();
-
-            if (dados.nome) {
-              setNomeUsuario(dados.nome);
-            }
-          }
-        } catch (erro) {
-          console.error("Erro ao carregar nome do usuário:", erro);
-        }
-      },
-    );
-
-    return () => cancelarObservador();
-  }, []);
+  const nomeUsuario = usuarioContexto?.nome || usuarioLogado?.displayName || "Usuário";
 
   useEffect(() => {
     const hoje = new Date();

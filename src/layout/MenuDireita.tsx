@@ -7,36 +7,84 @@ import {
   CgHeart,
   CgChevronDown,
   CgCheckO,
+  CgCloseO,
+  CgDanger,
+  CgInfo,
   CgProfile,
+  CgTrash ,
+  CgOrganisation,
+  CgPen,
+  CgMathPlus,
 } from "react-icons/cg";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState, type ReactNode } from "react";
 import { autenticacao } from "../firebase/FirebaseConexao";
+import { useAtividades, type TipoAtividade } from "../hooks/useAtividades";
+
+import { AutenticacaoContexto } from "../contextos/AutenticacaoContexto";
+
+//icone de cada tipo de atividade
+const iconePorTipo: Record<TipoAtividade, ReactNode> = {
+  conexao: <CgCheckO />,
+  desconexao: <CgCloseO />,
+  "leitura-imediata": <CgInfo />,
+  qualidade: <CgDanger />,
+  "monitoramento-iniciado": <CgTime />,
+  "monitoramento-pausado": <CgTime />,
+  "codigo-acesso": <CgInfo />,
+  "intervalo-monitoramento": <CgTime />,
+  "reservatorio-uso": <CgOrganisation />,
+  "reservatorio-excluido": <CgTrash/>,
+  "reservatorio-editado": <CgPen/>,
+  "reservatorio-novo": <CgMathPlus/>,
+};
+
+const formatadorRelativo = new Intl.RelativeTimeFormat("pt-BR", {
+  numeric: "auto",
+});
+
+function tempoRelativo(data: Date, agora: number) {
+  const segundos = Math.round((data.getTime() - agora) / 1000); //negativo = passado
+  const minutos = Math.round(segundos / 60);
+  const horas = Math.round(minutos / 60);
+  const dias = Math.round(horas / 24);
+
+  let texto: string;
+  if (Math.abs(segundos) < 60) texto = "agora mesmo";
+  else if (Math.abs(minutos) < 60)
+    texto = formatadorRelativo.format(minutos, "minute");
+  else if (Math.abs(horas) < 24)
+    texto = formatadorRelativo.format(horas, "hour");
+  else texto = formatadorRelativo.format(dias, "day");
+
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
 
 export function MenuDireita() {
-  const location = useLocation();
+  const usuarioLogado = autenticacao.currentUser;
+  const { usuarioContexto} = useContext(AutenticacaoContexto);
 
-  const [nomeUsuario, setNomeUsuario] = useState("Usuário");
+  const location = useLocation();
 
   const [identificacaoUsuario, setIdentificacaoUsuario] = useState("");
 
-  useEffect(() => {
-    const usuarioAuth = autenticacao.currentUser;
-
-    if (!usuarioAuth) {
-      setNomeUsuario("Usuário");
-      setIdentificacaoUsuario("");
-      return;
-    }
-
-    setNomeUsuario(usuarioAuth.displayName || "Usuário");
-
-    setIdentificacaoUsuario(usuarioAuth.email || "");
-  }, []);
+  const usuarioAtual = {
+    nome: usuarioContexto?.nome || usuarioLogado?.displayName || "Usuário",
+    email: usuarioContexto?.email || usuarioLogado?.email || "",
+  };
 
   const perfilAtivo = location.pathname === "/perfil";
 
   const amizadeAtiva = location.pathname.startsWith("/amigos");
+
+  const { atividades } = useAtividades();
+  const [agora, setAgora] = useState(Date.now());
+
+  //atualiza os "Há x minutos" a cada minuto
+  useEffect(() => {
+    const intervalo = setInterval(() => setAgora(Date.now()), 60000);
+    return () => clearInterval(intervalo);
+  }, []);
 
   return (
     <aside className={estilos.conteiner}>
@@ -52,9 +100,9 @@ export function MenuDireita() {
           </div>
 
           <div className={estilos.dadosUsuario}>
-            <strong>{nomeUsuario}</strong>
+            <strong>{usuarioAtual.nome}</strong>
 
-            <span>{identificacaoUsuario}</span>
+            <span>{usuarioAtual.email}</span>
           </div>
         </div>
       </Link>
@@ -156,47 +204,31 @@ export function MenuDireita() {
       <section className={estilos.secao}>
         <span className={estilos.tituloSecao}>ATIVIDADE</span>
         <div className={estilos.painel}>
-          <div className={estilos.atividade}>
-            <div className={estilos.linhaAtividade} />
+          {atividades.length === 0 && (
+            <span className={estilos.semAtividade}>
+              Nenhuma atividade recente.
+            </span>
+          )}
 
-            <div className={estilos.iconeAtividade}>
-              <CgCheckO />
+          {atividades.map((atividade) => (
+            <div
+              className={estilos.atividade}
+              key={atividade.id}
+              title={atividade.descricao ?? undefined}
+            >
+              <div className={estilos.linhaAtividade} />
+
+              <div className={estilos.iconeAtividade}>
+                {iconePorTipo[atividade.tipo] ?? <CgInfo />}
+              </div>
+
+              <div className={estilos.conteudoAtividade}>
+                <strong>{atividade.titulo}</strong>
+                {atividade.descricao && <span>{atividade.descricao}</span>}
+                <span>{tempoRelativo(atividade.criadoEm, agora)}</span>
+              </div>
             </div>
-
-            <div className={estilos.conteudoAtividade}>
-              <strong>Você adicionou um amigo</strong>
-
-              <span>Há 10 minutos</span>
-            </div>
-          </div>
-
-          <div className={estilos.atividade}>
-            <div className={estilos.linhaAtividade} />
-
-            <div className={estilos.iconeAtividade}>
-              <CgHeart />
-            </div>
-
-            <div className={estilos.conteudoAtividade}>
-              <strong>Nova interação</strong>
-
-              <span>Há 35 minutos</span>
-            </div>
-          </div>
-
-          <div className={estilos.atividade}>
-            <div className={estilos.linhaAtividade} />
-
-            <div className={estilos.iconeAtividade}>
-              <CgComment />
-            </div>
-
-            <div className={estilos.conteudoAtividade}>
-              <strong>Nova detecção </strong>
-
-              <span>Há 1 hora</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </aside>

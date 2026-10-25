@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { bancoDados, autenticacao } from "../firebase/FirebaseConexao";
+import { registrarAtividade } from "./useAtividades";
 
 export interface Reservatorio {
   id: string;
@@ -110,6 +111,8 @@ export function useReservatorios() {
     const refContador = doc(bancoDados, "contadores", "reservatorios");
     const refNovo = doc(collection(bancoDados, "reservatorios")); 
 
+    let codigoNovo = "";
+
     //transacao garante que dois cadastros ao mesmo tempo nao gerem o mesmo codigo
     await runTransaction(bancoDados, async (transacao) => {
       const contador = await transacao.get(refContador);
@@ -117,6 +120,7 @@ export function useReservatorios() {
         ? (contador.data().proximoNumero ?? 1)
         : 1;
       const codigo = `Res-${String(atual).padStart(5, "0")}`;
+      codigoNovo = codigo;
 
       transacao.set(refContador, { proximoNumero: atual + 1 }, { merge: true });
       transacao.set(refNovo, {
@@ -130,11 +134,21 @@ export function useReservatorios() {
         criadoEm: serverTimestamp(),
       });
     });
+    if (usuario) {
+        registrarAtividade(
+          usuario.uid,
+          "reservatorio-novo",
+          "Reservatorio novo adicionado",
+          `${codigoNovo} - ${dados.local.trim()}`,
+        );
+      }
   }
 
   async function editar(id: string, dados: FormularioReservatorio) {
     const usuario = autenticacao.currentUser;
     if (!usuario) throw new Error("Usuário não autenticado.");
+
+    const codigo = reservatorios.find((r) => r.id === id)?.codigo ?? "";
 
     const lote = writeBatch(bancoDados);
 
@@ -155,6 +169,15 @@ export function useReservatorios() {
     }
 
     await lote.commit();
+    
+    if (usuario) {
+        registrarAtividade(
+          usuario.uid,
+          "reservatorio-editado",
+          "Reservatorio editado",
+          `${codigo} - ${dados.local.trim()}`,
+        );
+      }
   }
 
   async function excluir(id: string) {
@@ -164,12 +187,24 @@ export function useReservatorios() {
     const lote = writeBatch(bancoDados);
     lote.delete(doc(bancoDados, "reservatorios", id));
 
+    const codigo = reservatorios.find((r) => r.id === id)?.codigo ?? "";
+    const local = reservatorios.find((r) => r.id === id)?.local ?? "";
+
     //se estava em uso, limpa a escolha
     if (id === emUsoId) {
       lote.delete(doc(bancoDados, "reservatorioEmUso", usuario.uid));
     }
 
     await lote.commit();
+    
+    if (usuario) {
+        registrarAtividade(
+          usuario.uid,
+          "reservatorio-excluido",
+          "Reservatorio excluído",
+          `${codigo} - ${local}`,
+        );
+      }
   }
 
   //define o local de coleta: as proximas analises usam este reservatorio
@@ -183,6 +218,16 @@ export function useReservatorios() {
       local: reservatorio.local,
       atualizadoEm: serverTimestamp(),
     });
+
+    if (usuario) {
+        registrarAtividade(
+          usuario.uid,
+          "reservatorio-uso",
+          "Novo reservatório em uso",
+          `${reservatorio.codigo} — ${reservatorio.local}`,
+        );
+      }
+
   }
 
   return {
