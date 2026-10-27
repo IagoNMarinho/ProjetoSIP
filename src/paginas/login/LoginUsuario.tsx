@@ -162,10 +162,6 @@ export function LoginUsuario() {
             )}
           </div>
 
-          <div className={estilos.senha}>
-            <p>Esqueceu a senha?</p>
-          </div>
-
           <button type="submit" className={estilos.botao}>
             Entrar
           </button>

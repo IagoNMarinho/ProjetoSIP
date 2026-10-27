@@ -66,8 +66,6 @@ export function MenuDireita() {
 
   const location = useLocation();
 
-  const [identificacaoUsuario, setIdentificacaoUsuario] = useState("");
-
   const usuarioAtual = {
     nome: usuarioContexto?.nome || usuarioLogado?.displayName || "Usuário",
     email: usuarioContexto?.email || usuarioLogado?.email || "",
@@ -201,35 +199,37 @@ export function MenuDireita() {
         </div>
       </section>
 
-      <section className={estilos.secao}>
+      <section className={estilos.secaoAtividade}>
         <span className={estilos.tituloSecao}>ATIVIDADE</span>
-        <div className={estilos.painel}>
-          {atividades.length === 0 && (
-            <span className={estilos.semAtividade}>
-              Nenhuma atividade recente.
-            </span>
-          )}
+          <div className={estilos.atividades}>
+            <div className={estilos.painel}>
+              {atividades.length === 0 && (
+                <span className={estilos.semAtividade}>
+                  Nenhuma atividade recente.
+                </span>
+              )}
 
-          {atividades.map((atividade) => (
-            <div
-              className={estilos.atividade}
-              key={atividade.id}
-              title={atividade.descricao ?? undefined}
-            >
-              <div className={estilos.linhaAtividade} />
+              {atividades.map((atividade) => (
+                <div
+                  className={estilos.atividade}
+                  key={atividade.id}
+                  title={atividade.descricao ?? undefined}
+                >
+                  <div className={estilos.linhaAtividade} />
 
-              <div className={estilos.iconeAtividade}>
-                {iconePorTipo[atividade.tipo] ?? <CgInfo />}
-              </div>
+                  <div className={estilos.iconeAtividade}>
+                    {iconePorTipo[atividade.tipo] ?? <CgInfo />}
+                  </div>
 
-              <div className={estilos.conteudoAtividade}>
-                <strong>{atividade.titulo}</strong>
-                {atividade.descricao && <span>{atividade.descricao}</span>}
-                <span>{tempoRelativo(atividade.criadoEm, agora)}</span>
-              </div>
+                  <div className={estilos.conteudoAtividade}>
+                    <strong>{atividade.titulo}</strong>
+                    {atividade.descricao && <span>{atividade.descricao}</span>}
+                    <span>{tempoRelativo(atividade.criadoEm, agora)}</span>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
       </section>
     </aside>
   );

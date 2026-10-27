@@ -55,7 +55,7 @@ export async function registrarAtividade(
 }
 
 //acompanha em tempo real as atividades mais recentes do usuario logado
-export function useAtividades(maximo = 7 ) {
+export function useAtividades(maximo = 10 ) {
   const [usuarioId, setUsuarioId] = useState<string | null>(null);
   const [atividades, setAtividades] = useState<Atividade[]>([]);
   const [carregando, setCarregando] = useState(true);
