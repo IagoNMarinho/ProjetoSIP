@@ -30,7 +30,17 @@ export function avaliaPH(ph: number | null): Status {
 
 //classifica a turbidez (nn configurado ainda)
 export function avaliaTurbidez(turbidez: number | null): Status {
-  return "indefinido";
+  if (turbidez === null){
+    return "indefinido";
+  } else if(turbidez <= 220){
+    return "adequada";
+  } else if(turbidez > 220 && turbidez <= 450){
+    return "atencao";
+  } else if (turbidez > 450 && turbidez <= 600){
+    return "critica";
+  } else{
+    return "critica";
+  }
 }
 
 //ordem de severidade, do menos grave para o mais grave

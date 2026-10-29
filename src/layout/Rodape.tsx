@@ -15,9 +15,6 @@ export function Rodape(){
     const detectar = () => {
         navegacao('/detectar')
     }
-    const gole = () => {
-        navegacao('/gole')
-    }
     const analises = () => {
         navegacao('/analises')
     }
@@ -61,7 +58,6 @@ export function Rodape(){
                 <ul className={estilos.menu}>
                     <button onClick={home}>Home</button>
                     <button onClick={detectar}>Detectar</button>
-                    <button onClick={gole}>Gole+</button>
                     <button onClick={analises}>Análises</button>
                     <button onClick={sobre}>Sobre</button>
                     <button onClick={perfil}>Perfil</button>

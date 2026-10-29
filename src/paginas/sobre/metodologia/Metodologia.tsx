@@ -182,7 +182,7 @@ export function Metodologia() {
             <span className={estilos.circulo}></span>
 
             <div>
-              <h2>0 – 5 NTU</h2>
+              <h2>0 – 220 NTU</h2>
               <p>
                 Excelente! Água visualmente limpa, com poucas partículas
                 suspensas.
@@ -190,24 +190,12 @@ export function Metodologia() {
             </div>
           </div>
 
-          <div className={`${estilos.nivel} ${estilos.ideal}`}>
-            <span className={estilos.circulo}></span>
-
-            <div>
-              <h2>5 – 25 NTU</h2>
-              <p>Boa! Pequena quantidade de partículas em suspensão.</p>
-            </div>
-          </div>
-
           <div className={`${estilos.nivel} ${estilos.atencao}`}>
             <span className={estilos.circulo}></span>
 
             <div>
-              <h2>25 – 100 NTU</h2>
-              <p>
-                Atenção! Presença significativa de sedimentos ou matéria
-                orgânica.
-              </p>
+              <h2>221 – 450 NTU</h2>
+              <p>Atenção! Pode apresentar pequena a media quantidade de particulas suspenas na água!</p>
             </div>
           </div>
 
@@ -215,22 +203,13 @@ export function Metodologia() {
             <span className={estilos.circulo}></span>
 
             <div>
-              <h2>100 – 1000 NTU</h2>
-              <p>Ruim! Água bastante turva, dificultando a passagem da luz.</p>
-            </div>
-          </div>
-
-          <div className={`${estilos.nivel} ${estilos.critico}`}>
-            <span className={estilos.circulo}></span>
-
-            <div>
-              <h2> 1000 NTU</h2>
+              <h2>451+ NTU</h2>
               <p>
-                Crítica! Elevada concentração de partículas suspensas, indicando
-                necessidade de tratamento.
+                Ruim! Água bastante turva, dificultando a passagem da luz.
               </p>
             </div>
           </div>
+
         </article>
       </section>
 
