@@ -18,7 +18,9 @@ import { Contato } from '../paginas/sobre/contato/Contato'
 import { Configuracao } from '../paginas/settings/perfil/Configuracao'
 import { Preferencias } from '../paginas/settings/preferencias/Preferencias'
 import { Sistema } from '../paginas/settings/sistema/Sistema'
-import { Amigos } from '../paginas/amigos/Amigos'
+import Amigos from "../paginas/amigos/Amigos";
+import Addamg from "../paginas/amigos/Addamg";
+import Solicitacoes from "../paginas/amigos/Solicitacoes";
 import { RotaProtegida } from './RotaProtegida'
 
 export function Rotas() {
@@ -105,6 +107,14 @@ export function Rotas() {
                     <Route
                         path="amigos"
                         element={<RotaProtegida><Amigos /></RotaProtegida>}
+                    />
+                    <Route
+                        path="addamg"
+                        element={<RotaProtegida><Addamg /></RotaProtegida>}
+                    />
+                     <Route
+                        path="solicitacoes"
+                        element={<RotaProtegida><Solicitacoes /></RotaProtegida>}
                     />
                 </Route>
 

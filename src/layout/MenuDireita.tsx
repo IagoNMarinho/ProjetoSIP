@@ -136,13 +136,13 @@ export function MenuDireita() {
               <span>Meus amigos</span>
             </Link>
 
-            <Link to="/amigos/add" className={estilos.subItem}>
+            <Link to="/addamg" className={estilos.subItem}>
               <CgUserAdd />
 
               <span>Adicionar amigos</span>
             </Link>
 
-            <Link to="/amigos/pendentes" className={estilos.subItem}>
+            <Link to="/solicitacoes" className={estilos.subItem}>
               <CgTime />
 
               <span>Solicitações</span>
