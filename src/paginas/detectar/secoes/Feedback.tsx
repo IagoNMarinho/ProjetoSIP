@@ -12,6 +12,8 @@ import baiacu from '../../../assets/imagens/baiacu.png'
 import contaminara from '../../../assets/imagens/contaminara.png'
 import aguato from '../../../assets/imagens/aguato-mascoteCabeca.png'
 
+import { gerarPdfAnalise } from "../../../componentes/SUPORTE/pdf/gerarPDF";
+
 const ALGAS_QUANTIDADE = 16;
 
 export default function Feedback() {
@@ -64,6 +66,21 @@ export default function Feedback() {
     critica: contaminara,
     indefinido: baiacu,
   }[statusVisivel];
+
+  //funcao para gerar e baixar PDF com o resultado da análiise
+  const baixarPdf = () => {
+    if (!leiturasVisiveis) return;
+
+    gerarPdfAnalise({
+      status: statusVisivel,
+      local: textoLocal,
+      hora: leiturasVisiveis.hora ?? null,
+      ph: leiturasVisiveis.ph,
+      tds: leiturasVisiveis.tds,
+      turbidez: leiturasVisiveis.turbidez,
+      temp: leiturasVisiveis.temp,
+    });
+  };
 
   return (
     <section className={estilos.conteiner}>
@@ -174,7 +191,7 @@ export default function Feedback() {
         </dl>
 
         <div className={estilos.botoes}>
-          <button type="button" className={estilos.botao}>
+          <button type="button" onClick={baixarPdf} className={estilos.botao}>
             <MdDownloadForOffline />
             Baixar
           </button>

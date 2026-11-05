@@ -182,7 +182,7 @@
   );
 }
 
-.feedback[data-status="indefinida"]{
+.feedback[data-status="indefinido"]{
   background: linear-gradient(
     90deg,
     var(--cor-quarta-escura),

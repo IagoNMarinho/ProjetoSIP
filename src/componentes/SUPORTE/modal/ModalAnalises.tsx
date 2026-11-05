@@ -4,6 +4,9 @@ import { useState } from "react";
 
 import { FaCircle } from "react-icons/fa6";
 
+import { MdDownloadForOffline } from "react-icons/md";
+import { gerarPdfAnalise, type StatusPdf} from "../../../componentes/SUPORTE/pdf/gerarPDF";
+
 interface ModalAnalisesProps {
   exibir: boolean;
   analises: Analise[];
@@ -88,6 +91,33 @@ export function ModalAnalises({
     }
     return estilos.critico;
   };
+
+    // Converte o status da análise para o status usado no PDF
+    const statusPdf = (status: Analise["status"]): StatusPdf => {
+      if (status === "Potável") {
+        return "adequada";
+      }
+      if (status === "Atenção") {
+        return "atencao";
+      }
+      return "critica";
+    };
+  
+    // Baixa o PDF de uma análise do histórico
+    const baixarAnalise = () => {
+      if (!analiseSelecionada) return;
+  
+      gerarPdfAnalise({
+        status: statusPdf(analiseSelecionada.status),
+        local: analiseSelecionada.local ?? "não informado",
+        hora: analiseSelecionada.data,
+        ph: analiseSelecionada.ph,
+        tds: analiseSelecionada.tds,
+        turbidez: analiseSelecionada.turbidez,
+        temp: analiseSelecionada.temp,
+        nomeArquivo: `${analiseSelecionada.codigo}.pdf`,
+      });
+    };
 
   return (
     <div 
@@ -266,9 +296,22 @@ export function ModalAnalises({
             </div>
           </div>
         )}
-        <button className={estilos.botao} onClick={ocultar}>
-          Fechar
-        </button>
+        <div className={estilos.botoes}>
+          {modo === "detalhes" && analiseSelecionada && (
+            <button
+              className={`${estilos.botao} ${estilos.baixar}`}
+              type="button"
+              onClick={baixarAnalise}
+              title="Baixar em PDF"
+            >
+              <MdDownloadForOffline />
+            </button>
+          )}
+
+          <button className={estilos.botao} type="button" onClick={ocultar}>
+            Fechar
+          </button>
+        </div>
       </div>
     </div>
   );
